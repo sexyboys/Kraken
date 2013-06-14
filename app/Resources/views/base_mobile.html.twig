@@ -1,0 +1,332 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title> {{ app.session.get('page') }} | {%trans %} app.name {% endtrans %}</title>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Site de rencontre totalement gratuit, goth, metal et autres styles alternatifs" name="description"/>
+    <meta content="Eric Pidoux" name="author"/>
+    <meta name="keywords" content="darkmeet, meetdarkness, meet, darkness, meet-darkness, site rencontre, site de rencontre, gratuit, site de rencontre goth, site de rencontre metal, site de rencontre gratuit" />
+    <link rel="shortcut icon" href="{{ asset('bundles/darkmeet/img/favicon.ico') }}">
+
+    <link rel="stylesheet" href="{{ asset('bundles/darkmeet/css/bootstrap.css')}}" />
+    <link rel="stylesheet" href="{{ asset('bundles/darkmeet/js/jquerymobile/jquery.mobile-1.3.1.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/darkmeet/js/jquerymobile/jquery.mobile.theme-1.3.1.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/darkmeet/css/docs.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/darkmeet/css/darkmeet.css') }}">
+    <!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />-->
+
+    <style>
+
+       body{
+           background-color: #151515;
+       }
+
+       input[type=submit] {
+
+           width: 100%;
+           font-family: "Arial Black", Gadget, sans-serif;
+           font-size: 22px;
+           color: #443333;
+           padding: 5px 50px 5px 50px;
+           border: 1px solid #999;
+
+           text-shadow: 0px 1px 1px #CCC;
+           text-decoration: none;
+
+           -moz-box-shadow: 0 1px 3px #111;
+           -webkit-box-shadow: 0 1px 3px #111;
+           box-shadow: 0 1px 3px #111;
+
+           border-radius: 16px;
+           -moz-border-radius: 16px;
+           -webkit-border-radius: 16px;
+
+           background: #696969;
+           background: -moz-linear-gradient(top, #d1d1d1 10%, #7b7b7b 60%, #696969 80%, #696969 100%);
+           background: -webkit-gradient(linear, left top, left bottom, from(#d1d1d1), to(#7b7b7b), color-stop(0.4, #d1d1d1), color-stop(0.8, #7b7b7b), color-stop(.9, #696969), color-stop(0.9, #696969));
+           filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d1d1d1', endColorstr='#7b7b7b', GradientType=0 );
+
+           cursor: pointer;
+           height: 42px;
+           margin-top:8px;
+
+       }
+       input[type=submit]:hover {
+           color: #000;
+       }
+
+       /**Footer icons **/
+       .ui-bar a .ui-btn-inner {
+           padding-top: 40px !important;
+       }
+       .ui-bar a:not(.edit) .ui-icon {
+           width: 30px!important;
+           height: 30px!important;
+           margin-left: -15px !important;
+           box-shadow: none!important;
+           -moz-box-shadow: none!important;
+           -webkit-box-shadow: none!important;
+           -webkit-border-radius: 0 !important;
+           border-radius: 0 !important;
+       }
+       .alert {
+           padding: 8px 35px 8px 14px;
+           margin-bottom: 20px;
+           text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+           background-color: none;
+           border: 1px solid #C4C4C2;
+           -webkit-border-radius: 4px;
+           -moz-border-radius: 4px;
+           border-radius: 4px;
+           text-align: center;
+           width:100%;
+       }
+       .alert,
+       .alert h4 {
+           color: #8C8C8C;
+       }
+       .alert h4 {
+           margin: 0;
+       }
+       .alert .close {
+           position: relative;
+           top: -2px;
+           right: -21px;
+           line-height: 20px;
+       }
+       .alert-success {
+           background-color: #B8CCAF;
+           border-color: #91BC7E;
+           color: #598746;
+       }
+       .alert-success h4 {
+           color: #468847;
+       }
+       .alert-danger,
+       .alert-error {
+           background-color: #f2dede;
+           border-color: #eed3d7;
+           color: #b94a48;
+       }
+       .alert-danger h4,
+       .alert-error h4 {
+           color: #b94a48;
+       }
+       .alert-info {
+           background-color: #8583d4;
+           border-color: #6876cb;
+           color: #353f73;
+       }
+       .alert-info h4 {
+           color: #353f73;
+       }
+       .alert-block {
+           padding-top: 14px;
+           padding-bottom: 14px;
+           background-color: #D1CFC8;
+           border-color: #606060;
+           color: #545453;
+       }
+       .alert-block > p,
+       .alert-block > ul {
+           margin-bottom: 0;
+       }
+       .alert-block p + p {
+           margin-top: 5px;
+       }
+
+    </style>
+
+
+    {% block css %}
+    {% endblock %}
+
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+    <script src="{{ asset('bundles/darkmeet/js/jquerymobile/jquery.mobile-1.3.1.min.js') }}"></script>
+    <script src="{{ asset('bundles/darkmeet/js/bootstrap.js') }}"></script>
+
+    <script type="text/javascript">
+
+        /*
+         * IMPORTANT!!!
+         * REMEMBER TO ADD  rel="external"  to your anchor tags.
+         * If you don't this will mess with how jQuery Mobile works
+         */
+        jQuery(document).ready(function($){
+            $('div.gallery-page').on('pageshow', function(e){
+
+                var
+                        currentPage = $(e.target),
+                        options = {},
+                        photoSwipeInstance = $("ul.gallery a", e.target).photoSwipe(options,  currentPage.attr('id'));
+
+                return true;
+
+            }).on('pagehide', function(e){
+
+                var
+                        currentPage = $(e.target),
+                        photoSwipeInstance = window.Code.PhotoSwipe.getInstance(currentPage.attr('id'));
+
+                if (typeof photoSwipeInstance != "undefined" && photoSwipeInstance != null) {
+                    window.Code.PhotoSwipe.detatch(photoSwipeInstance);
+                }
+
+                return true;
+
+            });
+
+
+        });
+
+
+
+    </script>
+
+    <!-- ANALYTICS -->
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-21222579-3', 'meetdarkness.com');
+        ga('send', 'pageview');
+
+    </script>
+    {% block js %}
+    {% endblock %}
+</head>
+</head>
+<body>
+    <div data-role="page" id="Home">
+        <div data-role="header" data-position="fixed">
+            {% block header %}
+                <div data-role="header">
+                    <a href="#leftPanel" data-display="push" data-inline="true" data-role="button" data-icon="bars">
+                        {% trans %} mobile.app.nav.menu {% endtrans %}
+                    </a>
+                    <h1> {{ app.session.get('page') }} | {%trans %} app.name {% endtrans %}</h1>
+                    <a href="{{ path('dark_meet_index') }}"  data-icon="home">{% trans %}app.nav.home{% endtrans %}</a>
+                </div>
+            {% endblock %}
+        </div>
+
+        <div data-role="content">
+
+            {% block flash_msg %}
+                {% for key, message in app.session.getFlashes() %}
+                    {% if key=="error" %}
+                        <div class="alert alert-error">
+                            {{ message }}
+                        </div>
+                    {% elseif key=="success" %}
+                        <div class="alert alert-success">
+                            {{ message }}
+                        </div>
+                    {% elseif key=="notice" %}
+                        <div class="alert alert-info">
+                            {{ message }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endblock %}
+            {% block content %}
+            {% endblock %}
+
+            <br/>
+
+            <!-- AD SENSE -->
+            <script type="text/javascript"><!--
+                google_ad_client = "ca-pub-4907792727761758";
+                /* bloc_dark_meet_mobile_main_second */
+                google_ad_slot = "5397077377";
+                google_ad_width = 468;
+                google_ad_height = 60;
+                //-->
+            </script>
+            <script type="text/javascript"
+                    src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+            </script>
+
+
+            <div class="footer" style="text-align:center;">
+                @{{ "now"|date("Y") }} {% trans %} app.name {% endtrans %} {{ app_version }}
+                <br/>
+                <a href="{{ path('darkmeet_info_legal') }}">{% trans %} footer.infos {% endtrans %}</a>
+                <a href="{{ path('darkmeet_contact') }}">{% trans %} footer.contact {% endtrans %}</a>
+            </div>
+            <div data-role="footer" data-id="foo1" data-position="fixed">
+                {% block footer %}
+                    <style type="text/css">
+                        .label, .badge {
+                            display:inline;
+                            font-size:12px;
+                        }
+                        .ui-icon-email {
+                            background-image: url({{ asset("bundles/darkmeet/img/enveloppe.png")}});
+
+                        }
+                        .ui-icon-kiss {
+                            background-image: url({{ asset("bundles/darkmeet/img/kiss.png")}});
+                        }
+
+                        .navbar-icon span {
+                            margin-top: -18px;
+                            padding-bottom: 10px;
+                        }
+
+                        .navbar-icon span span img{
+                            height:20px;
+                            width:20px;
+                            background:#909090;
+                            -webkit-border-radius: 999px;
+                            -moz-border-radius: 999px;
+                            border-radius: 999px;
+                            margin-top:-19px;
+                        }
+
+
+                    </style>
+                    <div data-role="navbar">
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            <ul>
+                                <li>
+                                    <a id="message" href="{{ path('darkmeet_user_messages') }}">
+                                        {% render "DarkMeetMainBundle:Index:notificationFooterMobile" with {"type": "messages"} %}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a id="visit" href="{{ path('darkmeet_user_visits') }}">
+                                        {% render "DarkMeetMainBundle:Index:notificationFooterMobile" with {"type": "visits"} %}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a id="kiss" href="{{ path('darkmeet_user_kisses') }}">
+                                        {% render "DarkMeetMainBundle:Index:notificationFooterMobile" with {"type": "kisses"} %}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a id="note" href="{{ path('darkmeet_user_notes') }}">
+                                        {% render "DarkMeetMainBundle:Index:notificationFooterMobile" with {"type": "notes"} %}
+                                    </a>
+                                </li>
+                        {% endif %}
+                    </div>
+                {% endblock %}
+            </div>
+        </div>
+
+        {% block panels %}
+        {% endblock %}
+
+
+    </div>
+    {% block otherpage %}
+
+    {% endblock %}
+</body>
+</html>

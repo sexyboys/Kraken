@@ -1,0 +1,24 @@
+parameters:
+    database_driver:   pdo_mysql
+    database_host:     88.191.142.160
+    database_port:     ~
+    database_name:     kraken
+    database_user:     kraken
+    database_password: kr4k3n
+
+    mailer_transport:  smtp
+    mailer_host:       localhost
+    mailer_user:       ~
+    mailer_password:   ~
+
+    locale:            en
+    secret:            0ct0pu55y
+    email_admin:       eric.pidoux@gmail.com
+    version:           v1.0
+    
+    debug_website_url: http://localhost/kraken
+    debug_mail: eric.pidoux@gmail.com
+
+    from_email: kraken@eric-pidoux.com
+    from_email_name: Kraken
+    

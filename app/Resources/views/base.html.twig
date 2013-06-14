@@ -1,0 +1,104 @@
+<html>
+    <head>
+        <title> {{ app.session.get('page') }} | {%trans %} app.name {% endtrans %}</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="Site de rencontre totalement gratuit, goth, metal et autres styles alternatifs" name="description">
+        <meta content="Eric Pidoux" name="author">
+        <meta name="keywords" content="darkmeet, meetdarkness, meet, darkness, meet-darkness, site rencontre, site de rencontre, gratuit, site de rencontre goth, site de rencontre metal, site de rencontre gratuit" >
+        <link rel="shortcut icon" type="image/x-icon" href="{{ asset('bundles/darkmeet/img/favicon.ico') }}">
+        <link rel="icon" type="image/png" href="{{ asset('bundles/darkmeet/img/favicon.png') }}">
+
+        <link rel="stylesheet" href="{{ asset('bundles/darkmeet/css/bootstrap.css') }}">
+        <link rel="stylesheet" href="{{ asset('bundles/darkmeet/css/bootstrap-responsive.css') }}">
+        <link rel="stylesheet" href="{{ asset('bundles/darkmeet/css/docs.css') }}">
+        <link rel="stylesheet" href="{{ asset('bundles/darkmeet/css/darkmeet.css') }}">
+       <!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />-->
+
+        <style>
+            /**Left sidebar **/
+            .nav-list{
+                /**margin-top:100px!important;**/
+            }
+
+            /** mid content **/
+            .container-fluid{
+                margin-top:100px!important;
+            }
+
+            footer {
+                padding: 17px 0 18px 0;
+                color: #cccccc;
+                text-align: center;
+            }
+            footer a {
+                color: #fff;
+            }
+            footer a:hover {
+                color: #efefef;
+            }
+
+
+        </style>
+        <link rel="stylesheet" href="{{ asset('bundles/darkmeet/js/fancybox/source/jquery.fancybox.css?v=2.1.4') }}" type="text/css" media="screen" />
+
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+
+        {% block css %}
+        {% endblock %}
+
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+        <script src="{{ asset('bundles/darkmeet/js/bootstrap.js') }}"></script>
+
+        <script type="text/javascript" src="{{ asset('bundles/darkmeet/js/fancybox/source/jquery.fancybox.pack.js?v=2.1.4')}}"></script>
+        <script src="{{ asset('bundles/darkmeet/js/fancybox/lib/jquery.mousewheel-3.0.6.pack.js') }}"></script>
+
+        <!-- Optionally add helpers - button, thumbnail and/or media -->
+        <link rel="stylesheet" href="{{ asset('bundles/darkmeet/js/fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5')}}" type="text/css" media="screen" />
+        <script type="text/javascript" src="{{ asset('bundles/darkmeet/js/fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5')}}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/darkmeet/js/fancybox/source/helpers/jquery.fancybox-media.js?v=1.0.5')}}"></script>
+
+        <link rel="stylesheet" href="{{ asset('bundles/darkmeet/js/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7')}}" type="text/css" media="screen" />
+        <script type="text/javascript" src="{{ asset('bundles/darkmeet/js/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7')}}"></script>
+        <script type="text/javascript">
+            $(this).ready(function() {
+                $(".thumb_profile").fancybox({
+                    padding : 0
+                });
+            });
+
+        </script>
+        <!-- ANALYTICS -->
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-21222579-3', 'meetdarkness.com');
+            ga('send', 'pageview');
+
+        </script>
+        {% block js %}
+        {% endblock %}
+    </head>
+    <body>
+
+        {% block body %}
+
+        {% endblock %}
+
+
+        <footer>
+            <div class="row-fluid">
+                  <div class="span9 offset2">
+                      @{{ "now"|date("Y") }} {% trans %} app.name {% endtrans %} {{ app_version }} | <a href="{{ path('darkmeet_info_legal') }}">{% trans %} footer.infos {% endtrans %}</a> | <a href="{{ path('darkmeet_contact') }}">{% trans %} footer.contact {% endtrans %}</a> | <a href="{{ path('darkmeet_faq') }}">{% trans %}footer.faq{% endtrans %}</a>
+                  </div>
+            </div>
+        </footer>
+    </body>
+
+
+
+</html>

@@ -1,0 +1,76 @@
+{% block css %}
+<style>
+.controls ul li{
+	list-style: none;
+	color: #C54F66;
+}
+</style>
+{% endblock %}
+
+<form class="form-horizontal" action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+    <fieldset>
+		 	<legend>{% trans %} user.register.form.title {% endtrans %}</legend>
+				
+		<div class="control-group">
+		   <div class="controls">
+			    {{ form_widget(form) }}
+                <input type="hidden" name="city" id="city"/>
+                <input type="hidden" name="country" id="country"/>
+                <input type="hidden" name="postalcode" id="postalcode"/>
+                <input type="hidden" name="region" id="region"/>
+                <input type="hidden" name="subregion" id="subregion"/>
+			</div>
+		</div>
+    
+	<div class="control-group">
+	   <div class="controls">
+	        <input onclick="requestPosition();" class="btn btn-primary" type="submit" value="{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}" />
+	    	<a href="{{ path('dark_meet_index') }}" class="btn">{% trans %} user.register.form.back {% endtrans %}</a>
+    	</div>
+    </div>
+    </fieldset>
+</form>
+
+<script type="text/javascript">
+
+
+    jQuery(document).ready(function($){
+        requestPosition();
+    });
+
+    function requestPosition(){
+        if($("#city").val()==""){
+            navigator.geolocation.getCurrentPosition(handle_geolocation_query);
+        }
+        return true;
+    }
+
+    function handle_geolocation_query(position){
+
+        $.ajax({
+            type: "GET",
+            url: "http://api.geonames.org/findNearbyPostalCodes?lat="+position.coords.latitude+"&lng="+position.coords.longitude+"&username=darkmeet",
+            async:false,
+            cache: false,
+            datatype: "xml",
+            success: function(xml){
+                if($('#city').val()==""){
+                    var city = $(xml).find('name').first().text();
+                    $("#city").val(city);
+                    var countryCode = $(xml).find('countryCode').first().text();
+                    $("#country").val(countryCode);
+                    var postalCode = $(xml).find('postalcode').first().text();
+                    $("#postalcode").val(postalCode);
+                    var region = $(xml).find('adminName1').first().text();
+                    $("#region").val(region);
+                    var subRegion = $(xml).find('adminName2').first().text();
+                    $("#subregion").val(subRegion);
+                }
+                return true;
+            },
+            error: function(request,status,error){
+                return false;
+            }
+        });
+    }
+</script>

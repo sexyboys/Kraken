@@ -1,0 +1,76 @@
+{% extends "KrakenAdminBundle::layout.html.twig" %}
+
+{% block more_css %}
+
+
+{% endblock %}
+{% block more_js %}
+
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row-fluid">
+            <div class="span12 media">
+
+
+                <br/>
+                <div class="row-fluid">
+
+                    <fieldset>
+                        <legend>{% trans %}admin.task{% endtrans %}</legend>
+                    </fieldset>
+                    <br/>
+
+                    <a href="{{ path('kraken_admin_scenario_tasks_add',{'id':scenario.id}) }}" class="btn">
+                        <i class="icon-plus"></i> {% trans %}admin.task.add{% endtrans %}
+                    </a>
+                    <br/>
+                    {% if scenario.tasks %}
+                    <table id="filestable" class="table table-striped tablesorter" >
+                        <thead>
+                        <tr>
+                            <th class="header">{% trans %}admin.task.table.name{% endtrans %}</th>
+                            <th class="header">{% trans %}admin.task.table.type{% endtrans %}</th>
+                            <th class="header">{% trans %}admin.task.table.input_data{% endtrans %}</th>
+                            <th class="header">{% trans %}admin.task.table.output_data{% endtrans %}</th>
+                            <th class="header">{% trans %}admin.task.table.actions{% endtrans %}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for row in scenario.tasks %}
+                            <tr class="tr{{ row.id }}">
+                                <td>
+                                    {{ row.name }}
+                                </td>
+                                <td>
+                                    {{ row|classname|trans() }}
+                                </td>
+                                <td>
+                                    {{ row.inputData|classname|trans() }}
+                                </td>
+                                <td>
+                                    {{ row.outputData|classname|trans() }}
+                                </td>
+                                <td>
+                                    <a href="{{ path('kraken_admin_scenario_tasks_edit', {'id':row.id} ) }}" title="{% trans %}admin.task.table.actions.edit{% endtrans %}"><i class="icon-edit"></i></a>
+
+                                    <a href="{{ path('kraken_admin_scenario_tasks_delete', {'id':row.id} ) }}" title="{% trans %}admin.task.table.actions.delete{% endtrans %}"><i class="icon-remove"></i></a>
+
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                        <br/><br/>
+                        <div class="label label-important">
+                            {% trans %}content.none{% endtrans %}
+                        </div>
+                    {% endif %}
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

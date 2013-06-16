@@ -1,0 +1,105 @@
+
+{% extends "::base.html.twig" %}
+    {% block css %}
+
+        <style>
+
+        </style>
+        {% block more_css %}
+        {% endblock %}
+    {% endblock %}
+    {% block js %}
+
+        {% block more_js %}
+        {% endblock %}
+
+    {% endblock %}
+
+    {% block body %}
+            {% block navbar %}
+                <div class="navbar navbar-fixed-top">
+                  <div class="navbar-inner">
+                      <a href="{{ path('kraken_user_homepage') }}" class="brand" >Kraken</a>
+                      <div class="nav-collapse collapse">
+                        <ul class="nav">
+                          <li class="{% if app.session.get('page')  ==  "nav.scenario"|trans() %}active {% endif %}"><a href="{{ path('kraken_user_scenario') }}" title="{% trans %}nav.scenario{% endtrans %}">{% trans %}nav.scenario{% endtrans %}</a></li>
+
+                            {% if is_granted("ROLE_ADMIN") %}
+                                <li class="">
+                                    <a href="{{ path('kraken_admin_homepage') }}" >
+                                        {% trans %} nav.admin {% endtrans %}
+                                    </a>
+                                </li>
+                            {% endif %}
+
+                        </ul>
+
+                        <ul class="pull-right nav">
+
+                            <li class="dropdown pull-right">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class=" icon-user"></i>{% trans %}nav.account{% endtrans %}
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{{ path('fos_user_security_logout') }}">
+                                            <i class="icon-off"></i>
+                                            {% trans %}nav.logout{% endtrans %}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('kraken_user_account') }}">
+                                            {% trans %}nav.account.edit{% endtrans %}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+
+                      </div><!--/.nav-collapse -->
+
+                  </div>
+                </div>
+
+            {% endblock %}
+
+            <div class="container-fluid body-content">
+
+                <div class="row-fluid">
+                    {% block flash_msg %}
+                        {% for key, message in app.session.getFlashes() %}
+                            {% if key=="error" %}
+                                <div class="span12 alert alert-error">
+                                {{ message }}
+                                </div>
+                            {% elseif key=="success" %}
+                                <div class="span12 alert alert-success">
+                                {{ message }}
+                                </div>
+                            {% elseif key=="notice" %}
+                                <div class="span12 alert alert-info">
+                                {{ message }}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endblock %}
+                </div>
+
+                <br/>
+
+                <div class="row-fluid">
+
+                    <div class="span10 well">
+                        {% block fos_user_content %}
+                        {% endblock %}
+                        {% block content %}
+                        {% endblock %}
+                    </div>
+
+                </div>
+            </div>
+
+
+    {% endblock %}

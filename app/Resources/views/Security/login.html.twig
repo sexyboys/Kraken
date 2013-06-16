@@ -7,25 +7,33 @@
 {% block fos_user_content %}
 
 	<form class="form-horizontal" action="{{ path("fos_user_security_check") }}" method="post">
-			<label class="" for="username">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
-			<input  class="input input-medium" type="text" id="username" name="_username" value="{%if last_username is defined %}{{ last_username }}{% endif %}" required="required" />
-			<br/>
-		    <label class="" for="password">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
-			<input class="input input-medium" type="password" id="password" name="_password" required="required" />
-			<br/>
-			<label class="checkbox " for="remember_me">
-				<input type="checkbox" id="remember_me" name="_remember_me" value="on" />{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
-			</label>
-			<a href="#resetFileModal" type="" data-toggle="modal" class=""><small>{% trans %}user.login.form.forgot{% endtrans %}</small></a>
-			<br/><br/>
-            <div class="row-fluid">
-                <div class="span12">
-
-                    <input type="submit" id="_submit" name="_submit" class="btn btn-primary" data-loading-text="{% trans %}user.login.form.loading{% endtrans %}" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
-                    <a href="{{ path('user_inscription') }}" class="btn" style="">{% trans %}user.login.form.register{% endtrans %}</a>
-
-                </div>
-            </div><input type="hidden" name="_csrf_token" value="{%if last_username is defined %}{{ csrf_token }}{% endif %}" class="span2"/>
+        <div class="control-group">
+            <label class="control-label" for="username">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
+            <div class="controls">
+                <input  class="input-big" type="text" id="username" name="_username" value="{%if last_username is defined %}{{ last_username }}{% endif %}" required="required" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="password">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
+            <div class="controls">
+                <input class="input-big" type="password" id="password" name="_password" required="required" />
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <label class="checkbox " for="remember_me">
+                    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
+                </label>
+                <br/>
+                <a href="#resetFileModal" type="" data-toggle="modal" class=""><small>{% trans %}user.login.form.forgot{% endtrans %}</small></a>
+                <br/><br/>
+                <input type="submit" id="_submit" name="_submit" class="btn btn-primary" data-loading-text="{% trans %}user.login.form.loading{% endtrans %}" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
+                {% if module_register == "true" %}
+                    <a href="{{ path('kraken_user_register') }}" class="btn" style="">{% trans %}user.login.form.register{% endtrans %}</a>
+                {% endif %}
+                <input type="hidden" name="_csrf_token" value="{%if last_username is defined %}{{ csrf_token }}{% endif %}" class="span2"/>
+            </div>
+        </div>
     </form>
 {% endblock fos_user_content %}
         <!-- Modal -->

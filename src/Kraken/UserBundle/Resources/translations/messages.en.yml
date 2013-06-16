@@ -1,0 +1,61 @@
+#Common words
+
+#Classname translation
+TaskCrawlWeb: Web Crawler
+TaskActionTranslate: Translator
+TaskSenderEmail: Email Sender
+TaskSenderBlog: Blog Sender
+TaskSenderSocial: Social Sender
+
+DataArticle: Article
+DataDate: Date
+DataInteger: Integer
+DataList: List
+DataString: String
+
+#Navbar
+nav.scenario: Scenario
+nav.account: Account
+nav.admin: Administration
+nav.logout: Logout
+nav.account.edit: Manage your account
+
+#User login
+user.login.form.register: Register
+user.login.form.forgot: Forgot your password?
+
+#User reset
+user.reset.form.title: Forgot your password
+user.reset.form.close: Annuler
+
+#User register
+user.register.form.title: Register
+user.register.form.back: Back
+
+#User profile
+user.profile.password.change: Change your password
+user.profile.delete: Delete your account
+user.profile.delete.valid: Are you sure you want to delete your account?
+
+#Home
+home.welcome: Welcome %username%!
+home.scenario: You actually have %count% scenario.
+
+#Pages
+app.page.register: Register
+app.page.scenario: Scenario
+app.page.welcome: Welcome
+app.page.account: My account
+
+#Users messages
+
+#Error
+
+msg.error.user.remove: Error while removing your account, please try again later
+user.login.flash.error: There is an error in your login form, please try again later
+
+
+#Success
+
+msg.success.user.remove: Your account was succefully removed
+user.login.flash.success: You are succefully logged in

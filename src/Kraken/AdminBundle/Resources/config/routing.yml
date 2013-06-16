@@ -1,3 +1,55 @@
 kraken_admin_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: KrakenAdminBundle:Default:index }
+    locales:  { en: "/admin/dashboard", fr: "/admin/accueil"}
+    defaults: { _controller: KrakenAdminBundle:Dashboard:index }
+
+#Scenario models
+
+kraken_admin_scenario:
+    locales:  { en: "/admin/scenario", fr: "/admin/scenario"}
+    defaults: { _controller: KrakenAdminBundle:Scenario:list }
+
+kraken_admin_scenario_tasks:
+    locales:  { en: "/admin/scenario/{id}/tasks", fr: "/admin/scenario/{id}/taches"}
+    defaults: { _controller: KrakenAdminBundle:Task:list }
+
+kraken_admin_scenario_tasks_add:
+    locales:  { en: "/admin/scenario/{id}/tasks/add", fr: "/admin/scenario/{id}/taches/ajout"}
+    defaults: { _controller: KrakenAdminBundle:Task:requestAdd }
+
+kraken_admin_scenario_tasks_edit:
+    locales:  { en: "/admin/scenario/tasks/edit/{id}", fr: "/admin/scenario/taches/modification/{id}"}
+    defaults: { _controller: KrakenAdminBundle:Task:edit }
+
+kraken_admin_scenario_tasks_delete:
+    locales:  { en: "/admin/scenario/tasks/delete/{id}", fr: "/admin/scenario/taches/suppression/{id}"}
+    defaults: { _controller: KrakenAdminBundle:Task:delete }
+
+kraken_admin_scenario_tasks_move:
+    locales:  { en: "/admin/scenario/tasks/move/{id}/{position}", fr: "/admin/scenario/taches/deplacement/{id}/{position}"}
+    defaults: { _controller: KrakenAdminBundle:Task:move }
+
+kraken_admin_scenario_add:
+    locales:  { en: "/admin/scenario/add", fr: "/admin/scenario/ajout"}
+    defaults: { _controller: KrakenAdminBundle:Scenario:add }
+
+kraken_admin_scenario_edit:
+    locales:  { en: "/admin/scenario/edit/{id}", fr: "/admin/scenario/modification/{id}"}
+    defaults: { _controller: KrakenAdminBundle:Scenario:edit }
+
+kraken_admin_scenario_delete:
+    locales:  { en: "/admin/scenario/delete/{id}", fr: "/admin/scenario/suppression/{id}"}
+    defaults: { _controller: KrakenAdminBundle:Scenario:delete }
+
+kraken_admin_scenario_activate:
+    locales:  { en: "/admin/scenario/activate/{id}", fr: "/admin/scenario/activation/{id}"}
+    defaults: { _controller: KrakenAdminBundle:Scenario:activate }
+
+kraken_admin_scenario_desactivate:
+    locales:  { en: "/admin/scenario/desactivate/{id}", fr: "/admin/scenario/desactivation/{id}"}
+    defaults: { _controller: KrakenAdminBundle:Scenario:desactivate }
+
+#Users
+
+kraken_admin_users:
+    locales:  { en: "/admin/users", fr: "/admin/utilisateurs"}
+    defaults: { _controller: KrakenAdminBundle:User:list }

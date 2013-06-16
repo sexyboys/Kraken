@@ -1,3 +1,8 @@
+Compte admin:
+admin//kraken
+
+
+
 Symfony Standard Edition
 ========================
 

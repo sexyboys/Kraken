@@ -1,0 +1,12 @@
+    {% extends "DarkMeetMainBundle:Email:template.html.twig" %}
+
+    {% block content %}
+        <h3>
+            {{ 'resetting.email.subject'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}, 'FOSUserBundle') }}
+        </h3>
+        <p>
+
+            {{ 'resetting.email.message'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}, 'FOSUserBundle') }}
+
+        </p>
+    {% endblock %}

@@ -1,7 +1,83 @@
 parameters:
 #    kraken_user.example.class: Kraken\UserBundle\Example
+     #Entity managers
+     kraken.condition.class: Kraken\Managers\ConditionManager
+     kraken.data.class: Kraken\Managers\DataManager
+     kraken.scenario.class: Kraken\Managers\ScenarioManager
+     kraken.tag.class: Kraken\Managers\TagManager
+     kraken.task.class: Kraken\Managers\TaskManager
+     kraken.user.class: Kraken\Managers\UserManager
+     #Service managers
+     kraken.blog.class: Kraken\Managers\Services\BlogService
+     kraken.email.class: Kraken\Managers\Services\EmailService
+     kraken.social.class: Kraken\Managers\Services\SocialService
+     kraken.webcrawler.class: Kraken\Managers\Services\WebCrawlerService
 
 services:
 #    kraken_user.example:
 #        class: %kraken_user.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
+
+     #Entity managers
+
+     kraken.condition:
+         class: %kraken.condition.class%
+         arguments: [@doctrine.orm.entity_manager,@logger]
+         tags:
+            - { name: monolog.logger, channel: main }
+
+     kraken.data:
+         class: %kraken.data.class%
+         arguments: [@doctrine.orm.entity_manager,@logger]
+         tags:
+            - { name: monolog.logger, channel: main }
+
+     kraken.scenario:
+         class: %kraken.scenario.class%
+         arguments: [@doctrine.orm.entity_manager,@logger]
+         tags:
+            - { name: monolog.logger, channel: main }
+
+     kraken.tag:
+         class: %kraken.tag.class%
+         arguments: [@doctrine.orm.entity_manager,@logger]
+         tags:
+            - { name: monolog.logger, channel: main }
+
+     kraken.task:
+         class: %kraken.task.class%
+         arguments: [@doctrine.orm.entity_manager,@logger,@translator]
+         tags:
+            - { name: monolog.logger, channel: main }
+
+     kraken.user:
+         class: %kraken.user.class%
+         arguments: [@doctrine.orm.entity_manager,@logger]
+         tags:
+            - { name: monolog.logger, channel: main }
+
+     #Service managers
+
+     kraken.blog:
+         class: %kraken.blog.class%
+         arguments: [@doctrine.orm.entity_manager,@logger]
+         tags:
+            - { name: monolog.logger, channel: main }
+
+     kraken.email:
+         class: %kraken.email.class%
+         arguments: [@doctrine.orm.entity_manager,@logger]
+         tags:
+            - { name: monolog.logger, channel: main }
+
+     kraken.social:
+         class: %kraken.social.class%
+         arguments: [@doctrine.orm.entity_manager,@logger]
+         tags:
+            - { name: monolog.logger, channel: main }
+
+     kraken.webcrawler:
+         class: %kraken.webcrawler.class%
+         arguments: [@doctrine.orm.entity_manager,@logger]
+         tags:
+            - { name: monolog.logger, channel: main }

@@ -1,0 +1,66 @@
+﻿﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <style>
+            body{
+                background-color: #FFFFFF;
+            }
+            .header{
+                width:100%;
+                height:auto;
+            }
+
+            .sideLeft, .sideRight{
+                width:200px;
+                height:auto;
+            }
+            .middle{
+                margin-right: 100px;
+            }
+
+            .middle p{
+                font-size: 14px;
+                text-align:left;
+                color: #A9A7A8;
+            }
+
+            .middle h3{
+                font-size: 18px;
+                color: #A9A7A8;
+                font-style:bold;
+            }
+
+        </style>
+    </head>
+    <body>
+    {% if env == "dev"%}
+        {% set url %}{% trans %}app.url{% endtrans %}{% endset %}
+    {% else %}
+        {% set url %}{% trans %}app.url_prod{% endtrans %}{% endset %}
+    {% endif %}
+        <table id="background-table">
+            <tbody>
+                <tr>
+                    <td class="header">
+                        <a href="{% trans %}app.url{% endtrans %}">
+                            <img src="http://88.191.142.160/img/email_layout_header.jpg"/>
+                        </a>
+                    </td>
+                </tr>
+                <tr class="content">
+                    <td class="middle">
+                        {% block content %}
+                        {% endblock %}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="footer">
+                        <img src="http://88.191.142.160/img/email_layout_footer.jpg"/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

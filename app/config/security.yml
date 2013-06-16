@@ -17,7 +17,7 @@ security:
             memory:
                 users: ~
         fos_userbundle:
-            id: fos_user.user_manager
+            id: fos_user.user_provider.username
 
     firewalls:
 

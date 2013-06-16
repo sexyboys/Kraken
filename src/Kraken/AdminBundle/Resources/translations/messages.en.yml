@@ -1,0 +1,74 @@
+#Common words
+content.none: There is no content
+form.name: Name
+form.description: Description
+back: Back
+yes: Yes
+no: No
+condition: proviso
+
+#Navbar
+admin.nav.dashboard: Dashboard
+admin.nav.scenario: Scenario Model
+admin.nav.user: Users
+
+#Pages
+admin.page.scenario: Scenario
+admin.page.users: Users
+admin.page.task: Task
+
+#Dashboard
+admin.dashboard: Dashboard
+admin.dashboard.scenarios: There are %count% active Scenario linked to users
+admin.dashboard.model: There are %count% active model(s) of Scenario
+admin.dashboard.users: There are %count% active users
+
+#Scenario model
+admin.scenario: Scenario model
+admin.scenario.add: Add a model
+admin.scenario.table.name: Name
+admin.scenario.table.date.creation: Date of creation
+admin.scenario.table.date.execution: Date Last execution
+admin.scenario.table.execution: Execution every (minutes)
+admin.scenario.table.active: Active
+admin.scenario.table.actions: Actions
+admin.scenario.table.actions.activate: Activate
+admin.scenario.table.actions.desactivate: Desactivate
+admin.scenario.table.actions.edit: Edit
+admin.scenario.table.actions.delete: Delete
+admin.scenario.table.actions.tasks: Manage tasks
+admin.scenario.form.execution: Execution every(minutes)
+admin.scenario.add.title: Add a scenario model
+admin.scenario.edit.title: Edit a scenario model
+
+#Task
+admin.task: Task
+admin.task.add: Add a task
+admin.task.table.name: Name
+admin.task.table.type: Type
+admin.task.table.input_data: Input Data
+admin.task.table.output_data: Output Data
+admin.task.table.actions: Actions
+admin.task.table.actions.edit: Edit
+admin.task.table.actions.delete: Delete
+admin.task.table.actions.conditions: Manage proviso
+admin.task.type: Choose the type of Task
+
+
+#User
+admin.user: Users
+
+#Messages
+
+#Success
+admin.msg.success.scenario.activate: The scenario was activated
+admin.msg.success.scenario.add: The scenario was added
+admin.msg.success.scenario.delete: The scenario was deleted
+admin.msg.success.scenario.desactivate: The scenario was desactivated
+admin.msg.success.scenario.edit: The scenario was edited
+#Error
+admin.msg.error.scenario.activate: An error occured while activating the scenario
+admin.msg.error.scenario.add: An error occured while adding the scenario
+admin.msg.error.scenario.delete: An error occured while deleting the scenario
+admin.msg.error.scenario.desactivate: An error occured while desactivating the scenario
+admin.msg.error.scenario.edit: An error occured while editing the scenario

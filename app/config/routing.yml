@@ -1,15 +1,10 @@
-kraken_user:
+kraken_user_i18n_routes:
     resource: "@KrakenUserBundle/Resources/config/routing.yml"
-    prefix:   /
+    type: be_simple_i18n
 
-kraken_admin:
+kraken_admin_i18n_routes:
     resource: "@KrakenAdminBundle/Resources/config/routing.yml"
-    prefix:   /
-
-kraken_core:
-    resource: "@KrakenCoreBundle/Resources/config/routing.yml"
-    prefix:   /
-
+    type: be_simple_i18n
 
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
@@ -33,3 +28,4 @@ fos_user_change_password:
 _imagine:
     resource: .
     type: imagine
+

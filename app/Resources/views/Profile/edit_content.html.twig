@@ -1,4 +1,4 @@
-<form action="{{ path('darkmeet_user_account') }}" {{ form_enctype(form) }} method="POST" class="fos_user_profile_edit">
+<form action="{{ path('kraken_user_account') }}" {{ form_enctype(form) }} method="POST" class="fos_user_profile_edit">
     {{ form_widget(form) }}
     <br/>
     <input class="submit_button" value="{{ 'profile.edit.submit'|trans({}, 'FOSUserBundle') }}" type="submit"/>
@@ -7,4 +7,4 @@
 <a class="btn" data-role="button" href="{{ path('fos_user_change_password') }}" > <small>{% trans %}user.profile.password.change{% endtrans %}</small> </a>
 
 <br/>
-<a class="btn" data-role="button"  href="{{ path('darkmeet_user_account_delete') }}" onclick="return(confirm('{% trans %}user.profile.delete.valid{% endtrans %}'));"> <small>{% trans %}user.profile.delete{% endtrans %}</small> </a>
+<a class="btn" data-role="button"  href="{{ path('kraken_user_account_delete') }}" onclick="return(confirm('{% trans %}user.profile.delete.valid{% endtrans %}'));"> <small>{% trans %}user.profile.delete{% endtrans %}</small> </a>

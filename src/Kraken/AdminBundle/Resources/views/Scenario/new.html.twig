@@ -1,0 +1,39 @@
+{% extends "KrakenAdminBundle::layout.html.twig" %}
+
+
+{% block more_css %}
+
+{% endblock %}
+
+{% block more_js %}
+    <script type="text/javascript">
+        CKEDITOR.editorConfig = function( config ) {
+            config.language = '{{ app.request.locale }}';
+            config.uiColor = '#AADC6E';
+        };
+        window.onload = function() {
+            CKEDITOR.replace( 'AdminScenarioModel[description]' );
+        }
+    </script>
+
+{% endblock %}
+
+{% block content %}
+
+
+    <div class="container">
+        <div class="row">
+            <div class="span12 ">
+                <h3 class="bloc_header">
+                    {% trans %}admin.scenario.add.title{% endtrans %}
+                </h3>
+                <br/><br/>
+                <form action="{{ path('kraken_admin_scenario_add') }}" method="post" {{ form_enctype(form) }}>
+                    {{ form_widget(form) }}
+                    <input type="submit" />
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

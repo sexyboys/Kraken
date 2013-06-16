@@ -24,6 +24,7 @@ twig:
     globals:
         app_version: %version%
         env: %kernel.environment%
+        module_register: %module_register%
 
 # Assetic Configuration
 assetic:
@@ -55,8 +56,8 @@ doctrine:
         mappings:
            model:
                 type: annotation
-                dir: %kernel.root_dir%/../src/Entities
-                prefix: Entities
+                dir: %kernel.root_dir%/../src/Kraken/Entities
+                prefix: Kraken\Entities
                 is_bundle: false
         metadata_cache_driver: apc
         query_cache_driver: apc
@@ -76,7 +77,7 @@ swiftmailer:
 fos_user:
     db_driver:      orm # can be orm or odm
     firewall_name:  main
-    user_class:     DarkMeet\MainBundle\Entity\User
+    user_class:     Kraken\Entities\User
     service:
         mailer: fos_user.mailer.twig_swift
     from_email:
@@ -87,7 +88,7 @@ fos_user:
             from_email:
                 address:        %from_email%
                 sender_name:    %from_email_name%
-            template: DarkMeetMainBundle:Email:resetting.email.twig
+            template: KrakenUserBundle:Email:resetting.email.twig
 
 #Genemu bundle for helper
 genemu_form:
@@ -131,3 +132,4 @@ orkestra_apc:
     # Your website URL. Use by the clear command.
     website_url: %website_url%
 
+be_simple_i18n_routing: ~

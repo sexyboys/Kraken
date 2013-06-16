@@ -26,9 +26,9 @@ class AppKernel extends Kernel
             new SunCat\MobileDetectBundle\MobileDetectBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),
             new Orkestra\APCBundle\OrkestraAPCBundle(),
-            new Kraken\CoreBundle\KrakenCoreBundle(),
             new Kraken\AdminBundle\KrakenAdminBundle(),
             new Kraken\UserBundle\KrakenUserBundle(),
+            new BeSimple\I18nRoutingBundle\BeSimpleI18nRoutingBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -22,4 +22,8 @@ parameters:
     from_email: kraken@eric-pidoux.com
     from_email_name: Kraken
     website_url: http://kraken.eric-pidoux.com
-    
+
+    #Enable/disable modules
+    module_register: true
+
+

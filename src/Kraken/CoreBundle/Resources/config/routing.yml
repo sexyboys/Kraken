@@ -1,3 +1,0 @@
-kraken_core_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: KrakenCoreBundle:Default:index }

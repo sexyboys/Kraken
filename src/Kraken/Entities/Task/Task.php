@@ -8,14 +8,18 @@ use Doctrine\ORM\Mapping as ORM;
  * This class describe a Task
  * @author Eric Pidoux
  * @version 1.0
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="task")
  * @ORM\Entity(repositoryClass="Kraken\Repositories\TaskRepository")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\DiscriminatorMap({
  *                        "task" = "Task",
+ *                        "crawl" = "TaskCrawl",
  *                        "crawl_web" = "TaskCrawlWeb",
+ *                        "action" = "TaskAction",
  *                        "action_translate" = "TaskActionTranslate",
+ *                        "sender" = "TaskSender",
  *                        "sender_email" = "TaskSenderEmail",
  *                        "sender_blog" = "TaskSenderBlog",
  *                        "sender_social" = "TaskSenderSocial"})
@@ -49,7 +53,7 @@ class Task {
 
     /**
      * Conditions to not execute the task
-     * @ORM\OneToMany(targetEntity="Kraken\Entities\Condition", mappedBy="task", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="Kraken\Entities\Condition", mappedBy="task", cascade={"all"},orphanRemoval=true)
      */
     protected $conditions;
 
@@ -62,12 +66,26 @@ class Task {
     protected $input_data;
 
     /**
+     * Chooen Input Data
+     * @ORM\Column(name="chosen_input_data",type="string",nullable=true)
+     *
+     */
+    protected $chosen_input_data;
+
+    /**
      * Output Data
      * @ORM\ManyToOne(targetEntity="Kraken\Entities\Data\Data")
      * @ORM\JoinColumn(name="output_data_id", referencedColumnName="id")
      *
      */
     protected $output_data;
+
+    /**
+     * Chooen Output Data
+     * @ORM\Column(name="chosen_output_data",type="string",nullable=true)
+     *
+     */
+    protected $chosen_output_data;
 
     /**
      * Scenario linked
@@ -160,6 +178,40 @@ class Task {
     public function getScenario()
     {
         return $this->scenario;
+    }
+
+    public function setChosenInputData($chosen_input_data)
+    {
+        $this->chosen_input_data = $chosen_input_data;
+    }
+
+    public function getChosenInputData()
+    {
+        return $this->chosen_input_data;
+    }
+
+    public function setChosenOutputData($chosen_output_data)
+    {
+        $this->chosen_output_data = $chosen_output_data;
+    }
+
+    public function getChosenOutputData()
+    {
+        return $this->chosen_output_data;
+    }
+
+
+
+    /**
+     * PostLoad Function
+     *
+     * @ORM\PostLoad
+     */
+    private function postLoad(){
+
+        if($this->conditions==null)$this->conditions = new ArrayCollection();
+
+
     }
 
 

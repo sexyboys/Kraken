@@ -1,4 +1,5 @@
 #Common words
+define: Define
 
 #Classname translation
 TaskCrawlWeb: Web Crawler
@@ -7,11 +8,15 @@ TaskSenderEmail: Email Sender
 TaskSenderBlog: Blog Sender
 TaskSenderSocial: Social Sender
 
+DataNone: None
+DataSame: This is filled automatically
 DataArticle: Article
 DataDate: Date
 DataInteger: Integer
 DataList: List
 DataString: String
+DataListString: List of String
+DataListArticle: List of Article
 
 #Navbar
 nav.scenario: Scenario

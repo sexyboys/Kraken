@@ -37,12 +37,12 @@ class TaskSenderEmail extends TaskSender{
     protected $content;
 
 
-    private function getStringEmails()
+    public function getStringEmails()
     {
         return $this->stringEmails;
     }
 
-    private function setStringEmails($emails)
+    public function setStringEmails($emails)
     {
         $this->stringEmails=$emails;
     }

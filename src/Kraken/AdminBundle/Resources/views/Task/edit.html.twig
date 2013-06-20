@@ -24,12 +24,64 @@
         <div class="row">
             <div class="span12">
                 <h3 class="bloc_header">
-                    {% trans %}admin.scenario.edit.title{% endtrans %}
+                    {% trans %}admin.task.edit.title{% endtrans %}
                 </h3>
-                <a href="{{ path('kraken_admin_scenario') }}">{% trans %}back{% endtrans %}</a>
+                <a href="{{ path('kraken_admin_scenario_tasks',{'id':entity.scenario.id}) }}">{% trans %}back{% endtrans %}</a>
                 <br/><br/>
-                <form action="{{ path('kraken_admin_scenario_edit',{'id':entity.id}) }}" method="post" {{ form_enctype(form) }}>
+                <form action="{{ path('kraken_admin_scenario_tasks_edit',{'id':entity.id, "type":type}) }}" method="post" {{ form_enctype(form) }}>
                     {{ form_widget(form) }}
+                    <!--DATA IN -->
+                    <label>{% trans %}admin.task.data.in{% endtrans %}</label>
+                    {% for id,row in array_in %}
+                        {% if row >=0 and id==0 %}
+                            <select name="in">
+                        {% endif %}
+
+                        {% if row == -2 %}<!--none -->
+                            <span class="label label-important">{{ attribute(general_array, row) }}</span>
+                        {% elseif row == -1 %}<!--same/auto-->
+                            <span class="label label-important">{{ attribute(general_array, row) }}</span>
+                        {% else %}<!--others-->
+                            <option value="{{ row }}"
+                                    {% if value_in == row %}
+                                        selected="selected"
+                                    {% endif %}
+                            >{{ attribute(general_array, row) }}</option>
+                        {% endif %}
+
+                        {% if row >=0 and id==array_in|length-1 %}
+                            </select>
+                        {% endif %}
+                    {% endfor %}
+
+                    <br/> <br/>
+
+                    <!-- DATA OUT -->
+                    <label>{% trans %}admin.task.data.out{% endtrans %}</label>
+
+                    {% for id,row in array_out %}
+                        {% if row >=0 and id==0 %}
+                            <select name="out">
+                        {% endif %}
+
+                        {% if row == -2 %}<!--none -->
+                            <span class="label label-important">{{ attribute(general_array, row) }}</span>
+                        {% elseif row == -1 %}<!--same/auto-->
+                            <span class="label label-important">{{ attribute(general_array, row) }}</span>
+                        {% else %}<!--others-->
+                            <option value="{{ row }}"
+                                {% if value_out == row %}
+                                    selected="selected"
+                                {% endif %}
+                            >{{ attribute(general_array, row) }}</option>
+                        {% endif %}
+
+                        {% if row >=0 and id==array_out|length-1 %}
+                            </select>
+                        {% endif %}
+                    {% endfor %}
+
+                    <br/><br/>
                     <input type="submit" />
                 </form>
             </div>

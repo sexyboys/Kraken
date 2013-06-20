@@ -34,5 +34,4 @@ class TagManager extends BaseManager {
         $this->logger->info('[TagManager]Create new tag');
         return new Tag();
     }
-
 }

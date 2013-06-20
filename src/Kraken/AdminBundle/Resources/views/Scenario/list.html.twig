@@ -72,7 +72,7 @@
                                     {% else %}
                                         <a href="{{ path('kraken_admin_scenario_activate', {'id':row.id} ) }}" title="{% trans %}admin.scenario.table.actions.activate{% endtrans %}"><i class="icon-eye-open"></i></a>
                                     {% endif %}
-                                    <a href="{{ path('kraken_admin_scenario_tasks',{'id':row.id}) }}" title="{% trans %}admin.scenario.table.actions.tasks{% endtrans %}"><i class="icon-th-list"></i></a>
+                                    <a href="{{ path('kraken_admin_scenario_tasks',{'id':row.id}) }}" title="{% trans %}admin.scenario.table.actions.tasks{% endtrans %}"><i class="icon-tasks"></i></a>
                                 </td>
                             </tr>
                         {% endfor %}

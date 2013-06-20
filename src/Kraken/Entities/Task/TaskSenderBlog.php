@@ -36,4 +36,46 @@ class TaskSenderBlog extends TaskSender{
      * @ORM\Column(name="blog_link",type="string",nullable=true)
      */
     protected $blogLink;
+
+    public function setBlogEmail($blogEmail)
+    {
+        $this->blogEmail = $blogEmail;
+    }
+
+    public function getBlogEmail()
+    {
+        return $this->blogEmail;
+    }
+
+    public function setBlogLink($blogLink)
+    {
+        $this->blogLink = $blogLink;
+    }
+
+    public function getBlogLink()
+    {
+        return $this->blogLink;
+    }
+
+    public function setBlogLogin($blogLogin)
+    {
+        $this->blogLogin = $blogLogin;
+    }
+
+    public function getBlogLogin()
+    {
+        return $this->blogLogin;
+    }
+
+    public function setBlogPass($blogPass)
+    {
+        $this->blogPass = $blogPass;
+    }
+
+    public function getBlogPass()
+    {
+        return $this->blogPass;
+    }
+
+
 }

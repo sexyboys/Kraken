@@ -16,6 +16,7 @@ admin.nav.user: Users
 admin.page.scenario: Scenario
 admin.page.users: Users
 admin.page.task: Task
+admin.page.condition: Proviso
 
 #Dashboard
 admin.dashboard: Dashboard
@@ -51,9 +52,39 @@ admin.task.table.output_data: Output Data
 admin.task.table.actions: Actions
 admin.task.table.actions.edit: Edit
 admin.task.table.actions.delete: Delete
+admin.condition.table.actions.move.up: Move up
+admin.condition.table.actions.move.down: Move down
 admin.task.table.actions.conditions: Manage proviso
 admin.task.type: Choose the type of Task
+admin.task.form.multipage.regex: Regex of the next page button (class or id css)
+admin.task.form.multipage.limit: Define the last page to crawl
+admin.task.form.more: Regex of the extra content (readmore button etc..)
+admin.task.form.keepcontent: Keep original content?
+admin.task.form.language.original: Original Language (en,fr,de...)
+admin.task.form.language.needed: Needed Language (en,fr,de...)
+admin.task.form.source: Add the source ?
+admin.task.form.blog.login: Login of the blog
+admin.task.form.blog.pass: Pass of the blog
+admin.task.form.blog.email: Email of the blog
+admin.task.form.blog.link: Link of the blog
+admin.task.form.emails: Emails (separate with ';')
+admin.task.form.object: Object of the email
+admin.task.form.content: Content of the email
+admin.task.add.title: Add a task
+admin.task.edit.title: Edit a task
+admin.task.data.in: Input Data
+admin.task.data.out: Output Data
 
+#Condition
+admin.condition: Proviso
+admin.condition.add: Add a Proviso
+admin.condition.table.data: Data
+admin.condition.table.position.type: Position Type
+admin.condition.table.position.regex: Type Regex
+admin.condition.table.sign: Sign
+admin.condition.table.actions: Actions
+admin.condition.table.actions.edit: Edit
+admin.condition.table.actions.delete: Delete
 
 #User
 admin.user: Users
@@ -66,9 +97,17 @@ admin.msg.success.scenario.add: The scenario was added
 admin.msg.success.scenario.delete: The scenario was deleted
 admin.msg.success.scenario.desactivate: The scenario was desactivated
 admin.msg.success.scenario.edit: The scenario was edited
+admin.msg.success.task.add: The task was added
+admin.msg.success.task.delete: The task was deleted
+admin.msg.success.task.edit: The task was edited
+admin.msg.success.task.move: The task was moved
 #Error
 admin.msg.error.scenario.activate: An error occured while activating the scenario
 admin.msg.error.scenario.add: An error occured while adding the scenario
 admin.msg.error.scenario.delete: An error occured while deleting the scenario
 admin.msg.error.scenario.desactivate: An error occured while desactivating the scenario
 admin.msg.error.scenario.edit: An error occured while editing the scenario
+admin.msg.error.task.add: An error occured while adding the task
+admin.msg.error.task.delete: An error occured while deleting the task
+admin.msg.error.task.edit: An error occured while editing the task
+admin.msg.error.task.move: An error occured while moving the task

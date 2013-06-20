@@ -2,6 +2,7 @@
 
 namespace Kraken\Managers;
 
+use Kraken\AdminBundle\Form\Type\ConditionStringType;
 use Kraken\Entities\Condition;
 use Symfony\Bridge\Monolog\Logger;
 
@@ -24,6 +25,7 @@ class ConditionManager extends BaseManager {
     {
         return $this->em->getRepository('Kraken\Entities\Condition');
     }
+
 
     /**
      * Create an entity

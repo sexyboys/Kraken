@@ -4,10 +4,11 @@ namespace Kraken\Entities;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 /**
+ * Conditions are pre-generated for all kind of Task
  * Class Condition
  * @author Eric Pidoux
  * @version 1.0
- * @ORM\Table()
+ * @ORM\Table(name="condition_task")
  * @ORM\Entity(repositoryClass="Kraken\Repositories\ConditionRepository")
  * @ORM\HasLifecycleCallbacks
  */
@@ -20,6 +21,18 @@ class Condition {
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+     * Name of the Condition
+     * @ORM\Column(name="name", type="string",nullable=true)
+     */
+    protected $name;
+
+    /**
+     * Description of the Condition
+     * @ORM\Column(name="description", type="text",nullable=true)
+     */
+    protected $description;
 
     /**
      * @var Data $data
@@ -44,7 +57,7 @@ class Condition {
     /**
      * Sign of the condition >,<,=,!=,<=,>=
      * @var String $sign
-     * @ORM\Column(name="sign",type="string",nullable=true)
+     * @ORM\Column(name="sign_condition",type="string",nullable=true)
      */
     protected $sign;
 
@@ -150,6 +163,26 @@ class Condition {
     public function getTask()
     {
         return $this->task;
+    }
+
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    public function getName()
+    {
+        return $this->name;
     }
 
 

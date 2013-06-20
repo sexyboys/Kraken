@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @version 1.0
  * @ORM\Entity
  */
-abstract class TaskCrawl extends Task{
+class TaskCrawl extends Task{
 
     /**
      * Data resulting of the crawl

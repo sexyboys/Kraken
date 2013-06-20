@@ -12,9 +12,13 @@ kraken_admin_scenario_tasks:
     locales:  { en: "/admin/scenario/{id}/tasks", fr: "/admin/scenario/{id}/taches"}
     defaults: { _controller: KrakenAdminBundle:Task:list }
 
-kraken_admin_scenario_tasks_add:
-    locales:  { en: "/admin/scenario/{id}/tasks/add", fr: "/admin/scenario/{id}/taches/ajout"}
+kraken_admin_scenario_tasks_add_request:
+    locales:  { en: "/admin/scenario/{id}/tasks/add/request", fr: "/admin/scenario/{id}/taches/ajout/requete"}
     defaults: { _controller: KrakenAdminBundle:Task:requestAdd }
+
+kraken_admin_scenario_tasks_add:
+    locales:  { en: "/admin/scenario/{id}/tasks/add/{type}", fr: "/admin/scenario/{id}/taches/ajout/{type}"}
+    defaults: { _controller: KrakenAdminBundle:Task:add }
 
 kraken_admin_scenario_tasks_edit:
     locales:  { en: "/admin/scenario/tasks/edit/{id}", fr: "/admin/scenario/taches/modification/{id}"}
@@ -27,6 +31,36 @@ kraken_admin_scenario_tasks_delete:
 kraken_admin_scenario_tasks_move:
     locales:  { en: "/admin/scenario/tasks/move/{id}/{position}", fr: "/admin/scenario/taches/deplacement/{id}/{position}"}
     defaults: { _controller: KrakenAdminBundle:Task:move }
+
+kraken_admin_scenario_tasks_input:
+    locales:  { en: "/admin/scenario/tasks/input/{id}", fr: "/admin/scenario/taches/entrant/{id}"}
+    defaults: { _controller: KrakenAdminBundle:Task:input }
+
+
+kraken_admin_scenario_tasks_output:
+    locales:  { en: "/admin/scenario/tasks/output/{id}", fr: "/admin/scenario/taches/sortant/{id}"}
+    defaults: { _controller: KrakenAdminBundle:Task:output }
+
+
+kraken_admin_scenario_tasks_conditions:
+    locales:  { en: "/admin/scenario/tasks/{id}/proviso", fr: "/admin/scenario/taches/{id}/conditions"}
+    defaults: { _controller: KrakenAdminBundle:Condition:list }
+
+kraken_admin_scenario_tasks_conditions_add_request:
+    locales:  { en: "/admin/scenario/tasks/{id}/proviso/add/request", fr: "/admin/scenario/taches/{id}/conditions/ajout/requete"}
+    defaults: { _controller: KrakenAdminBundle:Condition:requestAdd }
+
+kraken_admin_scenario_tasks_conditions_add:
+    locales:  { en: "/admin/scenario/tasks/{id}/proviso/add/{type}", fr: "/admin/scenario/taches/{id}/conditions/ajout/{type}"}
+    defaults: { _controller: KrakenAdminBundle:Condition:add }
+
+kraken_admin_scenario_tasks_conditions_edit:
+    locales:  { en: "/admin/scenario/tasks/proviso/edit/{id}", fr: "/admin/scenario/taches/conditions/modification/{id}"}
+    defaults: { _controller: KrakenAdminBundle:Condition:edit }
+
+kraken_admin_scenario_tasks_conditions_delete:
+    locales:  { en: "/admin/scenario/tasks/proviso/delete/{id}", fr: "/admin/scenario/taches/conditions/suppression/{id}"}
+    defaults: { _controller: KrakenAdminBundle:Condition:delete }
 
 kraken_admin_scenario_add:
     locales:  { en: "/admin/scenario/add", fr: "/admin/scenario/ajout"}

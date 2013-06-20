@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @version 1.0
  * @ORM\Entity
  */
-abstract class TaskSender extends Task{
+class TaskSender extends Task{
 
     /**
      * Add source link to the content send (use regex if its email)

@@ -19,7 +19,7 @@ class ScenarioRepository extends EntityRepository{
 		        WHERE
 		            u.active = 1
 				AND
-					u.user IS NULL
+					u.user IS NOT NULL
 		    ')
         ->getResult();
         return $result;
@@ -39,7 +39,7 @@ class ScenarioRepository extends EntityRepository{
 		        WHERE
 		            u.active = 1
 				AND
-					u.user IS NULL
+					u.user IS NOT NULL
 		    ')
             ->getResult();
         return $result[0][1];

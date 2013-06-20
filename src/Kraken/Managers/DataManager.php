@@ -3,7 +3,13 @@
 namespace Kraken\Managers;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Kraken\Entities\Data\Data;
+use Kraken\Entities\Data\DataArticle;
+use Kraken\Entities\Data\DataDate;
+use Kraken\Entities\Data\DataInteger;
+use Kraken\Entities\Data\DataList;
+use Kraken\Entities\Data\DataString;
 use Symfony\Bridge\Monolog\Logger;
 /**
  * Class DataManager
@@ -14,11 +20,15 @@ use Symfony\Bridge\Monolog\Logger;
 class DataManager extends BaseManager {
 
 
+
+    protected $types;
+
     public function __construct($em,Logger $logger)
     {
         $this->em = $em;
         $this->logger=$logger;
     }
+
 
 
     public function getRepository()
@@ -34,5 +44,6 @@ class DataManager extends BaseManager {
         $this->logger->info('[DataManager]Create new data');
         return new Data();
     }
+
 
 }

@@ -25,12 +25,52 @@
         <div class="row">
             <div class="span12 ">
                 <h3 class="bloc_header">
-                    {% trans %}admin.task.add{% endtrans %}
+                    {% trans %}admin.task.add{% endtrans %} {{ task_type }}
                 </h3>
                 <br/><br/>
 
-                <form action="{{ path('kraken_admin_scenario_tasks_add') }}" method="post" {{ form_enctype(form) }}>
+                <form action="{{ path('kraken_admin_scenario_tasks_add',{"id":id_scenario,"type":type}) }}" method="post" {{ form_enctype(form) }}>
                     {{ form_widget(form) }}
+                    <!--DATA IN -->
+                    <label>{% trans %}admin.task.data.in{% endtrans %}</label>
+                    {% for id,row in array_in %}
+                        {% if row >=0 and id==0 %}
+                            <select name="in">
+                        {% endif %}
+
+                        {% if row == -2 %}<!--none -->
+                            <option value="{{ row }}">{{ attribute(general_array, row) }}</option>
+                        {% elseif row == -1 %}<!--same/auto-->
+                            <option value="{{ row }}">{{ attribute(general_array, row) }}</option>
+                        {% else %}<!--others-->
+                            <option value="{{ row }}">{{ attribute(general_array, row) }}</option>
+                        {% endif %}
+
+                        {% if row >=0 and id==array_in|length-1 %}
+                            </select>
+                        {% endif %}
+                    {% endfor %}
+
+                    <br/> <br/>
+
+                    <!-- DATA OUT -->
+                    <label>{% trans %}admin.task.data.out{% endtrans %}</label>
+
+                    {% for id,row in array_out %}
+                            <select name="out">
+
+                        {% if row == -2 %}<!--none -->
+                                <option value="{{ row }}">{{ attribute(general_array, row) }}</option>
+                        {% elseif row == -1 %}<!--same/auto-->
+                                <option value="{{ row }}">{{ attribute(general_array, row) }}</option>
+                        {% else %}<!--others-->
+                            <option value="{{ row }}">{{ attribute(general_array, row) }}</option>
+                        {% endif %}
+
+                            </select>
+                    {% endfor %}
+
+                    <br/><br/>
                     <input type="submit" />
                 </form>
             </div>

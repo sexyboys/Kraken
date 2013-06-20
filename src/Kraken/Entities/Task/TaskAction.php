@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @version 1.0
  * @ORM\Entity
  */
-abstract class TaskAction extends Task{
+class TaskAction extends Task{
 
     /**
      * Keep original content

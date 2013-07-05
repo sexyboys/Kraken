@@ -20,6 +20,11 @@
                         <legend>{% trans %}admin.task{% endtrans %}</legend>
                     </fieldset>
                     <br/>
+                    <a href="{{ path('kraken_admin_scenario') }}" >
+                        <i class="icon-arrow-left"></i> {% trans %}back{% endtrans %}
+                    </a>
+                    <br/>
+                    <br/>
 
                     <a href="{{ path('kraken_admin_scenario_tasks_add_request',{'id':scenario.id}) }}" class="btn">
                         <i class="icon-plus"></i> {% trans %}admin.task.add{% endtrans %}
@@ -46,10 +51,10 @@
                                     {{ row|classname|trans() }}
                                 </td>
                                 <td>
-                                    {{ row.chosenInputData }}
+                                    {{ row.chosenInputData|trans() }}
                                 </td>
                                 <td>
-                                    {{ row.chosenOutputData }}
+                                    {{ row.chosenOutputData|trans() }}
                                 </td>
                                 <td>
                                     <a href="{{ path('kraken_admin_scenario_tasks_edit', {'id':row.id,'type':row|classname} ) }}" title="{% trans %}admin.task.table.actions.edit{% endtrans %}"><i class="icon-edit"></i></a>
@@ -64,6 +69,7 @@
                                         <a href="{{ path('kraken_admin_scenario_tasks_move', {'id':row.id,"position":1} ) }}" title="{% trans %}admin.task.table.actions.move.down{% endtrans %}"><i class="icon-arrow-down"></i></a>
                                     {% endif %}
 
+                                    <a href="{{ path('kraken_admin_scenario_tasks_execute',{'id':row.id}) }}" title="{% trans %}admin.task.table.actions.execute{% endtrans %}"><i class="icon-check"></i></a>
 
                                 </td>
                             </tr>

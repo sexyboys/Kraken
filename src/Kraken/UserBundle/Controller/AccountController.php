@@ -125,11 +125,11 @@ class AccountController extends BaseController
             $this->container->get('kraken.user')->delete($user);
 
 
-            $this->container->get('session')->setFlash('success', $this->container->get('translator')->trans('msg.success.user.remove'));
+            $this->container->get('session')->getFlashBag()->add('success', $this->container->get('translator')->trans('msg.success.user.remove'));
         }
         catch(\Exception $e)
         {
-            $this->container->get('session')->setFlash('error', $this->container->get('translator')->trans('msg.error.user.remove'));
+            $this->container->get('session')->getFlashBag()->add('error', $this->container->get('translator')->trans('msg.error.user.remove'));
             $this->container->get('logger')->err('Error while removing user '.$user->getId().' : '.$e->getCode()." : ".$e->getMessage());
         }
         //redirect index

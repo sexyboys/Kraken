@@ -15,6 +15,9 @@ parameters:
     secret:            0ct0pu55y
     email_admin:       eric.pidoux@gmail.com
     version:           v1.0
+
+    node.bin: /usr/bin/nodejs
+    node.module_path: /home/erik/node_modules
     
     debug_website_url: http://localhost/kraken
     debug_mail: eric.pidoux@gmail.com
@@ -25,5 +28,12 @@ parameters:
 
     #Enable/disable modules
     module_register: true
+
+    #Enable/disable services
+    service_crawler_web: true
+    service_action_translate: true
+    service_sender_email: false
+    service_sender_blog: true
+    service_sender_social: false
 
 

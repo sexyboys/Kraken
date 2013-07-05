@@ -4,11 +4,11 @@ namespace Kraken\Factories;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Inflexible\Inflexible;
-use Kraken\Entities\Data\DataArticle;
-use Kraken\Entities\Data\DataDate;
-use Kraken\Entities\Data\DataInteger;
-use Kraken\Entities\Data\DataList;
-use Kraken\Entities\Data\DataString;
+use Kraken\UserBundle\Entity\DataArticle;
+use Kraken\UserBundle\Entity\DataDate;
+use Kraken\UserBundle\Entity\DataInteger;
+use Kraken\UserBundle\Entity\DataList;
+use Kraken\UserBundle\Entity\DataString;
 
 /**
  * Class DataFactory
@@ -64,6 +64,80 @@ class DataFactory {
     }
 
     /**
+     * Generate general array of all name of types
+     * @return array
+     */
+    public function getDatanamesArray()
+    {
+
+        $general_array[DataFactory::NONE] = 'DataNone';
+        $general_array[DataFactory::SAME] = 'DataSame';
+        $general_array[DataFactory::TYPE_ARTICLE] = 'DataArticle';
+        $general_array[DataFactory::TYPE_DATE] = 'DataDate';
+        $general_array[DataFactory::TYPE_INTEGER] = 'DataInteger';
+        $general_array[DataFactory::TYPE_LIST] = 'DataList';
+        $general_array[DataFactory::TYPE_STRING] = 'DataString';
+        $general_array[DataFactory::TYPE_LIST_STRING] = 'DataListString';
+        $general_array[DataFactory::TYPE_LIST_ARTICLE] ='DataListArticle';
+
+        return $general_array;
+    }
+
+    /**
+     * Retrieve name of given index
+     * @param $index Integer
+     * @return $name
+     */
+    public function getName($index)
+    {
+        $array = $this->getDatanamesArray();
+        return $array[$index];
+    }
+
+    /**
+     * Retrieve index of given name
+     * @param $name String
+     * @return $index
+     */
+    public function getIndex($name)
+    {
+        $result = null;
+        $array = $this->getDatanamesArray();
+        foreach($array as $key=>$row)
+        {
+            if($result == null && $row==$name) $result = $key;
+        }
+        return $result;
+
+    }
+
+    /**
+     * Get the Data name of the given data instance
+     * @param $data Data the data instance
+     * @return the data name
+     */
+    public function getDataName($data)
+    {
+        $return = "";
+        if($this->isAnInstance($data,self::TYPE_LIST))
+        {
+            $row = $data->getContent()->count()>0?$data->getContent()->get(0):null;
+
+            if($this->isAnInstance($row,self::TYPE_ARTICLE)) $return = $this->getName(self::TYPE_LIST_ARTICLE);
+            else if($this->isAnInstance($row,self::TYPE_STRING)) $return = $this->getName(self::TYPE_LIST_STRING);
+            else $return = $this->getName(self::TYPE_LIST);
+        }
+        else
+        {
+            if($this->isAnInstance($data,self::TYPE_ARTICLE)) $return = $this->getName(self::TYPE_ARTICLE);
+            else if($this->isAnInstance($data,self::TYPE_STRING)) $return = $this->getName(self::TYPE_STRING);
+            else if($this->isAnInstance($data,self::TYPE_DATE)) $return = $this->getName(self::TYPE_DATE);
+            else if($this->isAnInstance($data,self::TYPE_INTEGER)) $return = $this->getName(self::TYPE_INTEGER);
+        }
+        return $return;
+    }
+
+    /**
      * Load an instance
      * @param $index
      */
@@ -100,7 +174,7 @@ class DataFactory {
         }
         else if($index == self::TYPE_LIST_ARTICLE)
         {
-            $instance = new DataString();
+            $instance = new DataList();
             $r = new DataArticle();
             $array = new ArrayCollection();
             $array->add($r);
@@ -108,6 +182,25 @@ class DataFactory {
         }
 
         return $instance;
+    }
+
+    /**
+     * Check if the given Data object match with the given type
+     * @param $data Data
+     * @param $type Integer
+     */
+    public function isAnInstance($data,$type)
+    {
+        $result= false;
+        if($type == self::TYPE_ARTICLE && $data instanceof DataArticle) $result = true;
+        else if($type == self::TYPE_STRING && $data instanceof DataString) $result = true;
+        else if($type == self::TYPE_DATE && $data instanceof DataDate) $result = true;
+        else if($type == self::TYPE_INTEGER && $data instanceof DataInteger) $result = true;
+        else if($type == self::TYPE_LIST && $data instanceof DataList) $result = true;
+        else if($type == self::TYPE_LIST_ARTICLE && $data instanceof DataList) $result = true;
+        else if($type == self::TYPE_LIST_STRING && $data instanceof DataList) $result = true;
+
+        return $result;
     }
 
 

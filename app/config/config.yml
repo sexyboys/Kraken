@@ -12,9 +12,8 @@ framework:
     form:            true
     csrf_protection: true
     validation:      { enable_annotations: true }
-    templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
+    templating:      { engines: ['twig'] }
     default_locale:  %locale%
-    trust_proxy_headers: false # Whether or not the Request object should trust proxy headers (X_FORWARDED_FOR/HTTP_CLIENT_IP)
     session:         ~
 
 # Twig Configuration
@@ -28,18 +27,15 @@ twig:
 
 # Assetic Configuration
 assetic:
-    debug:          %kernel.debug%
+    debug: %kernel.debug%
     use_controller: false
-    bundles:        [ ]
-    #java: /usr/bin/java
+    bundles: [ ]
     filters:
+        less:
+            node: %node.bin%
+            node_paths: [%node.module_path%]
+            apply_to: "\.less$"
         cssrewrite: ~
-        compass: ~
-        sass: ~
-        #closure:
-        #    jar: %kernel.root_dir%/Resources/java/compiler.jar
-        #yui_css:
-        #    jar: %kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar
 
 # Doctrine Configuration
 doctrine:
@@ -53,31 +49,17 @@ doctrine:
         charset:  UTF8
     orm:
         auto_generate_proxy_classes: %kernel.debug%
-        mappings:
-           model:
-                type: annotation
-                dir: %kernel.root_dir%/../src/Kraken/Entities
-                prefix: Kraken\Entities
-                is_bundle: false
-        metadata_cache_driver: apc
-        query_cache_driver: apc
-        result_cache_driver: apc
+        auto_mapping: true
+        #metadata_cache_driver: apc
+        #query_cache_driver: apc
+        #result_cache_driver: apc
 
-# Swiftmailer Configuration
-swiftmailer:
-    transport: %mailer_transport%
-    host:      %mailer_host%
-    username:  %mailer_user%
-    password:  %mailer_password%
-    spool:
-        type: file
-        path: "%kernel.root_dir%/spool"
 
 
 fos_user:
     db_driver:      orm # can be orm or odm
     firewall_name:  main
-    user_class:     Kraken\Entities\User
+    user_class:     Kraken\UserBundle\Entity\User
     service:
         mailer: fos_user.mailer.twig_swift
     from_email:
@@ -128,8 +110,10 @@ liip_imagine:
                 thumbnail: { size: [120, 90], mode: outbound, allow_upscale: true }
 
 
-orkestra_apc:
-    # Your website URL. Use by the clear command.
-    website_url: %website_url%
 
 be_simple_i18n_routing: ~
+
+
+
+bc_bootstrap:
+    assets_dir: %kernel.root_dir%/../vendor/twitter/bootstrap

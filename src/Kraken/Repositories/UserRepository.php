@@ -15,7 +15,7 @@ class UserRepository extends EntityRepository{
 		        SELECT
 		            COUNT(u)
 		        FROM
-		            Kraken\Entities\User u
+		            Kraken\UserBundle\Entity\User u
 		        WHERE
 		            u.locked = 0
                 AND
@@ -36,7 +36,7 @@ class UserRepository extends EntityRepository{
 		        SELECT
 		            u
 		        FROM
-		            Kraken\Entities\User u
+		            Kraken\UserBundle\Entity\User u
 		        WHERE
 		            u.locked = 0
                 AND

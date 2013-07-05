@@ -2,23 +2,92 @@
 
 
 {% block more_css %}
-
+    <style type="text/css">
+        #AdminTaskCrawlWeb_tags{
+            margin-left:50px;
+        }
+        div[id$=_type] > label, div[id$=_type] > input{
+            float: left;
+        }
+        #AdminTaskCrawlWeb_tags #delete-tag
+        {
+            float:right;
+        }
+        div[id^=AdminTaskCrawlWeb_tags_]
+        {
+            border-top:1px solid grey;
+        }
+        div[id$=_type]
+        {
+            border:none;
+        }
+        .form-task > label {
+            clear:both;
+        }
+    </style>
 {% endblock %}
 
 {% block more_js %}
-<script type="text/javascript">
-    CKEDITOR.editorConfig = function( config ) {
-        config.language = 'fr';
-        config.uiColor = '#AADC6E';
-    };
-    window.onload = function() {
-        CKEDITOR.replace( 'AdminScenarioModel[description]' );
-    }
-</script>
+    <script type="text/javascript">
+
+        CKEDITOR.editorConfig = function( config ) {
+            config.language = 'fr';
+            config.uiColor = '#AADC6E';
+        };
+        window.onload = function() {
+            CKEDITOR.replace( 'AdminScenarioModel[description]' );
+        }
+
+        $(document).ready(function() {
+
+            // get attr « data-prototype »
+            var $container = $('div#AdminTaskCrawlWeb_tags');
+
+                // Add a link to add a new tag
+                var $linkAdd = $('<a href="#" id="add_tag"><i class="icon-plus"></i>Add a tag</a>');
+                $container.prepend($linkAdd);
+
+                $linkAdd.click(function(e) {
+                    addTag($container);
+                    e.preventDefault(); //avoid # in url
+                    return false;
+                });
+
+                var index = $container.find(':input').length;
+
+                if (index == 0) {
+                    addTag($container);
+                } else {
+                    $container.children('div').each(function() {
+                        addTag($(this));
+                    });
+                }
+
+                function addTag($container) {
+                    var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, 'Tag ' + (index+1))
+                            .replace(/__name__/g, index));
+
+                    addLinkDelete($prototype);
+                    $container.append($prototype);
+                    index++;
+                }
+
+                function addLinkDelete($prototype) {
+                    $linkDelete = $('<br/><a href="#" id="delete-tag" class="btn btn-danger"><i class="icon-remove"></i></a>');
+
+                    $prototype.prepend($linkDelete);
+                    $prototype.append($("<br/><br/>"));
+                    $linkDelete.click(function(e) {
+                        $prototype.remove();
+                        e.preventDefault();
+                        return false;
+                    });
+                }
+        });
+    </script>
 {% endblock %}
 
 {% block content %}
-
 
     <div class="container">
         <div class="row">
@@ -28,58 +97,36 @@
                 </h3>
                 <a href="{{ path('kraken_admin_scenario_tasks',{'id':entity.scenario.id}) }}">{% trans %}back{% endtrans %}</a>
                 <br/><br/>
-                <form action="{{ path('kraken_admin_scenario_tasks_edit',{'id':entity.id, "type":type}) }}" method="post" {{ form_enctype(form) }}>
+                <form class="form-task" action="{{ path('kraken_admin_scenario_tasks_edit',{'id':entity.id, "type":type}) }}" method="post" {{ form_enctype(form) }}>
                     {{ form_widget(form) }}
                     <!--DATA IN -->
                     <label>{% trans %}admin.task.data.in{% endtrans %}</label>
-                    {% for id,row in array_in %}
-                        {% if row >=0 and id==0 %}
-                            <select name="in">
-                        {% endif %}
 
-                        {% if row == -2 %}<!--none -->
-                            <span class="label label-important">{{ attribute(general_array, row) }}</span>
-                        {% elseif row == -1 %}<!--same/auto-->
-                            <span class="label label-important">{{ attribute(general_array, row) }}</span>
-                        {% else %}<!--others-->
+                    <select name="in">
+                        {% for id,row in array_in %}
                             <option value="{{ row }}"
-                                    {% if value_in == row %}
-                                        selected="selected"
-                                    {% endif %}
-                            >{{ attribute(general_array, row) }}</option>
-                        {% endif %}
+                                 {% if entity.chosenInputData==attribute(general_array, row) %}
+                                    selected="selected"
+                                 {% endif %}
+                            >{{ attribute(general_array, row)|trans() }}</option>
 
-                        {% if row >=0 and id==array_in|length-1 %}
-                            </select>
-                        {% endif %}
-                    {% endfor %}
-
+                        {% endfor %}
+                    </select>
                     <br/> <br/>
 
                     <!-- DATA OUT -->
                     <label>{% trans %}admin.task.data.out{% endtrans %}</label>
 
-                    {% for id,row in array_out %}
-                        {% if row >=0 and id==0 %}
-                            <select name="out">
-                        {% endif %}
-
-                        {% if row == -2 %}<!--none -->
-                            <span class="label label-important">{{ attribute(general_array, row) }}</span>
-                        {% elseif row == -1 %}<!--same/auto-->
-                            <span class="label label-important">{{ attribute(general_array, row) }}</span>
-                        {% else %}<!--others-->
+                    <select name="out">
+                        {% for id,row in array_out %}
                             <option value="{{ row }}"
-                                {% if value_out == row %}
+                                {% if entity.chosenOutputData==attribute(general_array, row) %}
                                     selected="selected"
                                 {% endif %}
-                            >{{ attribute(general_array, row) }}</option>
-                        {% endif %}
+                            >{{ attribute(general_array, row)|trans() }}</option>
+                        {% endfor %}
+                    </select>
 
-                        {% if row >=0 and id==array_out|length-1 %}
-                            </select>
-                        {% endif %}
-                    {% endfor %}
 
                     <br/><br/>
                     <input type="submit" />

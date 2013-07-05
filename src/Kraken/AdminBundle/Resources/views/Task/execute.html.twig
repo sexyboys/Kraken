@@ -1,0 +1,50 @@
+{% extends "KrakenAdminBundle::layout.html.twig" %}
+
+{% block more_css %}
+
+
+{% endblock %}
+{% block more_js %}
+
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row-fluid">
+            <div class="span12 media">
+
+
+                <br/>
+                <div class="row-fluid">
+
+                    <fieldset>
+                        <legend>{% trans %}admin.task{% endtrans %} {{ task.name }}</legend>
+                    </fieldset>
+                    <br/>
+                    <a href="{{ path('kraken_admin_scenario_tasks',{'id':scenario.id}) }}">{% trans %}back{% endtrans %}</a>
+
+                    <br/>
+
+                    {% if result %}
+                        {% for row in result %}
+                            {% if attribute(row,0) == 2 %}
+                                <span class="label label-important">{{ attribute(row,1) }}</span>
+                            {% elseif attribute(row,0) == 1 %}
+                                <span class="label label-success">{{ attribute(row,1) }}</span>
+                            {% else %}
+                                {{ attribute(row,1) }}
+                            {% endif %}
+                            <br/>
+                        {% endfor %}
+                    {% else %}
+                        <br/><br/>
+                        <div class="label label-important">
+                            {% trans %}content.none{% endtrans %}
+                        </div>
+                    {% endif %}
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

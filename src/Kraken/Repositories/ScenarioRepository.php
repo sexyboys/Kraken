@@ -15,7 +15,7 @@ class ScenarioRepository extends EntityRepository{
 		        SELECT
 		            u
 		        FROM
-		            Kraken\Entities\Scenario u
+		            Kraken\UserBundle\Entity\Scenario u
 		        WHERE
 		            u.active = 1
 				AND
@@ -35,7 +35,7 @@ class ScenarioRepository extends EntityRepository{
 		        SELECT
 		            COUNT(u)
 		        FROM
-		            Kraken\Entities\Scenario u
+		            Kraken\UserBundle\Entity\Scenario u
 		        WHERE
 		            u.active = 1
 				AND
@@ -56,7 +56,7 @@ class ScenarioRepository extends EntityRepository{
 		        SELECT
 		            u
 		        FROM
-		            Kraken\Entities\Scenario u
+		            Kraken\UserBundle\Entity\Scenario u
 		        WHERE
 		            u.active = 1
 				AND
@@ -76,7 +76,7 @@ class ScenarioRepository extends EntityRepository{
 		        SELECT
 		            COUNT(u)
 		        FROM
-		            Kraken\Entities\Scenario u
+		            Kraken\UserBundle\Entity\Scenario u
 		        WHERE
 		            u.active = 1
 				AND
@@ -96,7 +96,7 @@ class ScenarioRepository extends EntityRepository{
 		        SELECT
 		            u
 		        FROM
-		            Kraken\Entities\Scenario u
+		            Kraken\UserBundle\Entity\Scenario u
 		    ')
             ->getResult();
         return $result;
@@ -113,7 +113,7 @@ class ScenarioRepository extends EntityRepository{
 		        SELECT
 		            u
 		        FROM
-		            Kraken\Entities\Scenario u
+		            Kraken\UserBundle\Entity\Scenario u
 		        WHERE
 					u.user IS NULL
 		    ')

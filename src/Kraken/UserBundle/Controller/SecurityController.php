@@ -27,11 +27,11 @@ class SecurityController extends ContainerAware
         // get the error if any (works with forward and redirect -- see below)
         if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
             $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
-            $this->container->get('session')->setFlash('error',$this->container->get('translator')->trans('user.login.flash.error'));
+            $this->container->get('session')->getFlashBag()->add('error',$this->container->get('translator')->trans('user.login.flash.error'));
         } elseif (null !== $session && $session->has(SecurityContext::AUTHENTICATION_ERROR)) {
             $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
             $session->remove(SecurityContext::AUTHENTICATION_ERROR);
-            $this->container->get('session')->setFlash('error',$this->container->get('translator')->trans('user.login.flash.error'));
+            $this->container->get('session')->getFlashBag()->add('error',$this->container->get('translator')->trans('user.login.flash.error'));
         } else {
             $error = '';
         }

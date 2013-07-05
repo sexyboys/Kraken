@@ -25,14 +25,15 @@ class AppKernel extends Kernel
             new Genemu\Bundle\FormBundle\GenemuFormBundle(),
             new SunCat\MobileDetectBundle\MobileDetectBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),
-            new Orkestra\APCBundle\OrkestraAPCBundle(),
+            //new Orkestra\APCBundle\OrkestraAPCBundle(),
             new Kraken\AdminBundle\KrakenAdminBundle(),
             new Kraken\UserBundle\KrakenUserBundle(),
+            new Bc\Bundle\BootstrapBundle\BcBootstrapBundle(),
+            /** Other bundles */
             new BeSimple\I18nRoutingBundle\BeSimpleI18nRoutingBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
-            $bundles[] = new Acme\DemoBundle\AcmeDemoBundle();
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();

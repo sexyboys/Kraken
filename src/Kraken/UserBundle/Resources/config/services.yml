@@ -12,6 +12,10 @@ parameters:
      kraken.email.class: Kraken\Managers\Services\EmailService
      kraken.social.class: Kraken\Managers\Services\SocialService
      kraken.webcrawler.class: Kraken\Managers\Services\WebCrawlerService
+     kraken.translate.class: Kraken\Managers\Services\TranslateService
+     kraken.datatransformer.class: Kraken\Managers\Services\DataTransformerService
+     kraken.displaylog.class: Kraken\Managers\Services\DisplayLogService
+     kraken.xml.class: Kraken\Managers\Services\XmlService
 
 services:
 #    kraken_user.example:
@@ -34,7 +38,7 @@ services:
 
      kraken.scenario:
          class: %kraken.scenario.class%
-         arguments: [@doctrine.orm.entity_manager,@logger]
+         arguments: [@doctrine.orm.entity_manager,@logger,@translator,@kraken.task,@kraken.displaylog]
          tags:
             - { name: monolog.logger, channel: main }
 
@@ -46,7 +50,7 @@ services:
 
      kraken.task:
          class: %kraken.task.class%
-         arguments: [@doctrine.orm.entity_manager,@logger,@translator]
+         arguments: [@doctrine.orm.entity_manager,@logger,@translator,@kraken.webcrawler,@kraken.blog,@kraken.email,@kraken.social,@kraken.translate,@kraken.datatransformer,@kraken.displaylog,@kraken.xml]
          tags:
             - { name: monolog.logger, channel: main }
 
@@ -60,24 +64,48 @@ services:
 
      kraken.blog:
          class: %kraken.blog.class%
-         arguments: [@doctrine.orm.entity_manager,@logger]
+         arguments: [@logger,%service_sender_blog%]
          tags:
             - { name: monolog.logger, channel: main }
 
      kraken.email:
          class: %kraken.email.class%
-         arguments: [@doctrine.orm.entity_manager,@logger]
+         arguments: [@logger,@mailer,%service_sender_email%,%from_email%,%from_email_name%]
          tags:
             - { name: monolog.logger, channel: main }
 
      kraken.social:
          class: %kraken.social.class%
-         arguments: [@doctrine.orm.entity_manager,@logger]
+         arguments: [@logger,%service_sender_social%]
          tags:
             - { name: monolog.logger, channel: main }
 
      kraken.webcrawler:
          class: %kraken.webcrawler.class%
-         arguments: [@doctrine.orm.entity_manager,@logger]
+         arguments: [@logger,@kraken.displaylog,%service_crawler_web%]
+         tags:
+            - { name: monolog.logger, channel: main }
+
+     kraken.translate:
+         class: %kraken.translate.class%
+         arguments: [@logger,,%service_action_translate%,@kraken.webcrawler]
+         tags:
+            - { name: monolog.logger, channel: main }
+
+     kraken.datatransformer:
+         class: %kraken.datatransformer.class%
+         arguments: [@logger]
+         tags:
+            - { name: monolog.logger, channel: main }
+
+     kraken.displaylog:
+         class: %kraken.displaylog.class%
+         arguments: [@logger,@translator]
+         tags:
+            - { name: monolog.logger, channel: main }
+
+     kraken.xml:
+         class: %kraken.xml.class%
+         arguments: [@logger,@kraken.displaylog]
          tags:
             - { name: monolog.logger, channel: main }

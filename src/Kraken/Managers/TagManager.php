@@ -2,7 +2,7 @@
 
 namespace Kraken\Managers;
 
-use Kraken\Entities\Tag;
+use Kraken\UserBundle\Entity\Tag;
 use Symfony\Bridge\Monolog\Logger;
 
 /**
@@ -23,7 +23,7 @@ class TagManager extends BaseManager {
 
     public function getRepository()
     {
-        return $this->em->getRepository('Kraken\Entities\Tag\Tag');
+        return $this->em->getRepository('Kraken\UserBundle\Entity\Tag');
     }
 
     /**

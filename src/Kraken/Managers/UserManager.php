@@ -1,9 +1,8 @@
 <?php
 namespace Kraken\Managers;
 
-use Kraken\Entities\User;
+use Kraken\UserBundle\Entity\User;
 use Symfony\Bridge\Monolog\Logger;
-
 /**
  * Class UserManager
  * @package Kraken\Managers
@@ -21,7 +20,7 @@ class UserManager extends BaseManager {
 
     public function getRepository()
     {
-        return $this->em->getRepository('Kraken\Entities\User');
+        return $this->em->getRepository('Kraken\UserBundle\Entity\User');
     }
 
     /**

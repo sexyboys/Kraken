@@ -1,0 +1,14 @@
+{% extends "KrakenUserBundle::layout.html.twig" %}
+
+{% block css %}
+<style>
+#loginBg{
+	height:300px;
+}
+</style>
+{% endblock %}
+{% block content %}
+    {% block fos_user_register %}
+        {% include ":Registration:register_content.html.twig" %}
+    {% endblock %}
+{% endblock %}

@@ -1,0 +1,119 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+
+framework:
+    #esi:             ~
+    translator:      { fallback: %locale% }
+    secret:          %secret%
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: %kernel.debug%
+    form:            true
+    csrf_protection: true
+    validation:      { enable_annotations: true }
+    templating:      { engines: ['twig'] }
+    default_locale:  %locale%
+    session:         ~
+
+# Twig Configuration
+twig:
+    debug:            %kernel.debug%
+    strict_variables: %kernel.debug%
+    globals:
+        app_version: %version%
+        env: %kernel.environment%
+        module_register: %module_register%
+
+# Assetic Configuration
+assetic:
+    debug: %kernel.debug%
+    use_controller: false
+    bundles: [ ]
+    filters:
+        less:
+            node: %node.bin%
+            node_paths: [%node.module_path%]
+            apply_to: "\.less$"
+        cssrewrite: ~
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   %database_driver%
+        host:     %database_host%
+        port:     %database_port%
+        dbname:   %database_name%
+        user:     %database_user%
+        password: %database_password%
+        charset:  UTF8
+    orm:
+        auto_generate_proxy_classes: %kernel.debug%
+        auto_mapping: true
+        #metadata_cache_driver: apc
+        #query_cache_driver: apc
+        #result_cache_driver: apc
+
+
+
+fos_user:
+    db_driver:      orm # can be orm or odm
+    firewall_name:  main
+    user_class:     Kraken\UserBundle\Entity\User
+    service:
+        mailer: fos_user.mailer.twig_swift
+    from_email:
+        address:        %from_email%
+        sender_name:    %from_email_name%
+    resetting:
+        email:
+            from_email:
+                address:        %from_email%
+                sender_name:    %from_email_name%
+            template: KrakenUserBundle:Email:resetting.email.twig
+
+#Genemu bundle for helper
+genemu_form:
+    autocomplete: ~
+    select2: ~
+
+#Mobile detection
+mobile_detect:
+    redirect:
+            mobile: ~
+            tablet: ~
+    switch_device_view: ~
+
+liip_imagine:
+    driver: gd
+    web_root: %kernel.root_dir%/../web
+    data_root: %kernel.root_dir%/../web
+    cache_mkdir_mode: 0777
+    cache_prefix: /media/cache
+    cache: web_path
+    cache_clearer: true
+    data_loader: filesystem
+    controller_action: liip_imagine.controller:filterAction
+    formats: []
+    filter_sets:
+        front:
+            quality: 75
+            filters:
+                thumbnail: { size: [480, 360], mode: outbound, allow_upscale: true }
+        front_mobile:
+            quality: 75
+            filters:
+                thumbnail: { size: [240, 180], mode: outbound, allow_upscale: true }
+        thumb_front:
+            quality: 75
+            filters:
+                thumbnail: { size: [120, 90], mode: outbound, allow_upscale: true }
+
+
+
+be_simple_i18n_routing: ~
+
+
+
+bc_bootstrap:
+    assets_dir: %kernel.root_dir%/../vendor/twitter/bootstrap

@@ -1,0 +1,32 @@
+imports:
+    - { resource: config.yml }
+
+doctrine:
+    orm:
+        metadata_cache_driver: apc
+        result_cache_driver: apc
+        query_cache_driver: apc
+
+monolog:
+    handlers:
+        main:
+            type:  stream
+            path:  %kernel.logs_dir%/%kernel.environment%.log
+            level: info
+            channels: main
+
+
+orkestra_apc:
+    # Your website URL. Use by the clear command.
+    website_url: %website_url%
+
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: %mailer_transport%
+    host:      %mailer_host%
+    username:  %mailer_user%
+    password:  %mailer_password%
+    spool:
+        type: file
+        path: "%kernel.root_dir%/spool"

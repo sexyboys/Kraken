@@ -1,0 +1,54 @@
+{% extends "KrakenAdminBundle::layout.html.twig" %}
+
+
+{% block more_css %}
+
+{% endblock %}
+
+{% block more_js %}
+    <script type="text/javascript">
+        CKEDITOR.editorConfig = function( config ) {
+            config.language = '{{ app.request.locale }}';
+            config.uiColor = '#AADC6E';
+        };
+        window.onload = function() {
+            CKEDITOR.replace( 'AdminScenarioModel[description]' );
+        }
+    </script>
+
+{% endblock %}
+
+{% block content %}
+
+
+                <h3 class="bloc_header">
+                    {% trans %}admin.task.add{% endtrans %} {{ task_type }}
+                </h3>
+                <br/><br/>
+
+                <form action="{{ path('kraken_admin_scenario_tasks_add',{"id":id_scenario,"type":type}) }}" method="post" {{ form_enctype(form) }}>
+                    {{ form_widget(form) }}
+                    <!--DATA IN -->
+                    <label>{% trans %}admin.task.data.in{% endtrans %}</label>
+
+                    <select name="in">
+                        {% for id,row in array_in %}
+                                <option value="{{ row }}">{{ attribute(general_array, row)|trans() }}</option>
+                        {% endfor %}
+                    </select>
+                    <br/> <br/>
+
+                    <!-- DATA OUT -->
+                    <label>{% trans %}admin.task.data.out{% endtrans %}</label>
+
+                    <select name="out">
+                        {% for id,row in array_out %}
+                            <option value="{{ row }}">{{ attribute(general_array, row)|trans() }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <br/><br/>
+                    <input type="submit" />
+                </form>
+
+{% endblock %}

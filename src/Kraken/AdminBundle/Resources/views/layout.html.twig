@@ -1,0 +1,89 @@
+
+{% extends "::base.html.twig" %}
+    {% block css %}
+
+        <style>
+
+        </style>
+        {% block more_css %}
+        {% endblock %}
+    {% endblock %}
+    {% block js %}
+
+        <script src="{{ asset('bundles/kraken/js/ckeditor/ckeditor.js') }}"></script>
+        {% block more_js %}
+        {% endblock %}
+
+    {% endblock %}
+
+    {% block body %}
+            {% block navbar %}
+                <div class="navbar navbar-fixed-top navbar-inverse">
+                  <div class="navbar-inner">
+                      <a href="{{ path('kraken_user_homepage') }}" class="brand" ></a>
+                      <div class="nav-collapse collapse visible-desktop">
+                        <ul class="nav">
+                          <li class="{% if app.session.get('page')  ==  "admin.nav.dashboard"|trans() %}active {% endif %}"><a href="{{ path('kraken_admin_homepage') }}">{% trans %}admin.nav.dashboard{% endtrans %}</a></li>
+
+                          <li class="{% if app.session.get('page')  ==  "admin.nav.scenario"|trans() %}active {% endif %}"><a href="{{ path('kraken_admin_scenario') }}" title="{% trans %}admin.nav.scenario{% endtrans %}">{% trans %}admin.nav.scenario{% endtrans %}</a></li>
+                          <li class="{% if app.session.get('page')  ==  "admin.nav.user"|trans() %}active {% endif %}"><a href="{{ path('kraken_admin_users') }}">{% trans %}admin.nav.user{% endtrans %}</a></li>
+
+                        </ul>
+
+
+                          <ul class="pull-right nav">
+
+                              <li class="pull-right">
+                                  <a href="{{ path('fos_user_security_logout') }}">
+                                      <i class="icon-off"></i>
+                                      {% trans %}nav.logout{% endtrans %}
+                                  </a>
+                              </li>
+                          </ul>
+                      </div><!--/.nav-collapse -->
+                  </div>
+                </div>
+
+            {% endblock %}
+
+            <div class="container-fluid body-content">
+
+                <div class="row-fluid">
+                    {% block flash_msg %}
+                        {% for type, messages in app.session.flashbag.all() %}
+
+                            {% for key, message in messages %}
+                                {% if type=="error" %}
+                                    <div class="span12 alert alert-error">
+                                        {{ message }}
+                                    </div>
+                                {% elseif type=="success" %}
+                                    <div class="span12 alert alert-success">
+                                        {{ message }}
+                                    </div>
+                                {% elseif type=="notice" %}
+                                    <div class="span12 alert alert-info">
+                                        {{ message }}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                    {% endblock %}
+                </div>
+
+                <br/>
+
+                <div class="row-fluid">
+
+                    <div class="span10 well">
+                        {% block fos_user_content %}
+                        {% endblock %}
+                        {% block content %}
+                        {% endblock %}
+                    </div>
+
+                </div>
+            </div>
+
+
+    {% endblock %}

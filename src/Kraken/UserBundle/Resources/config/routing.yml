@@ -1,0 +1,19 @@
+kraken_user_homepage:
+    locales:  { en: "/", fr: "/"}
+    defaults: { _controller: KrakenUserBundle:Index:index }
+
+kraken_user_scenario:
+    locales:  { en: "/scenario", fr: "/scenario"}
+    defaults: { _controller: KrakenUserBundle:Scenario:list }
+
+kraken_user_register:
+    locales:  { en: "/register", fr: "/inscription"}
+    defaults: { _controller: KrakenUserBundle:Registration:register }
+
+kraken_user_account:
+    locales:  { en: "/account", fr: "/compte"}
+    defaults: { _controller: KrakenUserBundle:Account:edit }
+
+kraken_user_account_delete:
+    locales:  { en: "/account/delete", fr: "/compte/suppression"}
+    defaults: { _controller: KrakenUserBundle:Account:delete }

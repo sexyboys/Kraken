@@ -1,0 +1,30 @@
+{% extends "KrakenAdminBundle::layout.html.twig" %}
+
+
+{% block more_css %}
+
+{% endblock %}
+
+{% block more_js %}
+
+{% endblock %}
+
+{% block content %}
+
+
+                <h3 class="bloc_header">
+                    {% trans %}admin.task.add{% endtrans %}
+                </h3>
+                <br/><br/>
+
+                <form action="{{ path('kraken_admin_scenario_tasks_add_request',{'id':id_scenario}) }}" method="post">
+                    <label for="type">{% trans %} admin.task.type {% endtrans %}</label>
+                    <select name="type">
+                        {% for id,type in types %}
+                            <option value="{{ id }}">{{ type|trans() }}</option>
+                        {% endfor %}
+                    </select><br/>
+                    <input type="submit" />
+                </form>
+
+{% endblock %}

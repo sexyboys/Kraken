@@ -1,0 +1,31 @@
+imports:
+    - { resource: config.yml }
+
+framework:
+    router:   { resource: "%kernel.root_dir%/config/routing_dev.yml" }
+    profiler: { only_exceptions: false }
+
+web_profiler:
+    toolbar: true
+    intercept_redirects: false
+
+monolog:
+    handlers:
+        main:
+            type:  stream
+            path:  %kernel.logs_dir%/%kernel.environment%.log
+            level: info
+            channels: main
+        firephp:
+            type:  firephp
+            level: info
+
+assetic:
+    use_controller: true
+
+swiftmailer:
+    delivery_address:  %debug_mail%
+
+#orkestra_apc:
+    # Your website URL. Use by the clear command.
+ #   website_url: %debug_website_url%

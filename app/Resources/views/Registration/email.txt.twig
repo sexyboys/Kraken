@@ -1,0 +1,88 @@
+
+{% block content %}
+{% block subject %}
+    {% autoescape false %}
+    {{ 'registration.email.subject'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}, 'FOSUserBundle') }}
+    {% endautoescape %}
+{% endblock %}
+{% block body_text %}
+{% autoescape false %}
+{{ 'registration.email.message'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}, 'FOSUserBundle') }}
+{% endautoescape %}
+{% endblock %}
+{% block body_html %}
+    <html>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="{{ asset('bundles/darkmeet/css/bootstrap.css') }}">
+        <link rel="stylesheet" href="{{ asset('bundles/darkmeet/css/bootstrap-responsive.css') }}">
+        <link rel="stylesheet" href="{{ asset('bundles/darkmeet/css/docs.css') }}">
+        <link rel="stylesheet" href="{{ asset('bundles/darkmeet/css/darkmeet.css') }}">
+
+        <style>
+                /**Left sidebar **/
+            .nav-list{
+                /**margin-top:100px!important;**/
+            }
+
+                /** mid content **/
+            .container-fluid{
+                margin-top:100px!important;
+            }
+
+            footer {
+                padding: 17px 0 18px 0;
+                color: #cccccc;
+                text-align: center;
+            }
+            footer a {
+                color: #fff;
+            }
+            footer a:hover {
+                color: #efefef;
+            }
+
+
+        </style>
+
+    </head>
+    <body>
+
+    {% block navbar %}
+        <div class="navbar navbar-fixed-top navbar-inverse">
+            <div class="navbar-inner">
+                <a href="{{ path('dark_meet_index') }}" class="brand">{%trans %} app.name {% endtrans %}</a>
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        <li class="{% if app.session.get('page')  == "Accueil" %}active {% endif %}"><a href="{{ path('dark_meet_index') }}">{% trans %}app.nav.home{% endtrans %}</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+    {% endblock %}
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span12 well">
+                <h5>{{ "email.hello"|trans({'%username%' : user.username}) }}</h5>
+                <br/><br/>
+                <p>
+                    {{ 'registration.email.message'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}, 'FOSUserBundle') }}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="row-fluid">
+            <div class="span9 offset2">
+                @{{ "now"|date("Y") }} - {% trans %} footer.allrights {% endtrans %}
+            </div>
+        </div>
+    </footer>
+    </body>
+
+
+
+    </html>
+
+{% endblock %}

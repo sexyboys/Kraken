@@ -1,0 +1,111 @@
+parameters:
+#    kraken_user.example.class: Kraken\UserBundle\Example
+     #Entity managers
+     kraken.condition.class: Kraken\Managers\ConditionManager
+     kraken.data.class: Kraken\Managers\DataManager
+     kraken.scenario.class: Kraken\Managers\ScenarioManager
+     kraken.tag.class: Kraken\Managers\TagManager
+     kraken.task.class: Kraken\Managers\TaskManager
+     kraken.user.class: Kraken\Managers\UserManager
+     #Service managers
+     kraken.blog.class: Kraken\Managers\Services\BlogService
+     kraken.email.class: Kraken\Managers\Services\EmailService
+     kraken.social.class: Kraken\Managers\Services\SocialService
+     kraken.webcrawler.class: Kraken\Managers\Services\WebCrawlerService
+     kraken.translate.class: Kraken\Managers\Services\TranslateService
+     kraken.datatransformer.class: Kraken\Managers\Services\DataTransformerService
+     kraken.displaylog.class: Kraken\Managers\Services\DisplayLogService
+     kraken.xml.class: Kraken\Managers\Services\XmlService
+
+services:
+#    kraken_user.example:
+#        class: %kraken_user.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+
+     #Entity managers
+
+     kraken.condition:
+         class: %kraken.condition.class%
+         arguments: [@doctrine.orm.entity_manager,@logger]
+         tags:
+            - { name: monolog.logger, channel: main }
+
+     kraken.data:
+         class: %kraken.data.class%
+         arguments: [@doctrine.orm.entity_manager,@logger]
+         tags:
+            - { name: monolog.logger, channel: main }
+
+     kraken.scenario:
+         class: %kraken.scenario.class%
+         arguments: [@doctrine.orm.entity_manager,@logger,@translator,@kraken.task,@kraken.displaylog]
+         tags:
+            - { name: monolog.logger, channel: main }
+
+     kraken.tag:
+         class: %kraken.tag.class%
+         arguments: [@doctrine.orm.entity_manager,@logger]
+         tags:
+            - { name: monolog.logger, channel: main }
+
+     kraken.task:
+         class: %kraken.task.class%
+         arguments: [@doctrine.orm.entity_manager,@logger,@translator,@kraken.webcrawler,@kraken.blog,@kraken.email,@kraken.social,@kraken.translate,@kraken.datatransformer,@kraken.displaylog,@kraken.xml]
+         tags:
+            - { name: monolog.logger, channel: main }
+
+     kraken.user:
+         class: %kraken.user.class%
+         arguments: [@doctrine.orm.entity_manager,@logger]
+         tags:
+            - { name: monolog.logger, channel: main }
+
+     #Service managers
+
+     kraken.blog:
+         class: %kraken.blog.class%
+         arguments: [@logger,%service_sender_blog%]
+         tags:
+            - { name: monolog.logger, channel: main }
+
+     kraken.email:
+         class: %kraken.email.class%
+         arguments: [@logger,@mailer,%service_sender_email%,%from_email%,%from_email_name%]
+         tags:
+            - { name: monolog.logger, channel: main }
+
+     kraken.social:
+         class: %kraken.social.class%
+         arguments: [@logger,%service_sender_social%]
+         tags:
+            - { name: monolog.logger, channel: main }
+
+     kraken.webcrawler:
+         class: %kraken.webcrawler.class%
+         arguments: [@logger,@kraken.displaylog,%service_crawler_web%]
+         tags:
+            - { name: monolog.logger, channel: main }
+
+     kraken.translate:
+         class: %kraken.translate.class%
+         arguments: [@logger,,%service_action_translate%,@kraken.webcrawler]
+         tags:
+            - { name: monolog.logger, channel: main }
+
+     kraken.datatransformer:
+         class: %kraken.datatransformer.class%
+         arguments: [@logger]
+         tags:
+            - { name: monolog.logger, channel: main }
+
+     kraken.displaylog:
+         class: %kraken.displaylog.class%
+         arguments: [@logger,@translator]
+         tags:
+            - { name: monolog.logger, channel: main }
+
+     kraken.xml:
+         class: %kraken.xml.class%
+         arguments: [@logger,@kraken.displaylog]
+         tags:
+            - { name: monolog.logger, channel: main }

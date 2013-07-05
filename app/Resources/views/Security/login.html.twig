@@ -1,0 +1,53 @@
+{% block css %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block fos_user_content %}
+
+	<form class="form-horizontal" action="{{ path("fos_user_security_check") }}" method="post">
+        <div class="control-group">
+            <label class="control-label" for="username">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
+            <div class="controls">
+                <input  class="input-big" type="text" id="username" name="_username" value="{%if last_username is defined %}{{ last_username }}{% endif %}" required="required" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="password">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
+            <div class="controls">
+                <input class="input-big" type="password" id="password" name="_password" required="required" />
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <label class="checkbox " for="remember_me">
+                    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
+                </label>
+                <br/>
+                <a href="#resetFileModal" type="" data-toggle="modal" class=""><small>{% trans %}user.login.form.forgot{% endtrans %}</small></a>
+                <br/><br/>
+                <input type="submit" id="_submit" name="_submit" class="btn btn-primary" data-loading-text="{% trans %}user.login.form.loading{% endtrans %}" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
+                {% if module_register == "true" %}
+                    <a href="{{ path('kraken_user_register') }}" class="btn" style="">{% trans %}user.login.form.register{% endtrans %}</a>
+                {% endif %}
+                <input type="hidden" name="_csrf_token" value="{%if last_username is defined %}{{ csrf_token }}{% endif %}" class="span2"/>
+            </div>
+        </div>
+    </form>
+{% endblock fos_user_content %}
+        <!-- Modal -->
+				<div id="resetFileModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="resetFileModal" aria-hidden="true">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h3 id="myModalLabel">{% trans %}user.reset.form.title{% endtrans %}</h3>
+					</div>
+					<div class="modal-body">
+						{% include ":Resetting:request_content.html.twig" %}
+					</div>
+					<div class="modal-footer">
+						<button class="btn" data-dismiss="modal" aria-hidden="true">{% trans %}user.reset.form.close{% endtrans %}</button>
+					</div>
+				</div>
+
+    			

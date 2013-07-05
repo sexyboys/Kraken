@@ -2,14 +2,15 @@
 define: Define
 
 #Classname translation
-TaskCrawlWeb: Web Crawler
-TaskActionTranslate: Translator
+TaskCrawlWeb: Crawler Web
+TaskActionTranslate: Action Translator
+TaskActionArrangerText: Action Text Arranger
 TaskSenderEmail: Email Sender
 TaskSenderBlog: Blog Sender
 TaskSenderSocial: Social Sender
 
 DataNone: None
-DataSame: This is filled automatically
+DataSame: Same as previous
 DataArticle: Article
 DataDate: Date
 DataInteger: Integer
@@ -17,6 +18,11 @@ DataList: List
 DataString: String
 DataListString: List of String
 DataListArticle: List of Article
+
+tagMother: Article
+tagTitle: Title
+tagDate: Date
+tagContent: Content
 
 #Navbar
 nav.scenario: Scenario
@@ -51,6 +57,29 @@ app.page.register: Register
 app.page.scenario: Scenario
 app.page.welcome: Welcome
 app.page.account: My account
+
+#Scenario & Task execution log to display
+execute.display.scenario.start: Execution of Scenario ' %name% ' with %count% tasks
+execute.display.task.start: Execution of Task %name% of type %type%
+execute.display.output.list: Output with %count% item(s), first item is %first_content%
+execute.display.output.single: Output excerpt : %content%
+execute.display.task.end: End of task %name% execution, %excerpt%
+execute.display.scenario.end: End of Scenario %name% execution
+execute.display.scenario.error: Error while executing Scenario, this is the error returned: %msg%
+execute.display.task.error: Error while executing Task, this is the error returned: %msg%
+execute.display.crawler.web.link: Crawling web link %link%
+execute.display.crawler.web.multipage: %count% page(s) with regex %regex%
+execute.display.crawler.web.linkMore: Trying to find more content with regex %regex%
+execute.display.crawler.web.tags.mother: Mother tag found with regex %regex%
+execute.display.crawler.web.tags.title: Title tag found with regex %regex%
+execute.display.crawler.web.tags.date: Date tag found with regex %regex%
+execute.display.crawler.web.tags.content: Content tag found with regex %regex%
+execute.display.crawler.web.found: Extract an article %title%
+execute.display.xml: Transform output data to XML
+execute.display.xml.error: Error while transforming Data into Xml, this is the error returned: %msg%
+execute.display.xml.xslt: Transform XML with XSLT
+execute.display.xml.xslt.result: Excerpt of Result : %excerpt%
+execute.display.xml.xslt.error: Error while transforming Xml with the given Xslt, this is the error returned: %msg%
 
 #Users messages
 

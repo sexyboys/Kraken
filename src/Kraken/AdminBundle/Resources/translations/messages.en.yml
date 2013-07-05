@@ -52,10 +52,12 @@ admin.task.table.output_data: Output Data
 admin.task.table.actions: Actions
 admin.task.table.actions.edit: Edit
 admin.task.table.actions.delete: Delete
-admin.condition.table.actions.move.up: Move up
-admin.condition.table.actions.move.down: Move down
+admin.task.table.actions.execute: Execute task (previous until this one)
+admin.task.table.actions.move.up: Move up
+admin.task.table.actions.move.down: Move down
 admin.task.table.actions.conditions: Manage proviso
 admin.task.type: Choose the type of Task
+admin.task.form.link: Link to parse
 admin.task.form.multipage.regex: Regex of the next page button (class or id css)
 admin.task.form.multipage.limit: Define the last page to crawl
 admin.task.form.more: Regex of the extra content (readmore button etc..)
@@ -69,11 +71,16 @@ admin.task.form.blog.email: Email of the blog
 admin.task.form.blog.link: Link of the blog
 admin.task.form.emails: Emails (separate with ';')
 admin.task.form.object: Object of the email
-admin.task.form.content: Content of the email
+admin.task.form.content: Content of the email (use keywords to replace contents as: "[content]","[source]")
+admin.task.form.separate_list: Separate element in list result
+admin.task.form.xslt: Xslt
 admin.task.add.title: Add a task
 admin.task.edit.title: Edit a task
 admin.task.data.in: Input Data
 admin.task.data.out: Output Data
+
+#Tag
+form.tag.regex: Regex (define element to parse)
 
 #Condition
 admin.condition: Proviso

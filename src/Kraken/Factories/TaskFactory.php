@@ -5,15 +5,17 @@ namespace Kraken\Factories;
 use Doctrine\Common\Collections\ArrayCollection;
 use Inflexible\Inflexible;
 use Kraken\AdminBundle\Form\Type\TaskActionTranslateType;
+use Kraken\AdminBundle\Form\Type\TaskActionArrangerTextType;
 use Kraken\AdminBundle\Form\Type\TaskCrawlWebType;
 use Kraken\AdminBundle\Form\Type\TaskSenderBlogType;
 use Kraken\AdminBundle\Form\Type\TaskSenderEmailType;
 use Kraken\AdminBundle\Form\Type\TaskSenderSocialType;
-use Kraken\Entities\Task\TaskActionTranslate;
-use Kraken\Entities\Task\TaskCrawlWeb;
-use Kraken\Entities\Task\TaskSenderBlog;
-use Kraken\Entities\Task\TaskSenderEmail;
-use Kraken\Entities\Task\TaskSenderSocial;
+use Kraken\UserBundle\Entity\TaskActionArrangerText;
+use Kraken\UserBundle\Entity\TaskActionTranslate;
+use Kraken\UserBundle\Entity\TaskCrawlWeb;
+use Kraken\UserBundle\Entity\TaskSenderBlog;
+use Kraken\UserBundle\Entity\TaskSenderEmail;
+use Kraken\UserBundle\Entity\TaskSenderSocial;
 
 /**
  * Class TaskFactory
@@ -33,10 +35,14 @@ class TaskFactory {
 
     const TASK_SENDER_SOCIAL=4;
 
+    const TASK_ACTION_ARRANGER_TEXT=5;
+
 
     const TASK_CRAWL_WEB_CLASSNAME="TaskCrawlWeb";
 
     const TASK_ACTION_TRANSLATE_CLASSNAME="TaskActionTranslate";
+
+    const TASK_ACTION_ARRANGER_TEXT_CLASSNAME="TaskActionArrangerText";
 
     const TASK_SENDER_EMAIL_CLASSNAME="TaskSenderEmail";
 
@@ -84,6 +90,7 @@ class TaskFactory {
             $this->types->add(Inflexible::denamespace(get_class(new TaskSenderEmail())));
             $this->types->add(Inflexible::denamespace(get_class(new TaskSenderBlog())));
             $this->types->add(Inflexible::denamespace(get_class(new TaskSenderSocial())));
+            $this->types->add(Inflexible::denamespace(get_class(new TaskActionArrangerText())));
         }
         return $this->types;
     }
@@ -108,6 +115,8 @@ class TaskFactory {
                 $instance = new TaskSenderBlog();break;
             case 4:
                 $instance = new TaskSenderSocial();break;
+            case 5:
+                $instance = new TaskActionArrangerText();break;
         }
         return $instance;
     }
@@ -131,6 +140,8 @@ class TaskFactory {
                 $instance = new TaskSenderBlogType();break;
             case 4:
                 $instance = new TaskSenderSocialType();break;
+            case 5:
+                $instance = new TaskActionArrangerTextType();break;
         }
         return $instance;
     }
@@ -168,6 +179,9 @@ class TaskFactory {
         $array[self::TASK_SENDER_SOCIAL_CLASSNAME]['in'] = $this->defineArrayDataByTask(self::TASK_SENDER_SOCIAL,true);
         $array[self::TASK_SENDER_SOCIAL_CLASSNAME]['out'] = $this->defineArrayDataByTask(self::TASK_SENDER_SOCIAL,false);
 
+        $array[self::TASK_ACTION_ARRANGER_TEXT_CLASSNAME]['in'] = $this->defineArrayDataByTask(self::TASK_ACTION_ARRANGER_TEXT,true);
+        $array[self::TASK_ACTION_ARRANGER_TEXT_CLASSNAME]['out'] = $this->defineArrayDataByTask(self::TASK_ACTION_ARRANGER_TEXT,false);
+
         return $array;
 
     }
@@ -183,7 +197,7 @@ class TaskFactory {
         $array = array();
         switch($index)
         {
-            case 0:
+            case self::TASK_CRAWL_WEB_CLASSNAME:
                 //TaskCrawlWeb
                 if($in){
                     //in
@@ -197,7 +211,7 @@ class TaskFactory {
                     $array[]=DataFactory::TYPE_LIST_ARTICLE;
                 }
                 break;
-            case 1:
+            case self::TASK_ACTION_TRANSLATE_CLASSNAME:
                 //TaskActionTranslate
                 if($in){
                     //in
@@ -212,7 +226,7 @@ class TaskFactory {
                     $array[]=DataFactory::SAME;
                 }
                 break;
-            case 2:
+            case self::TASK_SENDER_EMAIL_CLASSNAME:
                 //TaskSenderEmail
                 if($in){
                     //in
@@ -223,7 +237,7 @@ class TaskFactory {
                     $array[]=DataFactory::SAME;
                 }
                 break;
-            case 3:
+            case self::TASK_SENDER_BLOG_CLASSNAME:
                 //TaskSenderBlog
                 if($in){
                     //in
@@ -234,7 +248,7 @@ class TaskFactory {
                     $array[]=DataFactory::SAME;
                 }
                 break;
-            case 4:
+            case self::TASK_SENDER_SOCIAL_CLASSNAME:
                 //TaskSenderSocial
                 if($in){
                     //in
@@ -243,6 +257,17 @@ class TaskFactory {
                 else{
                     //out
                     $array[]=DataFactory::SAME;
+                }
+                break;
+            case self::TASK_ACTION_ARRANGER_TEXT_CLASSNAME:
+                //TaskActionArrangerText
+                if($in){
+                    //in
+                    $array[]=DataFactory::SAME;
+                }
+                else{
+                    //out
+                    $array[]=DataFactory::TYPE_STRING;
                 }
                 break;
         }
@@ -261,7 +286,7 @@ class TaskFactory {
         $array = new ArrayCollection();
         switch($index)
         {
-            case 0:
+            case self::TASK_CRAWL_WEB:
                 //TaskCrawlWeb
                 if($in){
                     //in
@@ -275,7 +300,7 @@ class TaskFactory {
                     $array->add(DataFactory::TYPE_LIST_ARTICLE);
                 }
                 break;
-            case 1:
+            case self::TASK_ACTION_TRANSLATE:
                 //TaskActionTranslate
                 if($in){
                     //in
@@ -290,7 +315,7 @@ class TaskFactory {
                     $array->add(DataFactory::SAME);
                 }
                 break;
-            case 2:
+            case self::TASK_SENDER_EMAIL:
                 //TaskSenderEmail
                 if($in){
                     //in
@@ -301,7 +326,7 @@ class TaskFactory {
                     $array->add(DataFactory::SAME);
                 }
                 break;
-            case 3:
+            case self::TASK_SENDER_BLOG:
                 //TaskSenderBlog
                 if($in){
                     //in
@@ -312,7 +337,7 @@ class TaskFactory {
                     $array->add(DataFactory::SAME);
                 }
                 break;
-            case 4:
+            case self::TASK_SENDER_SOCIAL:
                 //TaskSenderSocial
                 if($in){
                     //in
@@ -321,6 +346,17 @@ class TaskFactory {
                 else{
                     //out
                     $array->add(DataFactory::SAME);
+                }
+                break;
+            case self::TASK_ACTION_ARRANGER_TEXT:
+                //TaskActionArrangerText
+                if($in){
+                    //in
+                    $array->add(DataFactory::SAME);
+                }
+                else{
+                    //out
+                    $array->add(DataFactory::TYPE_STRING);
                 }
                 break;
         }

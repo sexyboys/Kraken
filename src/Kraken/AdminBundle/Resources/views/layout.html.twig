@@ -31,6 +31,15 @@
                         </ul>
 
 
+                          <ul class="pull-right nav">
+
+                              <li class="pull-right">
+                                  <a href="{{ path('fos_user_security_logout') }}">
+                                      <i class="icon-off"></i>
+                                      {% trans %}nav.logout{% endtrans %}
+                                  </a>
+                              </li>
+                          </ul>
                       </div><!--/.nav-collapse -->
                   </div>
                 </div>
@@ -41,20 +50,23 @@
 
                 <div class="row-fluid">
                     {% block flash_msg %}
-                        {% for key, message in app.session.getFlashes() %}
-                            {% if key=="error" %}
-                                <div class="span12 alert alert-error">
-                                {{ message }}
-                                </div>
-                            {% elseif key=="success" %}
-                                <div class="span12 alert alert-success">
-                                {{ message }}
-                                </div>
-                            {% elseif key=="notice" %}
-                                <div class="span12 alert alert-info">
-                                {{ message }}
-                                </div>
-                            {% endif %}
+                        {% for type, messages in app.session.flashbag.all() %}
+
+                            {% for key, message in messages %}
+                                {% if type=="error" %}
+                                    <div class="span12 alert alert-error">
+                                        {{ message }}
+                                    </div>
+                                {% elseif type=="success" %}
+                                    <div class="span12 alert alert-success">
+                                        {{ message }}
+                                    </div>
+                                {% elseif type=="notice" %}
+                                    <div class="span12 alert alert-info">
+                                        {{ message }}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
                         {% endfor %}
                     {% endblock %}
                 </div>

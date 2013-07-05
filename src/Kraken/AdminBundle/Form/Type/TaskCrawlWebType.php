@@ -34,9 +34,16 @@ class TaskCrawlWebType extends AbstractType
                                               "trim"=>true
                                             )
                 )
+            ->add('link','text',array('label'=>'admin.task.form.link','required'=>true))
             ->add('multipageRegex','text',array('label'=>'admin.task.form.multipage.regex','required'=>false))
             ->add('multipageLimit','text',array('label'=>'admin.task.form.multipage.limit','required'=>false))
             ->add('linkMoreRegex','text',array('label'=>'admin.task.form.more','required'=>false))
+            ->add('tags', 'collection',
+                array('type'         => new TagType(),
+                'allow_add'    => true,
+                'by_reference' => false,
+                'allow_delete' => true
+                ))
 
         ;
 

@@ -2,15 +2,19 @@
 
 namespace Kraken\AdminBundle\Controller;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Inflexible\Inflexible;
 use Kraken\AdminBundle\Form\Type\ScenarioType;
 use Kraken\Entities\Data\DataArticle;
 use Kraken\Entities\Scenario;
+use Kraken\Entities\Tag;
+use Kraken\Entities\TaskActionArrangerText;
 use Kraken\Factories\DataFactory;
 use Kraken\Factories\TaskFactory;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Kraken\Managers\Services\DisplayLogService;
 
 /**
  * Class TaskController
@@ -34,15 +38,7 @@ class TaskController extends ContainerAware
         $task_datas = TaskFactory::getInstance()->getTaskTypesWithDatas();
 
         //Prepare kind of datas in and out for all kind of tasks
-        $general_array[DataFactory::NONE] = $this->container->get('translator')->trans('DataNone');
-        $general_array[DataFactory::SAME] = $this->container->get('translator')->trans('DataSame');
-        $general_array[DataFactory::TYPE_ARTICLE] = $this->container->get('translator')->trans('DataArticle');
-        $general_array[DataFactory::TYPE_DATE] = $this->container->get('translator')->trans('DataDate');
-        $general_array[DataFactory::TYPE_INTEGER] = $this->container->get('translator')->trans('DataInteger');
-        $general_array[DataFactory::TYPE_LIST] = $this->container->get('translator')->trans('DataList');
-        $general_array[DataFactory::TYPE_STRING] = $this->container->get('translator')->trans('DataString');
-        $general_array[DataFactory::TYPE_LIST_STRING] = $this->container->get('translator')->trans('DataListString');
-        $general_array[DataFactory::TYPE_LIST_ARTICLE] = $this->container->get('translator')->trans('DataListArticle');
+        $general_array = DataFactory::getInstance()->getDatanamesArray();
 
         //print_r($task_datas);exit;
         $this->container->get('session')->set('page',$this->container->get('translator')->trans('admin.page.task'));
@@ -93,22 +89,23 @@ class TaskController extends ContainerAware
     public function addAction($id,$type,$first=false)
     {
         $sc = TaskFactory::getInstance()->getTypeInstance($type);
+        if($sc->getXslt()==""){
+            $str = '<?xml version="1.0" encoding="ISO-8859-1"?>
+                    <xsl:stylesheet
+                        version="1.0"
+                        xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                        xmlns="http://www.w3.org/TR/REC-html40" result-ns="">
 
+                    </xsl:stylesheet>';
+            $sc->setXslt($str);
+        }
         $form = $this->container->get('form.factory')->create(TaskFactory::getInstance()->getTypeFormInstance($type), $sc);
 
         $request = $this->container->get('request');
 
         $array_in = TaskFactory::getInstance()->defineDataByTask($type,true);
         $array_out = TaskFactory::getInstance()->defineDataByTask($type,false);
-        $general_array[DataFactory::NONE] = $this->container->get('translator')->trans('DataNone');
-        $general_array[DataFactory::SAME] = $this->container->get('translator')->trans('DataSame');
-        $general_array[DataFactory::TYPE_ARTICLE] = $this->container->get('translator')->trans('DataArticle');
-        $general_array[DataFactory::TYPE_DATE] = $this->container->get('translator')->trans('DataDate');
-        $general_array[DataFactory::TYPE_INTEGER] = $this->container->get('translator')->trans('DataInteger');
-        $general_array[DataFactory::TYPE_LIST] = $this->container->get('translator')->trans('DataList');
-        $general_array[DataFactory::TYPE_STRING] = $this->container->get('translator')->trans('DataString');
-        $general_array[DataFactory::TYPE_LIST_STRING] = $this->container->get('translator')->trans('DataListString');
-        $general_array[DataFactory::TYPE_LIST_ARTICLE] = $this->container->get('translator')->trans('DataListArticle');
+        $general_array = DataFactory::getInstance()->getDatanamesArray();
 
         if ('POST' == $request->getMethod() && !$first) {
             $form->bind($request);
@@ -186,27 +183,18 @@ class TaskController extends ContainerAware
         $index = TaskFactory::getInstance()->getTypeIndex($request->get("type"));
         $form = $this->container->get('form.factory')->create(
             TaskFactory::getInstance()->getTypeFormInstance($index)
-            , $entity);
+            , $entity
+        );
         $request = $this->container->get('request');
 
         $array_in = TaskFactory::getInstance()->defineDataByTask($request->get("type"),true);
         $array_out = TaskFactory::getInstance()->defineDataByTask($request->get("type"),false);
-        $general_array[DataFactory::NONE] = $this->container->get('translator')->trans('DataNone');
-        $general_array[DataFactory::SAME] = $this->container->get('translator')->trans('DataSame');
-        $general_array[DataFactory::TYPE_ARTICLE] = $this->container->get('translator')->trans('DataArticle');
-        $general_array[DataFactory::TYPE_DATE] = $this->container->get('translator')->trans('DataDate');
-        $general_array[DataFactory::TYPE_INTEGER] = $this->container->get('translator')->trans('DataInteger');
-        $general_array[DataFactory::TYPE_LIST] = $this->container->get('translator')->trans('DataList');
-        $general_array[DataFactory::TYPE_STRING] = $this->container->get('translator')->trans('DataString');
-        $general_array[DataFactory::TYPE_LIST_STRING] = $this->container->get('translator')->trans('DataListString');
-        $general_array[DataFactory::TYPE_LIST_ARTICLE] = $this->container->get('translator')->trans('DataListArticle');
-
+        $general_array = DataFactory::getInstance()->getDatanamesArray();
 
         if ('POST' == $request->getMethod()) {
-            $form->bindRequest($request);
+            $form->bind($request);
             if ($form->isValid()) {
-
-                //check if in or out is filled
+                //in or out is filled
                 if($request->get('out')!=null)
                 {
                     $index = $request->get('out');
@@ -219,6 +207,11 @@ class TaskController extends ContainerAware
                     $index = $request->get('in');
                     $entity->setChosenInputData($general_array[$index]);
                 }
+
+                $this->container->get('kraken.task')->update($entity);
+
+                //Reload task
+                $this->container->get('kraken.task')->reloadTask($entity);
 
                 //save it
                 $this->container->get('kraken.task')->update($entity);
@@ -238,17 +231,22 @@ class TaskController extends ContainerAware
                 );
             }
         }
-
-        $in_value = $entity->getInputData()!=null?$this->container->get('translator')->trans(Inflexible::denamespace(get_class($entity->getInputData()))):0;
-        $out_value = $entity->getOutputData()!=null?$this->container->get('translator')->trans(Inflexible::denamespace(get_class($entity->getOutputData()))):0;
+        //generate tags for form
+        /*$tags = $entity->getTags();
+        $array = array();
+        foreach($tags as $tag)
+        {
+            $array[]['name']=$tag->getName();
+            $array[]['regex']=$tag->getRegex();
+            $array[]['type']=$tag->getType();
+        }
+        $entity->setTags($array);*/
 
         return $this->container->get('templating')->renderResponse('KrakenAdminBundle:Task:edit.html.twig',
             array(
                 'form' => $form->createView(),
                 'entity'=>$entity,
                 "type"=>$request->get("type"),
-                'value_in' =>$in_value,
-                'value_out' =>$out_value,
                 'array_in'=>$array_in,
                 'array_out'=>$array_out,
                 "general_array"=>$general_array
@@ -298,10 +296,10 @@ class TaskController extends ContainerAware
             //find the index load the previous and change with him
             $index = $entity->getScenario()->getTasks()->indexOf($entity);
             if($position==0){
-                if($index>0){
+                if($index>0){//if it's not the first, get the previous and switch position on them
                     $prev_entity = $entity->getScenario()->getTasks()->get($index-1);
-                    $prev_entity->setPosition($index);
-                    $entity->setPosition($index-1);
+                    $prev_entity->setPosition($entity->getPosition());
+                    $entity->setPosition($entity->getPosition()-1);
 
                     $this->container->get('kraken.task')->update($prev_entity);
                 }
@@ -312,8 +310,8 @@ class TaskController extends ContainerAware
                 if($index<$entity->getScenario()->getTasks()->count()-1)
                 {
                     $next_entity = $entity->getScenario()->getTasks()->get($index+1);
-                    $next_entity->setPosition($index);
-                    $entity->setPosition($index+1);
+                    $next_entity->setPosition($entity->getPosition());
+                    $entity->setPosition($entity->getPosition()+1);
                     $this->container->get('kraken.task')->update($next_entity);
                 }
             }
@@ -384,5 +382,34 @@ class TaskController extends ContainerAware
     }
 
 
+
+    /**
+     * Execute task (previous if exists until the given one and display result)
+     * @param $id Task id
+     * @return display result
+     */
+    public function executeAction($id)
+    {
+        $task = $this->container->get('kraken.task')->find($id);
+
+        try{
+            $this->container->get('kraken.displaylog')->clear();
+            $result = $this->container->get('kraken.scenario')->executeToDisplay($task->getScenario(),$task);
+        }
+        catch(\Exception $exception)
+        {
+            $this->container->get('logger')->err("Error while executing task ".$id." to display : ".$exception->getMessage());
+
+            $this->container->get('kraken.displaylog')->display('execute.display.task.error',array("%msg%"=>$exception->getCode()),DisplayLogService::TYPE_ERROR, $exception);
+
+        }
+        return $this->container->get('templating')->renderResponse('KrakenAdminBundle:Task:execute.html.twig',
+            array(
+                'result'=>$this->container->get('kraken.displaylog')->getLog(),
+                "scenario"=>$task->getScenario(),
+                "task"=>$task
+            )
+        );
+    }
 
 }

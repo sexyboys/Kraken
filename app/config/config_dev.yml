@@ -15,6 +15,7 @@ monolog:
             type:  stream
             path:  %kernel.logs_dir%/%kernel.environment%.log
             level: info
+            channels: main
         firephp:
             type:  firephp
             level: info
@@ -25,6 +26,6 @@ assetic:
 swiftmailer:
     delivery_address:  %debug_mail%
 
-orkestra_apc:
+#orkestra_apc:
     # Your website URL. Use by the clear command.
-    website_url: %debug_website_url%
+ #   website_url: %debug_website_url%

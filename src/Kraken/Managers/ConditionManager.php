@@ -3,7 +3,7 @@
 namespace Kraken\Managers;
 
 use Kraken\AdminBundle\Form\Type\ConditionStringType;
-use Kraken\Entities\Condition;
+use Kraken\UserBundle\Entity\Condition;
 use Symfony\Bridge\Monolog\Logger;
 
 /**
@@ -23,7 +23,7 @@ class ConditionManager extends BaseManager {
 
     public function getRepository()
     {
-        return $this->em->getRepository('Kraken\Entities\Condition');
+        return $this->em->getRepository('Kraken\UserBundle\Entity\Condition');
     }
 
 

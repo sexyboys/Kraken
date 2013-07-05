@@ -4,12 +4,12 @@ namespace Kraken\Managers;
 
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Kraken\Entities\Data\Data;
-use Kraken\Entities\Data\DataArticle;
-use Kraken\Entities\Data\DataDate;
-use Kraken\Entities\Data\DataInteger;
-use Kraken\Entities\Data\DataList;
-use Kraken\Entities\Data\DataString;
+use Kraken\UserBundle\Entity\Data;
+use Kraken\UserBundle\Entity\DataArticle;
+use Kraken\UserBundle\Entity\DataDate;
+use Kraken\UserBundle\Entity\DataInteger;
+use Kraken\UserBundle\Entity\DataList;
+use Kraken\UserBundle\Entity\DataString;
 use Symfony\Bridge\Monolog\Logger;
 /**
  * Class DataManager
@@ -33,7 +33,7 @@ class DataManager extends BaseManager {
 
     public function getRepository()
     {
-        return $this->em->getRepository('Kraken\Entities\Data\Data');
+        return $this->em->getRepository('Kraken\UserBundle\Entity\Data');
     }
 
     /**

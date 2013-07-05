@@ -21,9 +21,6 @@
 {% block content %}
 
 
-    <div class="container">
-        <div class="row">
-            <div class="span12 ">
                 <h3 class="bloc_header">
                     {% trans %}admin.task.add{% endtrans %} {{ task_type }}
                 </h3>
@@ -33,48 +30,25 @@
                     {{ form_widget(form) }}
                     <!--DATA IN -->
                     <label>{% trans %}admin.task.data.in{% endtrans %}</label>
-                    {% for id,row in array_in %}
-                        {% if row >=0 and id==0 %}
-                            <select name="in">
-                        {% endif %}
 
-                        {% if row == -2 %}<!--none -->
-                            <option value="{{ row }}">{{ attribute(general_array, row) }}</option>
-                        {% elseif row == -1 %}<!--same/auto-->
-                            <option value="{{ row }}">{{ attribute(general_array, row) }}</option>
-                        {% else %}<!--others-->
-                            <option value="{{ row }}">{{ attribute(general_array, row) }}</option>
-                        {% endif %}
-
-                        {% if row >=0 and id==array_in|length-1 %}
-                            </select>
-                        {% endif %}
-                    {% endfor %}
-
+                    <select name="in">
+                        {% for id,row in array_in %}
+                                <option value="{{ row }}">{{ attribute(general_array, row)|trans() }}</option>
+                        {% endfor %}
+                    </select>
                     <br/> <br/>
 
                     <!-- DATA OUT -->
                     <label>{% trans %}admin.task.data.out{% endtrans %}</label>
 
-                    {% for id,row in array_out %}
-                            <select name="out">
-
-                        {% if row == -2 %}<!--none -->
-                                <option value="{{ row }}">{{ attribute(general_array, row) }}</option>
-                        {% elseif row == -1 %}<!--same/auto-->
-                                <option value="{{ row }}">{{ attribute(general_array, row) }}</option>
-                        {% else %}<!--others-->
-                            <option value="{{ row }}">{{ attribute(general_array, row) }}</option>
-                        {% endif %}
-
-                            </select>
-                    {% endfor %}
+                    <select name="out">
+                        {% for id,row in array_out %}
+                            <option value="{{ row }}">{{ attribute(general_array, row)|trans() }}</option>
+                        {% endfor %}
+                    </select>
 
                     <br/><br/>
                     <input type="submit" />
                 </form>
-            </div>
-        </div>
-    </div>
 
 {% endblock %}

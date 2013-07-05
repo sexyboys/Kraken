@@ -4,6 +4,7 @@ Kraken
 Project description
 -------------------
 
+This project is under developpment, please DO NOT use it for the moment, you can join the project by mailing user epidoux or SexyBoys github Group.
 TODO
 
 Features

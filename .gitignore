@@ -1,8 +1,0 @@
-.idea/*
-vendor/*
-app/cache/*
-app/logs/*
-app/parameters.yml
-composer.phar
-composer.lock
-*~

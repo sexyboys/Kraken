@@ -1,5 +1,0 @@
-{% extends "FileDUserBundle::layout.html.twig" %}
-
-{% block fos_user_content %}
-    <p class="alert alert-success">{{ 'registration.check_email'|trans({'%email%': user.email}, 'FOSUserBundle') }}</p>
-{% endblock fos_user_content %}

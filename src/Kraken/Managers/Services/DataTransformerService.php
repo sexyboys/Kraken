@@ -100,6 +100,7 @@ class DataTransformerService extends BaseService {
      */
     public function transform($data,$type,$list=null)
     {
+
         $result = null;
         if(DataFactory::getInstance()->isAnInstance($data,DataFactory::TYPE_ARTICLE))
         {
@@ -243,12 +244,13 @@ class DataTransformerService extends BaseService {
             //list transformed into LIST of string
             if(DataFactory::getInstance()->isAnInstance($data,DataFactory::TYPE_LIST_ARTICLE))
             {
-                //transform list of article
-                $result = $this->transformListStringIntoListArticle($data,$list);
+                //transform list of article into a list of string
+                $result = $this->transformListArticleIntoListString($data,$list);
             }
             else{
-                //transform list of string
-                if($list == null)
+
+                //transform list of string into the same
+                if($list == "")
                 {
                     $result = $data;
                 }
@@ -270,9 +272,9 @@ class DataTransformerService extends BaseService {
                 else $result = $list;
             }
             else{
-                //transform list of string
+                //transform list of string into list of article
 
-                $result = $this->transformListArticleIntoListString($data,$list);
+                $result = $this->transformListStringIntoListArticle($data,$list);
             }
         }
         else
@@ -281,7 +283,7 @@ class DataTransformerService extends BaseService {
             $str = "";
             foreach($data->getContent() as $row)
             {
-                if(DataFactory::getInstance()->isAnInstance($data,DataFactory::TYPE_LIST_ARTICLE))
+                if(DataFactory::getInstance()->isAnInstance($row,DataFactory::TYPE_ARTICLE))
                 {
                     $str.= $row->getTitle();
                     $str.= " \n ";
@@ -332,7 +334,11 @@ class DataTransformerService extends BaseService {
         foreach($data->getContent() as $art)
         {
             $str = new DataString();
-            $str->setContent($art->getTitle()." //  ".$art->getDate()->format('Y-m-d H:i:s')." // ".$art->getContent());
+            $txt ="";
+            if($art->getTitle()!="") $txt .= $art->getTitle()." // ";
+            if($art->getDate()!=null) $txt .= $art->getDate()->format('Y-m-d H:i:s')." // ";
+            if($art->getContent()!="") $txt .= $art->getContent();
+            $str->setContent($txt);
             $list->getContent()->add($str);
         }
 

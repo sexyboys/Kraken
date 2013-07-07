@@ -208,7 +208,6 @@ class TaskManager extends BaseManager {
                     $task->getTags(),
                     $task->getChosenOutputData()
                 );
-
                 //Check if exists double contents if true, remove doubles
                 $out_purged = $this->dataTransformerService->purgeDoubles($task,$out);
 
@@ -227,17 +226,13 @@ class TaskManager extends BaseManager {
                 //TaskActionArrangerText
                 $data_xml = $this->xmlService->transformDataToXml($task,$content);
                 $out = $this->xmlService->transformXmlWithXslt($task->getXslt(),$data_xml);
+
+
             }
             else if($classname == TaskFactory::TASK_SENDER_EMAIL_CLASSNAME)
             {
                 //TaskSenderEmail
-                $out_str = $this->dataTransformerService->transform($content,DataFactory::TYPE_STRING);
-
-                $content_trans = str_replace(EmailService::KEY_CONTENT,$out_str->getContent(),$task->getContent());
-
-                //$content_trans = str_replace(EmailService::KEY_SOURCE,$content_trans,$source);
-
-                $this->emailService->send($task->getEmails(),$task->getObject(),$content_trans);
+                $this->emailService->prepare($task,$content);
                 $out = $content;
             }
             else if($classname == TaskFactory::TASK_SENDER_BLOG_CLASSNAME)
@@ -314,7 +309,7 @@ class TaskManager extends BaseManager {
                     $firstContent = $list->get(0)->getTitle()." // ".$content;
                 }
                 else{
-                    $firstContent = $list->get(0);
+                    $firstContent = $list->get(0)->getContent();
 
                 }
                 $excerpt = $this->translator->trans('execute.display.output.list',

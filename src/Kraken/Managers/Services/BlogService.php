@@ -3,12 +3,16 @@
 namespace Kraken\Managers\Services;
 
 use Symfony\Bridge\Monolog\Logger;
+
 /**
  * service on blog
  * Class BlogService
  * @package Kraken\Managers\Services
+ * @author epidoux
+ * @version 1.0
  */
-class BlogService extends BaseService {
+class BlogService extends BaseService
+{
 
     public function __construct(Logger $logger,$enable){
 

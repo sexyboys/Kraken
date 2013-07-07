@@ -70,7 +70,7 @@ services:
 
      kraken.email:
          class: %kraken.email.class%
-         arguments: [@logger,@mailer,%service_sender_email%,%from_email%,%from_email_name%]
+         arguments: [@logger,@mailer,@kraken.displaylog,%service_sender_email%,%from_email%,%from_email_name%]
          tags:
             - { name: monolog.logger, channel: main }
 

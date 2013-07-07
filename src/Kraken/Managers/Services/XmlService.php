@@ -44,20 +44,23 @@ class XmlService extends BaseService {
     {
         try
         {
-
-            $xml = '<?xml version="1.0" encoding="ISO-8859-1"?>
-                    <root>';
-            if(!$task->getSeparateList()) $xml.='<datas>';
+            $xml="";
 
             if(DataFactory::getInstance()->isAnInstance($datas,DataFactory::TYPE_LIST_STRING)
               || DataFactory::getInstance()->isAnInstance($datas,DataFactory::TYPE_LIST)
               || DataFactory::getInstance()->isAnInstance($datas,DataFactory::TYPE_LIST_ARTICLE)
             )
             {//list element
+                if($task->getSeparateList())$result = new DataList();
+                else $result = new DataString();
+
+                $xml_front = '<?xml version="1.0" encoding="ISO-8859-1"?>
+                    <root><datas>';
+
+                $xml_end='</datas></root>';
 
                 foreach($datas->getContent() as $data)
                 {
-                    if($task->getSeparateList()) $xml.='<datas>';
 
                     $xml.='<data type="'.DataFactory::getInstance()->getDataName($data).'">';
 
@@ -71,7 +74,15 @@ class XmlService extends BaseService {
 
                     $xml.='</data>';
 
-                    if($task->getSeparateList()) $xml.='</datas>';
+                    if($task->getSeparateList())
+                    {
+                        //add it
+                        $el = new DataString();
+                        $el->setContent($xml_front.$xml.$xml_end);
+                        $result->getContent()->add($el);
+                        $xml = "";
+
+                    }
                 }
             }
             else{//single element
@@ -90,9 +101,11 @@ class XmlService extends BaseService {
 
             }
 
-            if(!$task->getSeparateList()) $xml.='<datas>';
+            if(!$task->getSeparateList()){
+                $result->setContent($xml_front.$xml.$xml_end);
+            }
 
-            $xml.="</root>";
+            $this->displayLog->display('execute.display.xml',array(),DisplayLogService::TYPE_INFO);
         }
         catch(\Exception $e)
         {
@@ -103,10 +116,6 @@ class XmlService extends BaseService {
             throw $e;
         }
 
-        $result = new DataString();
-        $this->displayLog->display('execute.display.xml',array(),DisplayLogService::TYPE_INFO);
-
-        $result->setContent($xml);
         return $result;
     }
 
@@ -114,8 +123,8 @@ class XmlService extends BaseService {
     /**
      * Transform DataString(Xml) given into string with xslt
      * @param $xslt string the xslt used to transform
-     * @param $xml DataString the xml to transform
-     * @return the DataString transformed
+     * @param $xml Data the xml to transform
+     * @return the Data transformed
      */
     public function transformXmlWithXslt($xslt,$dataxml)
     {
@@ -123,17 +132,40 @@ class XmlService extends BaseService {
         {
             $this->displayLog->display('execute.display.xml.xslt',array(),DisplayLogService::TYPE_INFO);
 
-            $xml = new \DomDocument();
-            $xml->loadXML($dataxml->getContent());
             $xsl = new \DomDocument();
             $xsl->loadXML($xslt, LIBXML_NOCDATA);
-            $proc = new \XSLTProcessor();
-            $proc->importStylesheet($xsl);
-            $resultFile = $proc->transformToDoc($xml);
-            $result = $resultFile->saveHTML();
-            if(!$result) throw new XSLTParseErrorException("Error in your XSLT file, please check it first");
 
-            $dataxml->setContent($result);
+            if(DataFactory::getInstance()->isAnInstance($dataxml,DataFactory::TYPE_LIST_STRING)
+                || DataFactory::getInstance()->isAnInstance($dataxml,DataFactory::TYPE_LIST)
+                || DataFactory::getInstance()->isAnInstance($dataxml,DataFactory::TYPE_LIST_ARTICLE)
+            )
+            {//list data
+                foreach($dataxml as $el)
+                {
+                    $proc = new \XSLTProcessor();
+                    $proc->importStylesheet($xsl);
+
+                    $xml = new \DomDocument();
+                    $xml->loadXML($el->getContent());
+                    $resultFile = $proc->transformToDoc($xml);
+                    $result = $resultFile->saveHTML();
+                    $el->setContent(html_entity_decode($result));
+                    if(!$result) throw new XSLTParseErrorException("Error in your XSLT file, please check it first");
+                }
+            }
+            else{
+                //data string
+
+                $proc = new \XSLTProcessor();
+                $proc->importStylesheet($xsl);
+                $xml = new \DomDocument();
+                $xml->loadXML($dataxml->getContent());
+                $resultFile = $proc->transformToDoc($xml);
+                $result = $resultFile->saveHTML();
+                if(!$result) throw new XSLTParseErrorException("Error in your XSLT file, please check it first");
+
+                $dataxml->setContent(html_entity_decode($result));
+            }
 
         }
         catch(\Exception $e)
@@ -145,6 +177,7 @@ class XmlService extends BaseService {
 
             throw $e;
         }
+
         return $dataxml;
     }
 }

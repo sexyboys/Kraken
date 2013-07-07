@@ -80,6 +80,8 @@ execute.display.xml.error: Error while transforming Data into Xml, this is the e
 execute.display.xml.xslt: Transform XML with XSLT
 execute.display.xml.xslt.result: Excerpt of Result : %excerpt%
 execute.display.xml.xslt.error: Error while transforming Xml with the given Xslt, this is the error returned: %msg%
+execute.display.email.error: Error while sending Data by Email: %msg%
+execute.display.email.send: Sending an email to %count% adresses
 
 #Users messages
 

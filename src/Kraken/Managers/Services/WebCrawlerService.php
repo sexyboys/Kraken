@@ -53,11 +53,11 @@ class WebCrawlerService extends BaseService {
 
             $result = new DataList();
             $result->setContent(new ArrayCollection());
-            //handle multipage (AND NOLIMIT!!!!)
+            //handle multipage
+            $this->displayLog->display('execute.display.crawler.web.multipage',array("%count%"=>$multipageLimit,"%regex%"=>$multipageRegex),DisplayLogService::TYPE_INFO);
+
             for($i=0;$i<$multipageLimit;$i++)
             {
-
-                $this->displayLog->display('execute.display.crawler.web.multipage',array("%count%"=>$multipageLimit,"%regex%"=>$multipageRegex),DisplayLogService::TYPE_INFO);
 
                 //if readmore
                 if($linkMoreRegex!=null)
@@ -71,25 +71,34 @@ class WebCrawlerService extends BaseService {
 
                         $this->displayLog->display('execute.display.crawler.web.tags.mother',array("%regex%"=>$mother->getRegex()),DisplayLogService::TYPE_INFO);
 
-
-                        for($i=0; $i<=9999999; $i++)
-                        {
-                            $node = $crawler->filter($mother->getRegex())->eq($i);
-
-                            if( $node != $crawler->filter($mother->getRegex())->last())
+                        $j=1;
+                        $break=false;
+                        try{
+                            while(!$break)
                             {
-                                $read_link =  $node->filter($linkMoreRegex)->link();
-                                $crawl = $this->crawl($tags,$client->click($read_link),$read_link->getUri());
 
-                                $this->displayLog->display('execute.display.crawler.web.found',array("%title%"=>$crawl->getTitle()),DisplayLogService::TYPE_SUCCESS);
+                                $node = $crawler->filter($mother->getRegex())->eq($j);
 
-                                $result->getContent()->add($crawl);
+                                if( $node != $crawler->filter($mother->getRegex())->last())
+                                {
+                                    $read_link =  $node->filter($linkMoreRegex)->link();
+
+                                    $crawl = $this->crawl($tags,$client->click($read_link),$read_link->getUri());
+
+                                    $this->displayLog->display('execute.display.crawler.web.found',array("%title%"=>$crawl->getTitle()),DisplayLogService::TYPE_SUCCESS);
+
+                                    $result->getContent()->add($crawl);
+                                }
+                                else{
+
+                                    $break=true;
+                                }
+
+                                $j++;
                             }
-                            else
-                            {
-                                break;
-                            }//break because limit reached
-                        }
+                        }//exception to go out the loop
+                        catch(\Exception $e){}
+
                     }
                     else{
                         //don't parse here but forward
@@ -128,7 +137,13 @@ class WebCrawlerService extends BaseService {
                     }
                 }
 
+                //go to the next page
+                if($multipageRegex!=null)
+                {
+                    $link = $crawler->filter($multipageRegex)->link();
 
+                    $crawler = $client->click($link);
+                }
             }
         }
         catch(\Exception $e)
@@ -168,7 +183,7 @@ class WebCrawlerService extends BaseService {
                     {
                         $this->displayLog->display('execute.display.crawler.web.tags.title',array("%regex%"=>$tag->getRegex()),DisplayLogService::TYPE_INFO);
 
-                        $title = $crawler->filter($filterTitle)->text();
+                        $title = $crawler->filter($filterTitle)->html();
                     }
                 }
 
@@ -181,21 +196,19 @@ class WebCrawlerService extends BaseService {
                     {
                         $this->displayLog->display('execute.display.crawler.web.tags.date',array("%regex%"=>$tag->getRegex()),DisplayLogService::TYPE_INFO);
 
-                        $date = new \DateTime($crawler->filter($filterDate)->text());
+                        $date = new \DateTime($crawler->filter($filterDate)->html());
                     }
                 }
 
                 $tag = TagFactory::getInstance()->getTag($tags,TagFactory::TYPE_CONTENT);
                 if($tag!=null)
                 {
-
-
                     $filterContent = $tag->getRegex();
                     if($filterContent != null)
                     {
                         $this->displayLog->display('execute.display.crawler.web.tags.content',array("%regex%"=>$tag->getRegex()),DisplayLogService::TYPE_INFO);
 
-                        $content = $crawler->filter($filterContent)->text();
+                        $content = $crawler->filter($filterContent)->html();
                     }
                 }
 
@@ -203,8 +216,8 @@ class WebCrawlerService extends BaseService {
 
                 //merge content into  Article
                 $result = new DataArticle();
-                $result->setContent(html_entity_decode($content,ENT_QUOTES,"utf-8"));
-                $result->setTitle(html_entity_decode($title,ENT_QUOTES,"utf-8"));
+                $result->setContent("<![CDATA[".html_entity_decode($content,ENT_QUOTES,"utf-8")."]]>");
+                $result->setTitle("<![CDATA[".html_entity_decode($title,ENT_QUOTES,"utf-8")."]]>");
                 $result->setDate($date);
                 $result->setSource($link);
 
@@ -212,9 +225,9 @@ class WebCrawlerService extends BaseService {
             }
             else{
                 //return crawler convert to text
-                $content = $crawler->filter()->html();
+                $content = $crawler->filter()->text();
                 $result = new DataString();
-                $result->setContent(html_entity_decode($content,ENT_QUOTES,"utf-8"));
+                $result->setContent("<![CDATA[".html_entity_decode($content,ENT_QUOTES,"utf-8")."]]>");
                 $result->setSource($link);
             }
         }
@@ -222,7 +235,7 @@ class WebCrawlerService extends BaseService {
         {
             $this->logger->err("[WebCrawlerService] Error while crawling data :".$e->getCode()." : ".$e->getMessage());
 
-            throw $e;
+            //throw $e;
         }
 
         return $result;

@@ -192,14 +192,16 @@ class DataFactory {
     public function isAnInstance($data,$type)
     {
         $result= false;
-        if($type == self::TYPE_ARTICLE && $data instanceof DataArticle) $result = true;
-        else if($type == self::TYPE_STRING && $data instanceof DataString) $result = true;
-        else if($type == self::TYPE_DATE && $data instanceof DataDate) $result = true;
-        else if($type == self::TYPE_INTEGER && $data instanceof DataInteger) $result = true;
-        else if($type == self::TYPE_LIST && $data instanceof DataList) $result = true;
-        else if($type == self::TYPE_LIST_ARTICLE && $data instanceof DataList) $result = true;
-        else if($type == self::TYPE_LIST_STRING && $data instanceof DataList) $result = true;
-
+        if($data!=null)
+        {
+            if($type == self::TYPE_ARTICLE && $data instanceof DataArticle) $result = true;
+            else if($type == self::TYPE_STRING && $data instanceof DataString) $result = true;
+            else if($type == self::TYPE_DATE && $data instanceof DataDate) $result = true;
+            else if($type == self::TYPE_INTEGER && $data instanceof DataInteger) $result = true;
+            else if($type == self::TYPE_LIST && $data instanceof DataList) $result = true;
+            else if($type == self::TYPE_LIST_ARTICLE && $data instanceof DataList && $this->isAnInstance($data->getContent()->get(0),self::TYPE_ARTICLE)) $result = true;
+            else if($type == self::TYPE_LIST_STRING && $data instanceof DataList && $this->isAnInstance($data->getContent()->get(0),self::TYPE_STRING)) $result = true;
+        }
         return $result;
     }
 

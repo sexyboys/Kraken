@@ -267,7 +267,7 @@ class TaskFactory {
                 }
                 else{
                     //out
-                    $array[]=DataFactory::TYPE_STRING;
+                    $array[]=DataFactory::SAME;
                 }
                 break;
         }
@@ -356,7 +356,7 @@ class TaskFactory {
                 }
                 else{
                     //out
-                    $array->add(DataFactory::TYPE_STRING);
+                    $array->add(DataFactory::TYPE_LIST_STRING);
                 }
                 break;
         }

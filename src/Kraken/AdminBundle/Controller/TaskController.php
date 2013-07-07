@@ -95,6 +95,33 @@ class TaskController extends ContainerAware
                         version="1.0"
                         xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                         xmlns="http://www.w3.org/TR/REC-html40" result-ns="">
+                    <xsl:template match="datas">
+                       <html> <head>
+<meta http-equiv="Content-Type"
+    content="text/html; charset=ISO-8859-1" /></head><body>
+                               <xsl:apply-templates/>
+                       </body> </html>
+                    </xsl:template>
+                    <xsl:template match="data">
+                       <div>
+                               <xsl:apply-templates/>
+                       </div>
+                    </xsl:template>
+                    <xsl:template match="title">
+                       <h3>
+                               <xsl:apply-templates/>
+                       </h3>
+                    </xsl:template>
+                    <xsl:template match="date">
+                       <i>
+                               <xsl:apply-templates/>
+                       </i>
+                    </xsl:template>
+                    <xsl:template match="content">
+                       <p>
+                               <xsl:apply-templates/>
+                       </p>
+                    </xsl:template>
 
                     </xsl:stylesheet>';
             $sc->setXslt($str);

@@ -82,6 +82,15 @@ execute.display.xml.xslt.result: Excerpt of Result : %excerpt%
 execute.display.xml.xslt.error: Error while transforming Xml with the given Xslt, this is the error returned: %msg%
 execute.display.email.error: Error while sending Data by Email: %msg%
 execute.display.email.send: Sending an email to %count% adresses
+execute.display.blog.send: Sending %count% article(s) to blog %blog%
+
+#Blog types
+blog.wordpress: Wordpress
+blog.google: Google Blogger
+blog.trumblr: Trumblr
+
+#Service msg
+service.blog.email.object: Kraken: Auto-post by email from Blog Service
 
 #Users messages
 

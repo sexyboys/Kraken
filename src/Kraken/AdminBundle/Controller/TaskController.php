@@ -5,12 +5,13 @@ namespace Kraken\AdminBundle\Controller;
 use Doctrine\Common\Collections\ArrayCollection;
 use Inflexible\Inflexible;
 use Kraken\AdminBundle\Form\Type\ScenarioType;
-use Kraken\Entities\Data\DataArticle;
-use Kraken\Entities\Scenario;
-use Kraken\Entities\Tag;
-use Kraken\Entities\TaskActionArrangerText;
+use Kraken\UserBundle\Entity\DataArticle;
+use Kraken\UserBundle\Entity\Scenario;
+use Kraken\UserBundle\Entity\Tag;
+use Kraken\UserBundle\Entity\TaskActionArrangerText;
 use Kraken\Factories\DataFactory;
 use Kraken\Factories\TaskFactory;
+use Kraken\Managers\Services\BlogService;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -89,7 +90,10 @@ class TaskController extends ContainerAware
     public function addAction($id,$type,$first=false)
     {
         $sc = TaskFactory::getInstance()->getTypeInstance($type);
-        if($sc->getXslt()==""){
+
+        $params = null;
+        if($type == TaskFactory::TASK_ACTION_ARRANGER_TEXT && $sc->getXslt()=="")
+        {
             $str = '<?xml version="1.0" encoding="ISO-8859-1"?>
                     <xsl:stylesheet
                         version="1.0"
@@ -126,7 +130,16 @@ class TaskController extends ContainerAware
                     </xsl:stylesheet>';
             $sc->setXslt($str);
         }
-        $form = $this->container->get('form.factory')->create(TaskFactory::getInstance()->getTypeFormInstance($type), $sc);
+        else if($type == TaskFactory::TASK_SENDER_BLOG)
+        {
+            $params = array(
+                        BlogService::TYPE_WORDPRESS => $this->container->get('translator')->trans(BlogService::TYPE_WORDPRESS),
+                        BlogService::TYPE_GOOGLE => $this->container->get('translator')->trans(BlogService::TYPE_GOOGLE),
+                        BlogService::TYPE_TRUMBLR => $this->container->get('translator')->trans(BlogService::TYPE_TRUMBLR)
+                    );
+        }
+
+        $form = $this->container->get('form.factory')->create(TaskFactory::getInstance()->getTypeFormInstance($type,$params), $sc);
 
         $request = $this->container->get('request');
 

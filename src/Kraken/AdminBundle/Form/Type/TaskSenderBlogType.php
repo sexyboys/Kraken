@@ -13,8 +13,10 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  */
 class TaskSenderBlogType extends AbstractType
 {
+    private $types;
 
-    public function __construct() {
+    public function __construct($params) {
+        $this->types = $params;
     }
 
     /**
@@ -34,11 +36,12 @@ class TaskSenderBlogType extends AbstractType
                                               "trim"=>true
                                             )
                 )
+            ->add('blogType','choice',array('label'=>'admin.task.form.blog.type',"choices"=>$this->types,'required'=>true))
             ->add('addSource','checkbox',array('label'=>'admin.task.form.source','required'=>false))
-            ->add('blogLogin','text',array('label'=>'admin.task.form.blog.login','required'=>true))
-            ->add('blogPass','text',array('label'=>'admin.task.form.blog.pass','required'=>true))
-            ->add('blogEmail','text',array('label'=>'admin.task.form.blog.email','required'=>true))
-            ->add('blogLink','text',array('label'=>'admin.task.form.blog.link','required'=>true))
+            ->add('blogLogin','text',array('label'=>'admin.task.form.blog.login','required'=>false))
+            ->add('blogPass','text',array('label'=>'admin.task.form.blog.pass','required'=>false))
+            ->add('blogEmail','text',array('label'=>'admin.task.form.blog.email','required'=>false))
+            ->add('blogLink','text',array('label'=>'admin.task.form.blog.link','required'=>false))
 
             ;
 
@@ -47,7 +50,7 @@ class TaskSenderBlogType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'validation_groups' => array('Kraken\Entities\Task\TaskSenderBlog', 'determineValidationGroups'),
+            'validation_groups' => array('Kraken\UserBundle\Entity\TaskSenderBlog', 'determineValidationGroups'),
         ));
     }
     public function getName()

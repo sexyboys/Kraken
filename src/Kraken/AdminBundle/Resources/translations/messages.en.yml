@@ -74,6 +74,7 @@ admin.task.form.object: Object of the email
 admin.task.form.content: Content of the email (use keywords to replace contents as: "[content]","[source]")
 admin.task.form.separate_list: Separate element in list result
 admin.task.form.xslt: Xslt
+admin.task.form.blog.type: Blog type
 admin.task.add.title: Add a task
 admin.task.edit.title: Edit a task
 admin.task.data.in: Input Data

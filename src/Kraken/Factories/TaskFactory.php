@@ -123,10 +123,11 @@ class TaskFactory {
 
     /**
      * Load entity from types
-     * @param index of tasks array
+     * @param integer $index of tasks array
+     * @param object $params the params to give to the form type
      * @return instance of tasks
      */
-    public function getTypeFormInstance($index)
+    public function getTypeFormInstance($index,$params=null)
     {
         switch($index)
         {
@@ -137,7 +138,7 @@ class TaskFactory {
             case 2:
                 $instance = new TaskSenderEmailType();break;
             case 3:
-                $instance = new TaskSenderBlogType();break;
+                $instance = new TaskSenderBlogType($params);break;
             case 4:
                 $instance = new TaskSenderSocialType();break;
             case 5:

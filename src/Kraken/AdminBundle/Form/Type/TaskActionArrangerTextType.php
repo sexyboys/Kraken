@@ -32,7 +32,7 @@ class TaskActionArrangerTextType extends AbstractType
                     ))
             )
             ->add('description','textarea',array('label'=>'form.description',
-                    "required" => true,
+                    "required" => false,
                     "max_length" => 99999999,
                     "trim"=>false
                 )
@@ -55,7 +55,7 @@ class TaskActionArrangerTextType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'validation_groups' => array('Kraken\Entities\Task\TaskActionArrangerText', 'determineValidationGroups'),
+            'validation_groups' => array('Kraken\UserBundle\Entity\TaskActionArrangerText', 'determineValidationGroups'),
         ));
     }
     public function getName()

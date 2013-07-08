@@ -50,7 +50,7 @@ class TaskSenderEmailType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'validation_groups' => array('Kraken\Entities\Task\TaskSenderEmail', 'determineValidationGroups'),
+            'validation_groups' => array('Kraken\UserBundle\Entity\TaskSenderEmail', 'determineValidationGroups'),
         ));
     }
     public function getName()

@@ -44,7 +44,7 @@ class TaskActionTranslateType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'validation_groups' => array('Kraken\Entities\Task\TaskActionTranslate', 'determineValidationGroups'),
+            'validation_groups' => array('Kraken\UserBundle\Entity\TaskActionTranslate', 'determineValidationGroups'),
         ));
     }
     public function getName()

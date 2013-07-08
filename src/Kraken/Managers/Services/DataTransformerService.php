@@ -287,7 +287,7 @@ class DataTransformerService extends BaseService {
                 {
                     $str.= $row->getTitle();
                     $str.= " \n ";
-                    $str .= $row->getDate();
+                    $str .= $row->getDate()->format('d-m-Y H:i:s');
                     $str.= " \n ";
                 }
                 $str.= $row->getContent();

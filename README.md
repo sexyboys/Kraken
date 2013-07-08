@@ -17,6 +17,7 @@ Installation
 1) Install on your system needed extensions/modules
 ```bash
 $ sudo apt-get install php5-xsl
+$ sudo apt-get install php5-xmlrpc
 ```
 
 2) Install composer dependencies

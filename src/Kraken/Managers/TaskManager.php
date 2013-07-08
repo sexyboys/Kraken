@@ -238,7 +238,7 @@ class TaskManager extends BaseManager {
             else if($classname == TaskFactory::TASK_SENDER_BLOG_CLASSNAME)
             {
                 //TaskSenderBlog
-                $out = $this->blogService->sendToBlog($task->getBlogLogin(),$task->getBlogPass(),$task->getBlogEmail(),$task->getBlogLink(),$content,null);
+                $out = $this->blogService->prepare($task,$content,null);
             }
             else if($classname == TaskFactory::TASK_SENDER_SOCIAL_CLASSNAME)
             {

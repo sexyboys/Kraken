@@ -43,7 +43,7 @@ class ScenarioType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'validation_groups' => array('Kraken\Entities\Scenario', 'determineValidationGroups'),
+            'validation_groups' => array('Kraken\UserBundle\Entity\Scenario', 'determineValidationGroups'),
         ));
     }
     public function getName()

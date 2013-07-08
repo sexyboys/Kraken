@@ -54,8 +54,8 @@ class TagType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            "data_class" => "Kraken\Entities\Tag",
-            'validation_groups' => array('Kraken\Entities\Tag', 'determineValidationGroups'),
+            "data_class" => "Kraken\UserBundle\Entity\Tag",
+            'validation_groups' => array('Kraken\UserBundle\Entity\Tag', 'determineValidationGroups'),
         ));
     }
     public function getName()

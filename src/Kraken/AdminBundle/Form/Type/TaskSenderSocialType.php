@@ -42,7 +42,7 @@ class TaskSenderSocialType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'validation_groups' => array('Kraken\Entities\Task\TaskSenderSocial', 'determineValidationGroups'),
+            'validation_groups' => array('Kraken\UserBundle\Entity\TaskSenderSocial', 'determineValidationGroups'),
         ));
     }
     public function getName()

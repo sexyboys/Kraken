@@ -7,6 +7,7 @@ use Inflexible\Inflexible;
 use Kraken\UserBundle\Entity\DataArticle;
 use Kraken\UserBundle\Entity\DataInteger;
 use Kraken\UserBundle\Entity\DataList;
+use Kraken\UserBundle\Entity\DataString;
 use Kraken\Factories\DataFactory;
 use Kraken\Factories\TagFactory;
 use Symfony\Bridge\Monolog\Logger;
@@ -102,7 +103,7 @@ class WebCrawlerService extends BaseService {
                     }
                     else{
                         //don't parse here but forward
-                        $read_link =  $node->filter($linkMoreRegex)->link();
+                        $read_link =  $crawler->filter($linkMoreRegex)->link();
                         $crawl = $this->crawl($tags,$client->click($read_link),$read_link->getUri());
                         $this->displayLog->display('execute.display.crawler.web.found',array("%title%"=>Inflexible::shortenString($crawl)),DisplayLogService::TYPE_SUCCESS);
 
@@ -216,8 +217,8 @@ class WebCrawlerService extends BaseService {
 
                 //merge content into  Article
                 $result = new DataArticle();
-                $result->setContent("<![CDATA[".html_entity_decode($content,ENT_QUOTES,"utf-8")."]]>");
-                $result->setTitle("<![CDATA[".html_entity_decode($title,ENT_QUOTES,"utf-8")."]]>");
+                $result->setContent(html_entity_decode($content,ENT_QUOTES,"utf-8"));
+                $result->setTitle(html_entity_decode($title,ENT_QUOTES,"utf-8"));
                 $result->setDate($date);
                 $result->setSource($link);
 
@@ -227,8 +228,8 @@ class WebCrawlerService extends BaseService {
                 //return crawler convert to text
                 $content = $crawler->filter()->text();
                 $result = new DataString();
-                $result->setContent("<![CDATA[".html_entity_decode($content,ENT_QUOTES,"utf-8")."]]>");
-                $result->setSource($link);
+                $result->setContent(html_entity_decode($content,ENT_QUOTES,"utf-8"));
+
             }
         }
         catch(\Exception $e)

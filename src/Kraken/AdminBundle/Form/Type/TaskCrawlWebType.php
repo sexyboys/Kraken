@@ -52,7 +52,7 @@ class TaskCrawlWebType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'validation_groups' => array('Kraken\Entities\Task\TaskCrawlWeb', 'determineValidationGroups'),
+            'validation_groups' => array('Kraken\UserBundle\Entity\TaskCrawlWeb', 'determineValidationGroups'),
         ));
     }
     public function getName()

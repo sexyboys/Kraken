@@ -66,11 +66,11 @@ class XmlService extends BaseService {
 
                     if(DataFactory::getInstance()->isAnInstance($data,DataFactory::TYPE_ARTICLE))
                     {
-                        $xml.='<title>'.$data->getTitle()."</title>";
-                        $xml.='<date>'.$data->getDate()."</date>";
+                        $xml.='<title><![CDATA['.$data->getTitle()."]]></title>";
+                        $xml.='<date>'.$data->getDate()->format('d-m-Y H:i:s')."</date>";
                     }
 
-                    $xml.='<content>'.$data->getContent()."</content>";
+                    $xml.='<content><![CDATA['.$data->getContent()."]]></content>";
 
                     $xml.='</data>';
 
@@ -91,11 +91,11 @@ class XmlService extends BaseService {
 
                 if(DataFactory::getInstance()->isAnInstance($datas,DataFactory::TYPE_ARTICLE))
                 {
-                    $xml.='<title>'.$datas->getTitle()."</title>";
-                    $xml.='<date>'.$datas->getDate()."</date>";
+                    $xml.='<title><![CDATA['.$datas->getTitle()."]]></title>";
+                    $xml.='<date>'.$datas->getDate()->format('d-m-Y H:i:s')."]]></date>";
                 }
 
-                $xml.='<content>'.$datas->getContent()."</content>";
+                $xml.='<content><![CDATA['.$datas->getContent()."]]></content>";
 
                 $xml.='</data>';
 

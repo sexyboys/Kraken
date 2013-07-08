@@ -3,7 +3,8 @@
 namespace Kraken\AdminBundle\Controller;
 
 use Kraken\AdminBundle\Form\Type\ScenarioType;
-use Kraken\Entities\Scenario;
+use Kraken\UserBundle\Entity\Scenario;
+use Kraken\UserBundle\Entity\Tag;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;

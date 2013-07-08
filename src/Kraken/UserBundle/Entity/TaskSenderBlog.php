@@ -15,27 +15,33 @@ class TaskSenderBlog extends TaskSender{
 
     /**
      * Blog user login
-     * @ORM\Column(name="blog_login",type="string",nullable=true)
+     * @ORM\Column(name="blog_login",type="string",nullable=false)
      */
     protected $blogLogin;
 
     /**
      * Blog user pass
-     * @ORM\Column(name="blog_pass",type="string",nullable=true)
+     * @ORM\Column(name="blog_pass",type="string",nullable=false)
      */
     protected $blogPass;
 
     /**
      * Blog email
-     * @ORM\Column(name="blog_email",type="string",nullable=true)
+     * @ORM\Column(name="blog_email",type="string",nullable=false)
      */
     protected $blogEmail;
 
     /**
      * Blog link example with wordpress(link)/xml-rpc.php
-     * @ORM\Column(name="blog_link",type="string",nullable=true)
+     * @ORM\Column(name="blog_link",type="string",nullable=false)
      */
     protected $blogLink;
+
+    /**
+     * Blog type name
+     * @ORM\Column(name="blog_type",type="string",nullable=true)
+     */
+    protected $blogType;
 
     public function setBlogEmail($blogEmail)
     {
@@ -75,6 +81,16 @@ class TaskSenderBlog extends TaskSender{
     public function getBlogPass()
     {
         return $this->blogPass;
+    }
+
+    public function setBlogType($type)
+    {
+        $this->type = $type;
+    }
+
+    public function getBlogType()
+    {
+        return $this->blogType;
     }
 
 

@@ -64,7 +64,7 @@ services:
 
      kraken.blog:
          class: %kraken.blog.class%
-         arguments: [@logger,%service_sender_blog%]
+         arguments: [@logger,@kraken.email,@translator,@kraken.displaylog,%service_sender_blog%]
          tags:
             - { name: monolog.logger, channel: main }
 

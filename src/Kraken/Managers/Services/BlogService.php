@@ -20,7 +20,9 @@ class BlogService extends BaseService
 
     const TYPE_GOOGLE = "blog.google";
 
-    const TYPE_TRUMBLR = "blog.trumblr";
+    const TYPE_TUMBLR = "blog.tumblr";
+
+    const TYPE_OTHER = "blog.other";
 
     private $emailService;
 
@@ -101,8 +103,8 @@ class BlogService extends BaseService
      */
     public function send($task,$content,$title=null)
     {
-        if($task->getBlogType() == self::TYPE_WORDPRESS)
-        {
+        //if($task->getBlogType() == self::TYPE_WORDPRESS)
+        //{
             //if there is an email defined send to the email and crawl the link
             if($task->getBlogLogin()!="" && $task->getBlogPass()!="")
             {
@@ -130,7 +132,7 @@ class BlogService extends BaseService
                 //if there is a link, crawl it to crawl email
                 //$this->emai
             }
-        }
+        //}
         return true;
 
     }

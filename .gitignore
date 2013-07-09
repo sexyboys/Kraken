@@ -6,3 +6,4 @@ app/parameters.yml
 composer.phar
 composer.lock
 *~
+parameters.yml

@@ -87,7 +87,9 @@ execute.display.blog.send: Sending %count% article(s) to blog %blog%
 #Blog types
 blog.wordpress: Wordpress
 blog.google: Google Blogger
-blog.trumblr: Trumblr
+blog.tumblr: Tumblr
+blog.other: Other
+
 
 #Service msg
 service.blog.email.object: Kraken: Auto-post by email from Blog Service

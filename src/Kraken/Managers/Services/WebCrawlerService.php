@@ -21,6 +21,8 @@ use Symfony\Component\DomCrawler\Crawler;
  * Web service crawler using goutte
  * Class WebCrawlerService
  * @package Kraken\Managers\Services
+ * @author epidoux
+ * @version 1.0
  */
 class WebCrawlerService extends BaseService {
 
@@ -59,7 +61,6 @@ class WebCrawlerService extends BaseService {
 
             for($i=0;$i<$multipageLimit;$i++)
             {
-
                 //if readmore
                 if($linkMoreRegex!=null)
                 {
@@ -72,42 +73,66 @@ class WebCrawlerService extends BaseService {
 
                         $this->displayLog->display('execute.display.crawler.web.tags.mother',array("%regex%"=>$mother->getRegex()),DisplayLogService::TYPE_INFO);
 
-                        $j=1;
+                        $j=0;
                         $break=false;
-                        try{
-                            while(!$break)
+                        while(!$break)
+                        {
+
+                            $node = $crawler->filter($mother->getRegex())->eq($j);
+
+                            if( $j == count($crawler->filter($mother->getRegex()))-1){
+                                //last loop
+                                $break=true;
+                            }
+                            try
                             {
+                                $read_link =  $node->filter($linkMoreRegex)->link();
 
-                                $node = $crawler->filter($mother->getRegex())->eq($j);
+                                $crawl = $this->crawl($tags,$client->click($read_link),$read_link->getUri());
 
-                                if( $node != $crawler->filter($mother->getRegex())->last())
-                                {
-                                    $read_link =  $node->filter($linkMoreRegex)->link();
+                                $this->logger->info("Extracting data : ".Inflexible::shortenString($crawl->getTitle()));
+                                $this->displayLog->display('execute.display.crawler.web.found',array("%title%"=>$crawl->getTitle()),DisplayLogService::TYPE_SUCCESS);
 
-                                    $crawl = $this->crawl($tags,$client->click($read_link),$read_link->getUri());
-
-                                    $this->displayLog->display('execute.display.crawler.web.found',array("%title%"=>$crawl->getTitle()),DisplayLogService::TYPE_SUCCESS);
-
-                                    $result->getContent()->add($crawl);
-                                }
-                                else{
-
-                                    $break=true;
-                                }
+                                $result->getContent()->add($crawl);
 
                                 $j++;
                             }
-                        }//exception to go out the loop
-                        catch(\Exception $e){}
+                            catch(\Exception $e){
+                                //exception catch beacause no readmore link for this article...
+                                $crawl =  $this->crawl($tags,$node,$link);
+                                $this->logger->info("Extracting data without readmore article: ".Inflexible::shortenString($crawl->getTitle()));
+                                $this->displayLog->display('execute.display.crawler.web.found',array("%title%"=>Inflexible::shortenString($crawl->getTitle())),DisplayLogService::TYPE_SUCCESS);
+
+                                $result->getContent()->add($crawl);
+
+                                $j++;
+                            }
+
+
+                        }
 
                     }
                     else{
                         //don't parse here but forward
-                        $read_link =  $crawler->filter($linkMoreRegex)->link();
-                        $crawl = $this->crawl($tags,$client->click($read_link),$read_link->getUri());
-                        $this->displayLog->display('execute.display.crawler.web.found',array("%title%"=>Inflexible::shortenString($crawl)),DisplayLogService::TYPE_SUCCESS);
 
-                        $result->getContent()->add($crawl);
+                        try
+                        {
+                            $read_link =  $crawler->filter($linkMoreRegex)->link();
+                            $crawl = $this->crawl($tags,$client->click($read_link),$read_link->getUri());
+                            $this->logger->info("Extracting data : ".Inflexible::shortenString($crawl->getTitle()));
+                            $this->displayLog->display('execute.display.crawler.web.found',array("%title%"=>Inflexible::shortenString($crawl->getTitle())),DisplayLogService::TYPE_SUCCESS);
+
+                            $result->getContent()->add($crawl);
+                        }
+                        catch(\Exception $e){
+                            //no readmore link
+                            $crawl =  $this->crawl($tags,$crawler,$link);
+                            $this->logger->info("Extracting data : ".Inflexible::shortenString($crawl->getTitle()));
+                            $this->displayLog->display('execute.display.crawler.web.found',array("%title%"=>Inflexible::shortenString($crawl->getTitle())),DisplayLogService::TYPE_SUCCESS);
+
+                            $result->getContent()->add($crawl);
+                        }
+
 
 
                     }
@@ -119,20 +144,36 @@ class WebCrawlerService extends BaseService {
                     if($mother!=null)
                     {
                         //a mother is set
-                        $nodes = $crawler->filter($mother->getRegex());
-                        foreach ($nodes as $node)
+                        $j=0;
+                        $break=false;
+                        while(!$break)
                         {
-                            $crawl = $this->crawl($tags,$node,$link);
-                            $this->displayLog->display('execute.display.crawler.web.found',array("%title%"=>Inflexible::shortenString($crawl)),DisplayLogService::TYPE_SUCCESS);
+
+                            $node = $crawler->filter($mother->getRegex())->eq($j);
+
+                            if( $j == count($crawler->filter($mother->getRegex()))-1){
+                                //last loop
+                                $break=true;
+                            }
+
+                            $crawl =  $this->crawl($tags,$node,$link);
+                            $this->logger->info("Extracting data : ".Inflexible::shortenString($crawl->getTitle()));
+                            $this->displayLog->display('execute.display.crawler.web.found',array("%title%"=>Inflexible::shortenString($crawl->getTitle())),DisplayLogService::TYPE_SUCCESS);
 
                             $result->getContent()->add($crawl);
+
+                            $j++;
+
+
+
                         }
 
                     }
-                    else{
+                    else{//no mother tag
                         //extract content one by one
                         $crawl = $this->crawl($tags,$crawler,$link);
-                        $this->displayLog->display('execute.display.crawler.web.found',array("%title%"=>Inflexible::shortenString($crawl)),DisplayLogService::TYPE_SUCCESS);
+                        $this->logger->info("Extracting data : ".Inflexible::shortenString($crawl->getTitle()));
+                        $this->displayLog->display('execute.display.crawler.web.found',array("%title%"=>Inflexible::shortenString($crawl->getTitle())),DisplayLogService::TYPE_SUCCESS);
 
                         $result->getContent()->add($crawl);
                     }
@@ -149,8 +190,8 @@ class WebCrawlerService extends BaseService {
         }
         catch(\Exception $e)
         {
-            $this->logger->err("[WebCrawlerService] Error while extracting data : ".$e->getMessage());
-
+            $this->logger->err("[WebCrawlerService] Error while extracting data : ".$e->getMessage()." : ".$e->getTraceAsString());
+            throw $e;
 
         }
 
@@ -193,12 +234,15 @@ class WebCrawlerService extends BaseService {
                 {
                     $filterDate = $tag->getRegex();
 
-                    if($filterDate != null)
-                    {
-                        $this->displayLog->display('execute.display.crawler.web.tags.date',array("%regex%"=>$tag->getRegex()),DisplayLogService::TYPE_INFO);
+                    try{
+                        if($filterDate != null)
+                        {
+                            $this->displayLog->display('execute.display.crawler.web.tags.date',array("%regex%"=>$tag->getRegex()),DisplayLogService::TYPE_INFO);
 
-                        $date = new \DateTime($crawler->filter($filterDate)->html());
+                            $date = new \DateTime($crawler->filter($filterDate)->text());
+                        }
                     }
+                    catch(\Exception $e){}//error while parsing date
                 }
 
                 $tag = TagFactory::getInstance()->getTag($tags,TagFactory::TYPE_CONTENT);
@@ -234,7 +278,7 @@ class WebCrawlerService extends BaseService {
         }
         catch(\Exception $e)
         {
-            $this->logger->err("[WebCrawlerService] Error while crawling data :".$e->getCode()." : ".$e->getMessage());
+            $this->logger->err("[WebCrawlerService][crawl] Error while crawling data :".$e->getCode()." : ".$e->getMessage());
 
             //throw $e;
         }

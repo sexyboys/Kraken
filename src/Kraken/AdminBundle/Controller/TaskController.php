@@ -135,7 +135,8 @@ class TaskController extends ContainerAware
             $params = array(
                         BlogService::TYPE_WORDPRESS => $this->container->get('translator')->trans(BlogService::TYPE_WORDPRESS),
                         BlogService::TYPE_GOOGLE => $this->container->get('translator')->trans(BlogService::TYPE_GOOGLE),
-                        BlogService::TYPE_TRUMBLR => $this->container->get('translator')->trans(BlogService::TYPE_TRUMBLR)
+                        BlogService::TYPE_TRUMBLR => $this->container->get('translator')->trans(BlogService::TYPE_TUMBLR),
+                        BlogService::TYPE_OTHER => $this->container->get('translator')->trans(BlogService::TYPE_OTHER)
                     );
         }
 

@@ -3,6 +3,29 @@
 
 {% block more_css %}
 
+    <style type="text/css">
+        #AdminTaskCrawlWeb_tags{
+            margin-left:50px;
+        }
+        div[id$=_type] > label, div[id$=_type] > input{
+            float: left;
+        }
+        #AdminTaskCrawlWeb_tags #delete-tag
+        {
+            float:right;
+        }
+        div[id^=AdminTaskCrawlWeb_tags_]
+        {
+            border-top:1px solid grey;
+        }
+        div[id$=_type]
+        {
+            border:none;
+        }
+        .form-task > label {
+            clear:both;
+        }
+    </style>
 {% endblock %}
 
 {% block more_js %}
@@ -14,6 +37,53 @@
         window.onload = function() {
             CKEDITOR.replace( 'AdminScenarioModel[description]' );
         }
+
+        $(document).ready(function() {
+
+            // get attr « data-prototype »
+            var $container = $('div#AdminTaskCrawlWeb_tags');
+
+            // Add a link to add a new tag
+            var $linkAdd = $('<a href="#" id="add_tag"><i class="icon-plus"></i>Add a tag</a>');
+            $container.prepend($linkAdd);
+
+            $linkAdd.click(function(e) {
+                addTag($container);
+                e.preventDefault(); //avoid # in url
+                return false;
+            });
+
+            var index = $container.find(':input').length;
+
+            if (index == 0) {
+                addTag($container);
+            } else {
+                $container.children('div').each(function() {
+                    addTag($(this));
+                });
+            }
+
+            function addTag($container) {
+                var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, 'Tag ' + (index+1))
+                        .replace(/__name__/g, index));
+
+                addLinkDelete($prototype);
+                $container.append($prototype);
+                index++;
+            }
+
+            function addLinkDelete($prototype) {
+                $linkDelete = $('<br/><a href="#" id="delete-tag" class="btn btn-danger"><i class="icon-remove"></i></a>');
+
+                $prototype.prepend($linkDelete);
+                $prototype.append($("<br/><br/>"));
+                $linkDelete.click(function(e) {
+                    $prototype.remove();
+                    e.preventDefault();
+                    return false;
+                });
+            }
+        });
     </script>
 
 {% endblock %}

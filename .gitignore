@@ -2,7 +2,7 @@
 vendor/*
 app/cache/*
 app/logs/*
-app/parameters.yml
+app/config/parameters.yml
 composer.phar
 composer.lock
 *~

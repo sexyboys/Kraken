@@ -19,7 +19,10 @@ security:
         fos_userbundle:
             id: fos_user.user_provider.username
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883
     firewalls:
 
         # defaut login area for standard users
@@ -41,6 +44,10 @@ security:
                 domain:   ~
 
 
+<<<<<<< HEAD
+=======
+            
+>>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login_check$, role: IS_AUTHENTICATED_ANONYMOUSLY }

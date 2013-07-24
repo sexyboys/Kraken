@@ -12,6 +12,7 @@ kraken_user_register:
 
 kraken_user_account:
     locales:  { en: "/account", fr: "/compte"}
+<<<<<<< HEAD
     defaults: { _controller: KrakenUserBundle:Account:show }
 
 kraken_user_account_twitter:
@@ -24,6 +25,8 @@ hwi_oauth_connect_service:
 
 kraken_user_account_edit:
     locales:  { en: "/account/edit", fr: "/compte/modification"}
+=======
+>>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883
     defaults: { _controller: KrakenUserBundle:Account:edit }
 
 kraken_user_account_delete:

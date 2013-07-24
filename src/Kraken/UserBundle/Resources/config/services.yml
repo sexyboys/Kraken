@@ -16,7 +16,10 @@ parameters:
      kraken.datatransformer.class: Kraken\Managers\Services\DataTransformerService
      kraken.displaylog.class: Kraken\Managers\Services\DisplayLogService
      kraken.xml.class: Kraken\Managers\Services\XmlService
+<<<<<<< HEAD
      kraken.twitter.class: Kraken\Managers\Services\TwitterService
+=======
+>>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883
 
 services:
 #    kraken_user.example:
@@ -77,7 +80,11 @@ services:
 
      kraken.social:
          class: %kraken.social.class%
+<<<<<<< HEAD
          arguments: [@logger,%service_sender_social%,@kraken.twitter]
+=======
+         arguments: [@logger,%service_sender_social%]
+>>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883
          tags:
             - { name: monolog.logger, channel: main }
 
@@ -109,6 +116,7 @@ services:
          class: %kraken.xml.class%
          arguments: [@logger,@kraken.displaylog]
          tags:
+<<<<<<< HEAD
             - { name: monolog.logger, channel: main }
 
      kraken.twitter:
@@ -116,3 +124,6 @@ services:
          arguments: [%twitter_consumer_key%,%twitter_consumer_secret%]
          tags:
 
+=======
+            - { name: monolog.logger, channel: main }
+>>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883

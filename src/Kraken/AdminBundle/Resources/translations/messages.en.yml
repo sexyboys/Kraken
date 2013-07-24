@@ -2,8 +2,11 @@
 content.none: There is no content
 form.name: Name
 form.description: Description
+<<<<<<< HEAD
 form.login: Login
 form.password: Password
+=======
+>>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883
 back: Back
 yes: Yes
 no: No
@@ -58,7 +61,10 @@ admin.task.table.actions.execute: Execute task (previous until this one)
 admin.task.table.actions.move.up: Move up
 admin.task.table.actions.move.down: Move down
 admin.task.table.actions.conditions: Manage proviso
+<<<<<<< HEAD
 admin.task.table.actions.linksocial: You must link your social account
+=======
+>>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883
 admin.task.type: Choose the type of Task
 admin.task.form.link: Link to parse
 admin.task.form.multipage.regex: Regex of the next page button (class or id css)
@@ -82,7 +88,10 @@ admin.task.add.title: Add a task
 admin.task.edit.title: Edit a task
 admin.task.data.in: Input Data
 admin.task.data.out: Output Data
+<<<<<<< HEAD
 admin.task.form.social.type: Social type
+=======
+>>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883
 
 #Tag
 form.tag.regex: Regex (define element to parse)
@@ -123,4 +132,7 @@ admin.msg.error.task.add: An error occured while adding the task
 admin.msg.error.task.delete: An error occured while deleting the task
 admin.msg.error.task.edit: An error occured while editing the task
 admin.msg.error.task.move: An error occured while moving the task
+<<<<<<< HEAD
 admin.msg.error.task.social.empty: The login and pass of your social account must be filled
+=======
+>>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883

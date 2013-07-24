@@ -3,7 +3,10 @@
 namespace Kraken\AdminBundle\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
+<<<<<<< HEAD
 use Epidoux\HybridAuthBundle\Factories\ServiceFactory;
+=======
+>>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883
 use Inflexible\Inflexible;
 use Kraken\AdminBundle\Form\Type\ScenarioType;
 use Kraken\UserBundle\Entity\DataArticle;
@@ -17,7 +20,10 @@ use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Kraken\Managers\Services\DisplayLogService;
+<<<<<<< HEAD
 use Kraken\Managers\Services\SocialService;
+=======
+>>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883
 
 /**
  * Class TaskController
@@ -44,7 +50,10 @@ class TaskController extends ContainerAware
         $general_array = DataFactory::getInstance()->getDatanamesArray();
 
         //print_r($task_datas);exit;
+<<<<<<< HEAD
         //print_r($scenario->getTasks());exit;
+=======
+>>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883
         $this->container->get('session')->set('page',$this->container->get('translator')->trans('admin.page.task'));
         return $this->container->get('templating')->renderResponse('KrakenAdminBundle:Task:list.html.twig',
             array(
@@ -142,6 +151,7 @@ class TaskController extends ContainerAware
                         BlogService::TYPE_OTHER => $this->container->get('translator')->trans(BlogService::TYPE_OTHER)
                     );
         }
+<<<<<<< HEAD
         else if($type == TaskFactory::TASK_SENDER_SOCIAL)
         {
             $params = array(
@@ -150,6 +160,8 @@ class TaskController extends ContainerAware
                 SocialService::TYPE_GOOGLE => $this->container->get('translator')->trans(SocialService::TYPE_GOOGLE)
             );
         }
+=======
+>>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883
 
         $form = $this->container->get('form.factory')->create(TaskFactory::getInstance()->getTypeFormInstance($type,$params), $sc);
 
@@ -185,7 +197,10 @@ class TaskController extends ContainerAware
                     $sc->setPosition($t->getPosition()+1);
                 }
                 else $sc->setPosition(1);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883
                 //save entity
                 $this->container->get('kraken.task')->update($sc);
 
@@ -219,9 +234,13 @@ class TaskController extends ContainerAware
                 'id_scenario'=>$id,
                 'array_in'=>$array_in,
                 'array_out'=>$array_out,
+<<<<<<< HEAD
                 "general_array"=>$general_array,
                 "params"=>$params,
                 "type_task_social"=>TaskFactory::TASK_SENDER_SOCIAL
+=======
+                "general_array"=>$general_array
+>>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883
             )
         );
     }
@@ -467,6 +486,7 @@ class TaskController extends ContainerAware
         );
     }
 
+<<<<<<< HEAD
 
     /**
      * Link user to social account
@@ -500,4 +520,6 @@ class TaskController extends ContainerAware
         );
     }
 
+=======
+>>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883
 }

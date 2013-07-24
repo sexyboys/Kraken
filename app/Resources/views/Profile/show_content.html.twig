@@ -2,6 +2,8 @@
     <p>{{ 'profile.show.username'|trans({}, 'FOSUserBundle') }}: {{ user.username }}</p>
     <p>{{ 'profile.show.email'|trans({}, 'FOSUserBundle') }}: {{ user.email }}</p>
     <a href="{{ path('kraken_user_account_edit') }}" class="btn">
-        {% trans %}{% endtrans %}
+        {% trans %}user.profile.edit{% endtrans %}
     </a>
+
+
 </div>

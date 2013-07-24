@@ -13,4 +13,54 @@ use Doctrine\ORM\Mapping as ORM;
 class TaskSenderSocial extends TaskSender{
 
 
+    /**
+     * login
+     * @ORM\Column(name="login",type="string",nullable=false)
+     */
+    protected $login;
+
+    /**
+     * pass
+     * @ORM\Column(name="pass",type="string",nullable=false)
+     */
+    protected $pass;
+
+    /**
+     * type name
+     * @ORM\Column(name="social_type",type="string",nullable=false)
+     */
+    protected $socialType;
+
+    public function setLogin($login)
+    {
+        $this->login = $login;
+    }
+
+    public function getLogin()
+    {
+        return $this->login;
+    }
+
+    public function setPass($pass)
+    {
+        $this->pass = $pass;
+    }
+
+    public function getPass()
+    {
+        return $this->pass;
+    }
+
+    public function setSocialType($type)
+    {
+        $this->socialType = $type;
+    }
+
+    public function getSocialType()
+    {
+        return $this->socialType;
+    }
+
+
+
 }

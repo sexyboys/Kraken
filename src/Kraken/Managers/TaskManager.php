@@ -208,6 +208,7 @@ class TaskManager extends BaseManager {
                     $task->getTags(),
                     $task->getChosenOutputData()
                 );
+
                 //Check if exists double contents if true, remove doubles
                 $out_purged = $this->dataTransformerService->purgeDoubles($task,$out);
 
@@ -243,7 +244,7 @@ class TaskManager extends BaseManager {
             else if($classname == TaskFactory::TASK_SENDER_SOCIAL_CLASSNAME)
             {
                 //TaskSenderSocial
-                $out = $this->socialService->sendSocial($content,null);
+                $out = $this->socialService->prepare($task,$content,null);
 
             }
 

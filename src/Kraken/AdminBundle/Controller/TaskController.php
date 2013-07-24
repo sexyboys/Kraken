@@ -3,6 +3,7 @@
 namespace Kraken\AdminBundle\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Epidoux\HybridAuthBundle\Factories\ServiceFactory;
 use Inflexible\Inflexible;
 use Kraken\AdminBundle\Form\Type\ScenarioType;
 use Kraken\UserBundle\Entity\DataArticle;
@@ -16,6 +17,7 @@ use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Kraken\Managers\Services\DisplayLogService;
+use Kraken\Managers\Services\SocialService;
 
 /**
  * Class TaskController
@@ -42,6 +44,7 @@ class TaskController extends ContainerAware
         $general_array = DataFactory::getInstance()->getDatanamesArray();
 
         //print_r($task_datas);exit;
+        //print_r($scenario->getTasks());exit;
         $this->container->get('session')->set('page',$this->container->get('translator')->trans('admin.page.task'));
         return $this->container->get('templating')->renderResponse('KrakenAdminBundle:Task:list.html.twig',
             array(
@@ -139,6 +142,14 @@ class TaskController extends ContainerAware
                         BlogService::TYPE_OTHER => $this->container->get('translator')->trans(BlogService::TYPE_OTHER)
                     );
         }
+        else if($type == TaskFactory::TASK_SENDER_SOCIAL)
+        {
+            $params = array(
+                SocialService::TYPE_TWITTER=> $this->container->get('translator')->trans(SocialService::TYPE_TWITTER),
+                SocialService::TYPE_FACEBOOK => $this->container->get('translator')->trans(SocialService::TYPE_FACEBOOK),
+                SocialService::TYPE_GOOGLE => $this->container->get('translator')->trans(SocialService::TYPE_GOOGLE)
+            );
+        }
 
         $form = $this->container->get('form.factory')->create(TaskFactory::getInstance()->getTypeFormInstance($type,$params), $sc);
 
@@ -174,6 +185,7 @@ class TaskController extends ContainerAware
                     $sc->setPosition($t->getPosition()+1);
                 }
                 else $sc->setPosition(1);
+
                 //save entity
                 $this->container->get('kraken.task')->update($sc);
 
@@ -207,7 +219,9 @@ class TaskController extends ContainerAware
                 'id_scenario'=>$id,
                 'array_in'=>$array_in,
                 'array_out'=>$array_out,
-                "general_array"=>$general_array
+                "general_array"=>$general_array,
+                "params"=>$params,
+                "type_task_social"=>TaskFactory::TASK_SENDER_SOCIAL
             )
         );
     }
@@ -449,6 +463,39 @@ class TaskController extends ContainerAware
                 'result'=>$this->container->get('kraken.displaylog')->getLog(),
                 "scenario"=>$task->getScenario(),
                 "task"=>$task
+            )
+        );
+    }
+
+
+    /**
+     * Link user to social account
+     */
+    public function socialAction(Request $request)
+    {
+        $task = $this->container->get("kraken.task")->find($request->get('id'));
+        $empty = true;
+        $request = $this->container->get('request');
+        if($task->getLogin()!="")$empty = false;
+        $user_info = $this->container->get('hybridauth.auth')->getUserInfo();
+        if($user_info!=null)
+        {
+            print_r($user_info);exit;
+        }
+        $provider=null;
+        if($task->getSocialType() == SocialService::TYPE_TWITTER) $provider= ServiceFactory::TWITTER;
+
+
+        $template = "KrakenAdminBundle:Task:link_social.html.twig";
+
+        return $this->container->get('templating')->renderResponse(
+            $template,
+            array(
+                'type' => $task->getSocialType(),
+                'empty' => $empty,
+                "id" => $task->getId(),
+                "scenario_id"=>$task->getScenario()->getId(),
+                "provider"=>$provider
             )
         );
     }

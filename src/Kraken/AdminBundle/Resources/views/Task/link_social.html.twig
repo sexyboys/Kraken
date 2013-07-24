@@ -1,0 +1,27 @@
+{% extends "KrakenAdminBundle::layout.html.twig" %}
+
+
+{% block more_css %}
+
+    {% block hybridauth_header %}
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/epidouxhybridauth/css/zocial.css') }}"/>
+    {% endblock %}
+{% endblock %}
+
+{% block more_js %}
+
+{% endblock %}
+
+{% block content %}
+
+
+        <h3 class="bloc_header">
+            {{ "task.social.form.connexion"|trans({"%type%":type|trans()}) }}
+        </h3>
+        <br/>
+        <a href="{{ path('kraken_admin_scenario_tasks',{"id":scenario_id}) }}">{% trans %}back{% endtrans %}</a>
+        <br/><br/>
+
+        {{ render(path("hybridauth_show",{"provider":provider})) }}
+
+{% endblock %}

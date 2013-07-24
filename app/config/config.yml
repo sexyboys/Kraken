@@ -24,6 +24,7 @@ twig:
         app_version: %version%
         env: %kernel.environment%
         module_register: %module_register%
+        url: %website_url%
 
 # Assetic Configuration
 assetic:
@@ -117,3 +118,14 @@ be_simple_i18n_routing: ~
 
 bc_bootstrap:
     assets_dir: %kernel.root_dir%/../vendor/twitter/bootstrap
+
+
+#HybridAuth configuration
+epidoux_hybrid_auth:
+    services:
+        twitter:
+             token: qRfVen9Rcy5T7y1BOuigA
+             secret: 6RsktJUcIFU8myfFM0iv73z7qlBqFqALVE3XoKnls
+        facebook:
+             token: 211198065704180
+             secret: 5abdc0d69110865128f5391d45924126

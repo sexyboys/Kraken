@@ -47,6 +47,7 @@ user.register.form.back: Back
 user.profile.password.change: Change your password
 user.profile.delete: Delete your account
 user.profile.delete.valid: Are you sure you want to delete your account?
+user.profile.edit: Edit your account
 
 #Home
 home.welcome: Welcome %username%!
@@ -90,6 +91,15 @@ blog.google: Google Blogger
 blog.tumblr: Tumblr
 blog.other: Other
 
+#Social types
+social.twitter: Twitter
+social.facebook: Facebook
+social.google: Google +
+
+#Task social form
+task.social.form.connexion: Connexion to your %type% account
+task.social.form.connexion.submit: Link your account
+task.social.linked: Your social account is already linked
 
 #Service msg
 service.blog.email.object: Kraken: Auto-post by email from Blog Service

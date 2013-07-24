@@ -16,6 +16,7 @@ parameters:
      kraken.datatransformer.class: Kraken\Managers\Services\DataTransformerService
      kraken.displaylog.class: Kraken\Managers\Services\DisplayLogService
      kraken.xml.class: Kraken\Managers\Services\XmlService
+     kraken.twitter.class: Kraken\Managers\Services\TwitterService
 
 services:
 #    kraken_user.example:
@@ -76,7 +77,7 @@ services:
 
      kraken.social:
          class: %kraken.social.class%
-         arguments: [@logger,%service_sender_social%]
+         arguments: [@logger,%service_sender_social%,@kraken.twitter]
          tags:
             - { name: monolog.logger, channel: main }
 
@@ -109,3 +110,9 @@ services:
          arguments: [@logger,@kraken.displaylog]
          tags:
             - { name: monolog.logger, channel: main }
+
+     kraken.twitter:
+         class: %kraken.twitter.class%
+         arguments: [%twitter_consumer_key%,%twitter_consumer_secret%]
+         tags:
+

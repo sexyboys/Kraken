@@ -140,7 +140,7 @@ class TaskFactory {
             case 3:
                 $instance = new TaskSenderBlogType($params);break;
             case 4:
-                $instance = new TaskSenderSocialType();break;
+                $instance = new TaskSenderSocialType($params);break;
             case 5:
                 $instance = new TaskActionArrangerTextType();break;
         }

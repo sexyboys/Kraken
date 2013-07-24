@@ -31,6 +31,18 @@ class User extends BaseUser{
     protected $scenarios;
 
     /**
+     * @var string
+     * @ORM\Column(name="twitterId", type="string",nullable=true)
+     */
+    protected $twitterID;
+
+    /**
+     * @var string
+     * @ORM\Column(name="twitterUsername", type="string",nullable=true)
+     */
+    protected $twitter_username;
+
+    /**
      * @param int $id
      */
     public function setId($id)
@@ -57,6 +69,47 @@ class User extends BaseUser{
     }
 
 
+    /**
+     * Set twitterID
+     *
+     * @param string $twitterID
+     */
+    public function setTwitterID($twitterID)
+    {
+        $this->twitterID = $twitterID;
+        $this->setUsername($twitterID);
+        $this->salt = '';
+    }
+
+    /**
+     * Get twitterID
+     *
+     * @return string
+     */
+    public function getTwitterID()
+    {
+        return $this->twitterID;
+    }
+
+    /**
+     * Set twitter_username
+     *
+     * @param string $twitterUsername
+     */
+    public function setTwitterUsername($twitterUsername)
+    {
+        $this->twitter_username = $twitterUsername;
+    }
+
+    /**
+     * Get twitter_username
+     *
+     * @return string
+     */
+    public function getTwitterUsername()
+    {
+        return $this->twitter_username;
+    }
 
     /**
      * PostLoad Function

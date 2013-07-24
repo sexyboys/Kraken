@@ -1,3 +1,6 @@
+hybrid_auth_routes:
+  resource: "@epidouxHybridAuthBundle/Resources/config/routing.yml"
+
 kraken_user_i18n_routes:
     resource: "@KrakenUserBundle/Resources/config/routing.yml"
     type: be_simple_i18n

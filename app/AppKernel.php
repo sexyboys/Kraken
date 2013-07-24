@@ -31,6 +31,7 @@ class AppKernel extends Kernel
             new Bc\Bundle\BootstrapBundle\BcBootstrapBundle(),
             /** Other bundles */
             new BeSimple\I18nRoutingBundle\BeSimpleI18nRoutingBundle(),
+            new Epidoux\HybridAuthBundle\epidouxHybridAuthBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

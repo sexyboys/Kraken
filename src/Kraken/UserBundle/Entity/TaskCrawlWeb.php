@@ -13,6 +13,7 @@ class TaskCrawlWeb extends TaskCrawl{
 
     public function __construct(){
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->multipageLimit=1;
 
     }
 
@@ -59,6 +60,7 @@ class TaskCrawlWeb extends TaskCrawl{
 
     public function getMultipageLimit()
     {
+        if($this->multipageLimit==null) $this->multipageLimit=1;
         return $this->multipageLimit;
     }
 

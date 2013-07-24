@@ -13,7 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
 class TaskSenderSocial extends TaskSender{
 
 
-<<<<<<< HEAD
     /**
      * login
      * @ORM\Column(name="login",type="string",nullable=false)
@@ -63,7 +62,4 @@ class TaskSenderSocial extends TaskSender{
     }
 
 
-
-=======
->>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883
 }

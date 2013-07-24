@@ -208,10 +208,6 @@ class TaskManager extends BaseManager {
                     $task->getTags(),
                     $task->getChosenOutputData()
                 );
-<<<<<<< HEAD
-
-=======
->>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883
                 //Check if exists double contents if true, remove doubles
                 $out_purged = $this->dataTransformerService->purgeDoubles($task,$out);
 
@@ -247,11 +243,7 @@ class TaskManager extends BaseManager {
             else if($classname == TaskFactory::TASK_SENDER_SOCIAL_CLASSNAME)
             {
                 //TaskSenderSocial
-<<<<<<< HEAD
                 $out = $this->socialService->prepare($task,$content,null);
-=======
-                $out = $this->socialService->sendSocial($content,null);
->>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883
 
             }
 

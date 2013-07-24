@@ -1,21 +1,10 @@
 <?php
 
-/*
- * This file is part of the FOSUserBundle package.
- *
- * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 
 namespace Kraken\UserBundle\Controller;
 
 use FOS\UserBundle\Controller\ProfileController as BaseController;
-<<<<<<< HEAD
 use Kraken\AdminBundle\Form\Type\TaskSenderSocialConnectType;
-=======
->>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -140,10 +129,4 @@ class AccountController extends BaseController
         $url = $this->container->get('router')->generate('fos_user_security_logout',array());
         return new RedirectResponse($url);
     }
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883
 }

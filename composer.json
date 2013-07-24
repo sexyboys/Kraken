@@ -4,10 +4,6 @@
     "autoload": {
         "psr-0": { "": "src/",
                    "I18nRoutingBundle":"src/BeSimple/"
-<<<<<<< HEAD
-
-=======
->>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883
         }
     },
     "require": {
@@ -38,12 +34,8 @@
         "fabpot/goutte": "dev-master",
         "braincrafted/bootstrap-bundle": "~1",
         "twitter/bootstrap": "2.3.*",
-<<<<<<< HEAD
         "leafo/lessphp": "0.3.*@dev",
         "epidoux/hybridauthbundle": "dev-master"
-=======
-        "leafo/lessphp": "0.3.*@dev"
->>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883
     },
     "require-dev": {
         "phpunit/phpunit": "~3",

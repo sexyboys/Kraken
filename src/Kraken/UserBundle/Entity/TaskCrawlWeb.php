@@ -13,10 +13,7 @@ class TaskCrawlWeb extends TaskCrawl{
 
     public function __construct(){
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
-<<<<<<< HEAD
         $this->multipageLimit=1;
-=======
->>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883
 
     }
 
@@ -63,10 +60,7 @@ class TaskCrawlWeb extends TaskCrawl{
 
     public function getMultipageLimit()
     {
-<<<<<<< HEAD
         if($this->multipageLimit==null) $this->multipageLimit=1;
-=======
->>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883
         return $this->multipageLimit;
     }
 

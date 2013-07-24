@@ -13,15 +13,10 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  */
 class TaskSenderSocialType extends AbstractType
 {
-<<<<<<< HEAD
     private $types;
 
     public function __construct($params) {
         $this->types = $params;
-=======
-
-    public function __construct() {
->>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883
     }
 
     /**
@@ -42,12 +37,8 @@ class TaskSenderSocialType extends AbstractType
                                             )
                 )
             ->add('addSource','checkbox',array('label'=>'admin.task.form.source','required'=>false))
-<<<<<<< HEAD
             ->add('socialType','choice',array('label'=>'admin.task.form.social.type',"choices"=>$this->types,'required'=>true))
         ;
-=======
-            ;
->>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883
 
     }
 

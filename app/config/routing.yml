@@ -1,9 +1,7 @@
-<<<<<<< HEAD
+
 hybrid_auth_routes:
   resource: "@epidouxHybridAuthBundle/Resources/config/routing.yml"
 
-=======
->>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883
 kraken_user_i18n_routes:
     resource: "@KrakenUserBundle/Resources/config/routing.yml"
     type: be_simple_i18n

@@ -36,7 +36,6 @@ kraken_admin_scenario_tasks_execute:
     locales:  { en: "/admin/scenario/tasks/execute/{id}", fr: "/admin/scenario/taches/execution/{id}"}
     defaults: { _controller: KrakenAdminBundle:Task:execute }
 
-<<<<<<< HEAD
 kraken_admin_scenario_tasks_social:
     locales:  { en: "/admin/scenario/tasks/social/{id}",  fr: "/admin/scenario/taches/social/{id}"}
     defaults: { _controller: KrakenAdminBundle:Task:social }
@@ -45,8 +44,6 @@ kraken_admin_scenario_tasks_social_callback:
     locales:  { en: "/admin/scenario/tasks/social/callback/{id}",  fr: "/admin/scenario/taches/social/callback/{id}"}
     defaults: { _controller: KrakenAdminBundle:Task:callbacksocial }
 
-=======
->>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883
 kraken_admin_scenario_tasks_input:
     locales:  { en: "/admin/scenario/tasks/input/{id}", fr: "/admin/scenario/taches/entrant/{id}"}
     defaults: { _controller: KrakenAdminBundle:Task:input }

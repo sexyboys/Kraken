@@ -24,10 +24,7 @@ twig:
         app_version: %version%
         env: %kernel.environment%
         module_register: %module_register%
-<<<<<<< HEAD
         url: %website_url%
-=======
->>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883
 
 # Assetic Configuration
 assetic:
@@ -120,7 +117,6 @@ be_simple_i18n_routing: ~
 
 
 bc_bootstrap:
-<<<<<<< HEAD
     assets_dir: %kernel.root_dir%/../vendor/twitter/bootstrap
 
 
@@ -133,6 +129,3 @@ epidoux_hybrid_auth:
         facebook:
              token: 211198065704180
              secret: 5abdc0d69110865128f5391d45924126
-=======
-    assets_dir: %kernel.root_dir%/../vendor/twitter/bootstrap
->>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883

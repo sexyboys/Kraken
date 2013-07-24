@@ -160,11 +160,8 @@ class DataTransformerService extends BaseService {
         {
             //article transformed into DataString
             $data_trans = new DataString();
-<<<<<<< HEAD
             $data_trans->setContent($data->getTitle()." ".$data->getDate()->format('d-m-Y H:i:s')." ".$data->getContent());
-=======
-            $data_trans->setContent($data->getTitle()." ".$data->getDate()." ".$data->getContent());
->>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883
+
             $result = $data_trans;
         }
         else if($type == DataFactory::TYPE_LIST_STRING)
@@ -174,22 +171,16 @@ class DataTransformerService extends BaseService {
             {
                 $result = new DataList();
                 $data_trans = new DataString();
-<<<<<<< HEAD
                 $data_trans->setContent($data->getTitle()." ".$data->getDate()->format('d-m-Y H:i:s')." ".$data->getContent());
-=======
-                $data_trans->setContent($data->getTitle()." ".$data->getDate()." ".$data->getContent());
->>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883
+
                 $arr = new ArrayCollection();
                 $arr->add($data_trans);
                 $result->setContent($arr);
             }
             else{
                 $data_trans = new DataString();
-<<<<<<< HEAD
                 $data_trans->setContent($data->getTitle()." ".$data->getDate()->format('d-m-Y H:i:s')." ".$data->getContent());
-=======
-                $data_trans->setContent($data->getTitle()." ".$data->getDate()." ".$data->getContent());
->>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883
+
                 $list->getContent()->add($data_trans);
                 $result = $list;
             }
@@ -213,11 +204,7 @@ class DataTransformerService extends BaseService {
         {
             //date transformed into DataString
             $data_trans = new DataString();
-<<<<<<< HEAD
             $data_trans->setContent($data->getContent()->format('d-m-Y H:i:s'));
-=======
-            $data_trans->setContent($data->getContent()->format('Y-m-d H:i:s'));
->>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883
             $result = $data_trans;
         }
         else $result = $data;
@@ -303,11 +290,7 @@ class DataTransformerService extends BaseService {
                 {
                     $str.= $row->getTitle();
                     $str.= " \n ";
-<<<<<<< HEAD
                     if($row->getDate()!=null)$str .= $row->getDate()->format('d-m-Y H:i:s');
-=======
-                    $str .= $row->getDate()->format('d-m-Y H:i:s');
->>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883
                     $str.= " \n ";
                 }
                 $str.= $row->getContent();
@@ -356,11 +339,7 @@ class DataTransformerService extends BaseService {
             $str = new DataString();
             $txt ="";
             if($art->getTitle()!="") $txt .= $art->getTitle()." // ";
-<<<<<<< HEAD
             if($art->getDate()!=null) $txt .= $art->getDate()->format('d-m-Y H:i:s')." // ";
-=======
-            if($art->getDate()!=null) $txt .= $art->getDate()->format('Y-m-d H:i:s')." // ";
->>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883
             if($art->getContent()!="") $txt .= $art->getContent();
             $str->setContent($txt);
             $list->getContent()->add($str);

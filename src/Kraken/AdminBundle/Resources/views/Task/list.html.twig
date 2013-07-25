@@ -59,13 +59,9 @@
                                 <td>
                                     <a href="{{ path('kraken_admin_scenario_tasks_edit', {'id':row.id,'type':row|classname} ) }}" title="{% trans %}admin.task.table.actions.edit{% endtrans %}"><i class="icon-edit"></i></a>
 
-<<<<<<< HEAD
                                     {% if row|classname == "TaskSenderSocial" and row.login is empty %}
                                         <a href="{{ path('kraken_admin_scenario_tasks_social',{"id":row.id}) }}" title="{% trans %}admin.task.table.actions.linksocial{% endtrans %}"><i class="icon-globe"></i></a>
                                     {% endif %}
-
-=======
->>>>>>> 5f6e559f1b90a9e3444c687181ceba920a632883
                                     <a href="{{ path('kraken_admin_scenario_tasks_delete', {'id':row.id} ) }}" title="{% trans %}admin.task.table.actions.delete{% endtrans %}"><i class="icon-remove"></i></a>
 
                                     {% if index > 0 %}

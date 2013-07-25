@@ -124,8 +124,8 @@ bc_bootstrap:
 epidoux_hybrid_auth:
     services:
         twitter:
-             token: qRfVen9Rcy5T7y1BOuigA
-             secret: 6RsktJUcIFU8myfFM0iv73z7qlBqFqALVE3XoKnls
+             token: %twitter_consumer_key%
+             secret: %twitter_consumer_secret%
         facebook:
-             token: 211198065704180
-             secret: 5abdc0d69110865128f5391d45924126
+             token: %facebook_token%
+             secret: %facebook_secret%

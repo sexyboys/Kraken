@@ -25,7 +25,6 @@ class AppKernel extends Kernel
             new Genemu\Bundle\FormBundle\GenemuFormBundle(),
             new SunCat\MobileDetectBundle\MobileDetectBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),
-            //new Orkestra\APCBundle\OrkestraAPCBundle(),
             new Kraken\AdminBundle\KrakenAdminBundle(),
             new Kraken\UserBundle\KrakenUserBundle(),
             new Bc\Bundle\BootstrapBundle\BcBootstrapBundle(),

@@ -16,11 +16,6 @@ monolog:
             channels: main
 
 
-orkestra_apc:
-    # Your website URL. Use by the clear command.
-    website_url: %website_url%
-
-
 # Swiftmailer Configuration
 swiftmailer:
     transport: %mailer_transport%

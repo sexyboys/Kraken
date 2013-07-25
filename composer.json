@@ -30,7 +30,6 @@
         "mobiledetect/mobiledetectlib": "dev-master",
         "suncat/mobile-detect-bundle": "dev-master",
         "liip/imagine-bundle": "dev-master",
-        "orkestra/apc-bundle": "dev-master",
         "fabpot/goutte": "dev-master",
         "braincrafted/bootstrap-bundle": "~1",
         "twitter/bootstrap": "2.3.*",

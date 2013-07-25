@@ -474,11 +474,11 @@ class TaskController extends ContainerAware
         $empty = true;
         $request = $this->container->get('request');
         if($task->getLogin()!="")$empty = false;
-        $user_info = $this->container->get('hybridauth.auth')->getUserInfo();
-        if($user_info!=null)
+        /*$user_info = $this->container->get('hybridauth.auth')->getUserInfo();
+        if($user_info!="")
         {
             print_r($user_info);exit;
-        }
+        }*/
         $provider=null;
         if($task->getSocialType() == SocialService::TYPE_TWITTER) $provider= ServiceFactory::TWITTER;
 
